@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Proyectos | Toolkit Social</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+    <script src="../js/tailwind-config.js"></script>
+    <link href="../css/style.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+</head>
+
+<body
+    class="bg-background-light dark:bg-background-dark text-text-light dark:text-text-dark font-body transition-colors duration-300">
+    <nav
+        class="sticky top-0 z-50 bg-white/90 dark:bg-navy/90 backdrop-blur-md shadow-sm border-b border-gray-100 dark:border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <a href="../index.html" class="flex items-center gap-3">
+                    <span class="text-2xl font-bold tracking-tight text-navy dark:text-white">ToolKit</span>
+                </a>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="../index.html#estructura"
+                        class="text-sm font-medium text-gray-700 hover:text-primary dark:text-gray-300">Estructura</a>
+                    <a href="cultura.html"
+                        class="text-sm font-medium text-gray-700 hover:text-primary dark:text-gray-300">Cultura</a>
+                    <a href="proyectos.html"
+                        class="text-sm font-medium text-primary hover:text-primary dark:text-white">Proyectos</a>
+                    <a class="bg-primary hover:bg-secondary text-white px-5 py-2.5 rounded-full font-medium transition-all shadow-lg"
+                        href="#contacto">Contáctanos</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <section class="relative bg-navy py-24 overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-r from-navy to-background-dark z-0"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+            <h1 class="text-4xl md:text-6xl font-bold text-white mb-6">Portafolio Interdisciplinario</h1>
+            <p class="text-xl text-gray-300 max-w-2xl mx-auto">Cruces productivos entre disciplinas. Nuestros proyectos
+                no viven en silos.</p>
+        </div>
+    </section>
+
+    <!-- Proyectos Grid -->
+    <section class="py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+                <!-- Proyecto 1 -->
+                <article
+                    class="bg-white dark:bg-navy rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 group">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80"
+                            alt="Proyecto Renacer"
+                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-navy/80 to-transparent"></div>
+                        <div class="absolute bottom-4 left-4 flex flex-wrap gap-2">
+                            <span
+                                class="px-3 py-1 bg-primary/90 text-white text-xs font-bold rounded-full backdrop-blur-sm">Laboratorio
+                                Metodológico</span>
+                            <span
+                                class="px-3 py-1 bg-blue-500/90 text-white text-xs font-bold rounded-full backdrop-blur-sm">Datos</span>
+                        </div>
+                    </div>
+                    <div class="p-8">
+                        <h3 class="text-2xl font-bold text-navy dark:text-white mb-3">Proyecto Renacer</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-6">
+                            Revitalización del tejido social mediante talleres de diálogo y acción participativa,
+                            informados por un análisis de datos territoriales en tiempo real.
+                        </p>
+                        <a href="#" class="text-primary font-bold hover:text-secondary inline-flex items-center">
+                            Ver Caso de Estudio <span class="material-icons text-sm ml-1">arrow_forward</span>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Proyecto 2 -->
+                <article
+                    class="bg-white dark:bg-navy rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 group">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80"
+                            alt="Red de Innovadores"
+                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-navy/80 to-transparent"></div>
+                        <div class="absolute bottom-4 left-4 flex flex-wrap gap-2">
+                            <span
+                                class="px-3 py-1 bg-pink-500/90 text-white text-xs font-bold rounded-full backdrop-blur-sm">Formación</span>
+                            <span
+                                class="px-3 py-1 bg-purple-500/90 text-white text-xs font-bold rounded-full backdrop-blur-sm">Comunicación</span>
+                        </div>
+                    </div>
+                    <div class="p-8">
+                        <h3 class="text-2xl font-bold text-navy dark:text-white mb-3">Red de Innovadores</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-6">
+                            Capacitación de líderes locales y sistematización de sus experiencias para crear una
+                            narrativa de impacto regional.
+                        </p>
+                        <a href="#" class="text-primary font-bold hover:text-secondary inline-flex items-center">
+                            Ver Caso de Estudio <span class="material-icons text-sm ml-1">arrow_forward</span>
+                        </a>
+                    </div>
+                </article>
+
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-navy py-10 text-center text-gray-500 text-sm border-t border-white/10">&copy; 2026 Toolkit Social
+    </footer>
+</body>
+
+</html>
