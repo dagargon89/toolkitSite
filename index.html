@@ -1,371 +1,478 @@
 <!DOCTYPE html>
-<html lang="es" class="scroll-smooth">
+<html lang="es-MX">
 
 <head>
     <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Toolkit Social | Infraestructura de Colaboración</title>
-    <!-- Tailwind CSS (CDN) -->
-    <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
-    <!-- Tailwind Configuration -->
-    <script src="js/tailwind-config.js"></script>
-    <!-- Custom CSS -->
-    <link href="css/style.css" rel="stylesheet" />
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Toolkit Social — Consultoría interdisciplinaria</title>
+    <meta name="description"
+        content="Reunimos investigación, estrategia, datos, tecnología y creatividad para resolver desafíos reales de organizaciones, empresas e instituciones." />
+    <meta name="theme-color" content="#25204F" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_MX" />
+    <meta property="og:title" content="Toolkit Social — Consultoría interdisciplinaria" />
+    <meta property="og:description"
+        content="Los problemas no vienen separados por disciplinas. Las soluciones tampoco deberían." />
+    <!-- TODO: og:image con el logo oficial sobre violeta (1200×630) cuando llegue el SVG -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wdth,wght@0,75..100,400..700;1,75..100,400..700&display=swap" />
+    <link rel="stylesheet" href="css/landing.css" />
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Toolkit Social",
+        "email": "genesisrodriguez@toolkitsocialconsulting.com",
+        "contactPoint": [
+            { "@type": "ContactPoint", "telephone": "+52 656 820 8353", "contactType": "customer service", "availableLanguage": "es" },
+            { "@type": "ContactPoint", "telephone": "+52 656 760 8980", "contactType": "customer service", "contactOption": "WhatsApp", "availableLanguage": "es" }
+        ]
+    }
+    </script>
 </head>
 
-<body
-    class="bg-background-light dark:bg-background-dark text-text-light dark:text-text-dark font-body transition-colors duration-300">
-    <!-- Navigation -->
-    <nav
-        class="sticky top-0 z-50 bg-white/90 dark:bg-navy/90 backdrop-blur-md shadow-sm border-b border-gray-100 dark:border-gray-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-20 items-center">
-                <!-- Logo -->
-                <div class="flex-shrink-0 flex items-center gap-3">
-                    <a href="index.html" class="flex items-center gap-3 group">
-                        <div class="text-primary group-hover:rotate-180 transition-transform duration-700">
-                            <svg class="w-10 h-10" fill="currentColor" viewBox="0 0 100 100">
-                                <path
-                                    d="M50 20C53 20 55.5 17.5 56 14.5L57 8C57.5 5 55 2.5 52 2.5H48C45 2.5 42.5 5 43 8L44 14.5C44.5 17.5 47 20 50 20Z">
-                                </path>
-                                <path
-                                    d="M73 28C71 30 71 33 73 35L78 40C80 42 83.5 42 85.5 40L88.5 37C90.5 35 90.5 31.5 88.5 29.5L83.5 24.5C81.5 22.5 78 22.5 76 24.5L73 28Z">
-                                </path>
-                                <circle cx="50" cy="50" r="15"></circle>
-                                <path clip-rule="evenodd"
-                                    d="M50 0C53.3 0 56.1 2.4 56.6 5.6L57.5 11.2C61.3 12.3 64.9 14.1 68.1 16.5L73.1 13.6C76 11.9 79.7 12.5 81.9 15L85.6 19.6C87.7 22.2 87.6 25.9 85.3 28.3L81.1 32.5C82.4 36.3 83.1 40.4 83.1 44.6L88.9 45.5C92.2 46 94.7 48.8 94.7 52.1V58C94.7 61.3 92.2 64.1 88.9 64.6L83.1 65.5C82.1 69.5 80.4 73.2 78.2 76.6L82.1 80.5C84.4 82.9 84.5 86.6 82.4 89.2L78.7 93.8C76.5 96.3 72.8 96.9 69.9 95.2L65.1 92.4C61.8 94.6 58.2 96.1 54.4 97L53.5 102.6C53 105.8 50.2 108.2 46.9 108.2H39.8C36.5 108.2 33.7 105.8 33.2 102.6L32.3 97C28.5 96.1 24.9 94.6 21.6 92.4L16.8 95.2C13.9 96.9 10.2 96.3 8 93.8L4.3 89.2C2.2 86.6 2.3 82.9 4.6 80.5L8.5 76.6C6.3 73.2 4.6 69.5 3.6 65.5L-2.2 64.6C-5.5 64.1 -8 61.3 -8 58V52.1C-8 48.8 -5.5 46 -2.2 45.5L3.6 44.6C4.6 40.5 6.3 36.6 8.5 33L4.6 29.1C2.3 26.7 2.2 23 4.3 20.4L8 15.8C10.2 13.3 13.9 12.7 16.8 14.4L21.6 17.2C24.9 14.9 28.5 13.2 32.3 12.1L33.2 6.5C33.7 3.3 36.5 0.9 39.8 0.9H46.9H50ZM50 75C63.8071 75 75 63.8071 75 50C75 36.1929 63.8071 25 50 25C36.1929 25 25 36.1929 25 50C25 63.8071 36.1929 75 50 75ZM60 40C60 40 58 46 52 48C46 50 44 58 44 58C44 58 50 62 58 58"
-                                    fill-rule="evenodd"></path>
-                            </svg>
-                        </div>
-                        <div>
-                            <span class="text-2xl font-bold tracking-tight text-navy dark:text-white">ToolKit</span>
-                            <span
-                                class="block text-[10px] font-semibold tracking-[0.2em] text-gray-500 dark:text-gray-400 uppercase">Social</span>
-                        </div>
-                    </a>
-                </div>
+<body>
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
 
-                <!-- Desktop Menu -->
-                <div class="hidden md:flex items-center space-x-8">
-                    <div class="relative group">
-                        <button
-                            class="text-sm font-medium text-gray-700 hover:text-primary dark:text-gray-300 dark:hover:text-white transition-colors flex items-center gap-1">
-                            Estructura <span class="material-icons text-sm">expand_more</span>
-                        </button>
-                        <div
-                            class="absolute left-0 mt-2 w-56 rounded-md shadow-lg bg-white dark:bg-navy ring-1 ring-black ring-opacity-5 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-                            <div class="py-1">
-                                <a href="pages/consultoria.html"
-                                    class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">Consultoría
-                                    Estratégica</a>
-                                <a href="pages/laboratorio.html"
-                                    class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">Laboratorio
-                                    Metodológico</a>
-                                <a href="pages/datos.html"
-                                    class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">Análisis
-                                    de Datos</a>
-                                <a href="pages/comunicacion.html"
-                                    class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">Comunicación</a>
-                                <a href="pages/formacion.html"
-                                    class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">Formación
-                                    e Incidencia</a>
-                            </div>
-                        </div>
-                    </div>
-                    <a class="text-sm font-medium text-gray-700 hover:text-primary dark:text-gray-300 dark:hover:text-white transition-colors"
-                        href="pages/cultura.html">Cultura</a>
-                    <a class="text-sm font-medium text-gray-700 hover:text-primary dark:text-gray-300 dark:hover:text-white transition-colors"
-                        href="pages/proyectos.html">Proyectos</a>
-                    <a class="bg-primary hover:bg-secondary text-white px-5 py-2.5 rounded-full font-medium transition-all shadow-lg shadow-primary/30"
-                        href="#contacto">
-                        Contáctanos
-                    </a>
-                </div>
+    <header class="site-header">
+        <div class="container site-header__inner">
+            <!-- LOGO: marcador temporal. Reemplazar .brand__mark + .brand__word por el SVG oficial (versión a color). -->
+            <a class="brand" href="#inicio" aria-label="Toolkit Social, ir al inicio">
+                <span class="brand__mark" aria-hidden="true">logo</span>
+                <span class="brand__word" aria-hidden="true">ToolKit <small>Social</small></span>
+            </a>
 
-                <!-- Mobile Menu Button -->
-                <div class="md:hidden flex items-center">
-                    <button class="text-gray-700 dark:text-white hover:text-primary p-2">
-                        <span class="material-icons">menu</span>
-                    </button>
-                </div>
-            </div>
+            <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+                <span class="nav-toggle__bars" aria-hidden="true"></span>
+                <span class="nav-toggle__label">Menú</span>
+            </button>
+
+            <nav id="site-nav" class="site-nav" aria-label="Principal">
+                <ul>
+                    <li><a href="#nosotros">Nosotros</a></li>
+                    <li><a href="#soluciones">Soluciones</a></li>
+                    <li><a href="#como-trabajamos">Cómo trabajamos</a></li>
+                    <li><a href="#sectores">Sectores</a></li>
+                    <li><a class="btn btn--small" href="#contacto">Contacto</a></li>
+                </ul>
+            </nav>
         </div>
-        <!-- Mobile Menu (Hidden by default, toggled via JS) -->
-        <div id="mobile-menu"
-            class="hidden md:hidden bg-white dark:bg-navy border-t border-gray-100 dark:border-gray-800">
-            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                <a href="pages/consultoria.html"
-                    class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-white hover:text-primary hover:bg-gray-50 dark:hover:bg-gray-800">Consultoría</a>
-                <a href="pages/laboratorio.html"
-                    class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-white hover:text-primary hover:bg-gray-50 dark:hover:bg-gray-800">Laboratorio</a>
-                <a href="pages/datos.html"
-                    class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-white hover:text-primary hover:bg-gray-50 dark:hover:bg-gray-800">Datos</a>
-                <a href="pages/comunicacion.html"
-                    class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-white hover:text-primary hover:bg-gray-50 dark:hover:bg-gray-800">Comunicación</a>
-                <a href="pages/formacion.html"
-                    class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-white hover:text-primary hover:bg-gray-50 dark:hover:bg-gray-800">Formación</a>
-                <a href="pages/cultura.html"
-                    class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-white hover:text-primary hover:bg-gray-50 dark:hover:bg-gray-800">Cultura</a>
-                <a href="pages/proyectos.html"
-                    class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-white hover:text-primary hover:bg-gray-50 dark:hover:bg-gray-800">Proyectos</a>
-            </div>
-        </div>
-    </nav>
+    </header>
 
-    <!-- Hero Section -->
-    <section class="relative bg-navy overflow-hidden min-h-[90vh] flex items-center">
-        <div class="absolute inset-0 z-0">
-            <!-- Using a placeholder image or the previous image -->
-            <img alt="Abstract Structure" class="w-full h-full object-cover opacity-20 mix-blend-overlay"
-                src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80" />
-            <div class="absolute inset-0 bg-gradient-to-br from-navy via-navy/95 to-primary/20"></div>
-        </div>
-
-        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center md:text-left">
-            <div class="max-w-3xl">
-                <div
-                    class="inline-flex items-center px-4 py-2 rounded-full border border-primary/30 bg-primary/10 text-accent-purple text-sm font-semibold tracking-wide uppercase mb-6 backdrop-blur-sm">
-                    Infraestructura de Colaboración
-                </div>
-                <h1 class="text-5xl md:text-7xl font-bold text-white leading-tight mb-6">
-                    Pensar y practicar el <span
-                        class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent-purple">cambio
-                        social</span>.
+    <main id="contenido">
+        <!-- Portada -->
+        <section id="inicio" class="hero" aria-labelledby="hero-title">
+            <div class="container">
+                <h1 id="hero-title" class="hero__title">
+                    <span class="hero__split">
+                        <span class="hero__piece">Los problemas</span>
+                        <span class="hero__piece">no vienen</span>
+                        <span class="hero__piece">separados</span>
+                        <span class="hero__piece">por disciplinas.</span>
+                    </span>
+                    <span class="hero__join">Las soluciones tampoco deberían.</span>
                 </h1>
-                <p class="text-xl text-gray-300 leading-relaxed mb-8 max-w-2xl">
-                    Somos una infraestructura de colaboración donde estrategia, datos y territorio dialogan. No somos
-                    una consultora tradicional; somos un espacio para articular inteligencias.
-                </p>
-                <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-                    <a href="#estructura"
-                        class="bg-primary hover:bg-secondary text-white px-8 py-4 rounded-full font-bold transition-all shadow-lg shadow-primary/40 flex items-center justify-center gap-2 group">
-                        Explorar la Estructura
-                        <span
-                            class="material-icons text-sm group-hover:translate-y-1 transition-transform">arrow_downward</span>
-                    </a>
+
+                <div class="hero__body">
+                    <p>Reunimos investigación, estrategia, datos, tecnología y creatividad para resolver desafíos
+                        reales de organizaciones, empresas e instituciones.</p>
+                    <p>Cada realidad merece herramientas a su medida.</p>
+                </div>
+
+                <div class="hero__actions">
+                    <a class="btn" href="#contacto">Cuéntanos tu desafío</a>
+                    <a class="link-light" href="#areas">Conoce nuestras soluciones</a>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Definition Section -->
-    <section class="py-24 bg-background-light dark:bg-background-dark">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-3xl mx-auto mb-20">
-                <h2 class="text-3xl font-bold text-navy dark:text-white sm:text-4xl mb-6">¿Qué es Toolkit?</h2>
-                <p class="text-xl text-gray-600 dark:text-gray-300 leading-relaxed">
-                    Un espacio donde el rigor no significa rigidez, donde la evidencia interactúa con su dimensión
-                    humana y donde la estructura no genera ceguera.
-                </p>
-            </div>
-
-            <!-- Values/Principles Quick View -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-                <div class="p-6">
-                    <div
-                        class="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-6 text-primary">
-                        <span class="material-icons text-4xl">psychology</span>
-                    </div>
-                    <h3 class="text-xl font-bold text-navy dark:text-white mb-3">Rigor sin Rigidez</h3>
-                    <p class="text-gray-500 dark:text-gray-400">Metodologías robustas adaptadas a la realidad cambiante.
-                    </p>
-                </div>
-                <div class="p-6">
-                    <div
-                        class="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-6 text-primary">
-                        <span class="material-icons text-4xl">groups</span>
-                    </div>
-                    <h3 class="text-xl font-bold text-navy dark:text-white mb-3">Evidencia Humana</h3>
-                    <p class="text-gray-500 dark:text-gray-400">Datos que cuentan historias y escuchan a las personas.
-                    </p>
-                </div>
-                <div class="p-6">
-                    <div
-                        class="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-6 text-primary">
-                        <span class="material-icons text-4xl">visibility</span>
-                    </div>
-                    <h3 class="text-xl font-bold text-navy dark:text-white mb-3">Estuctura Lúcida</h3>
-                    <p class="text-gray-500 dark:text-gray-400">Orden que permite la acción, no burocracia que la
-                        detiene.</p>
+        <!-- Quiénes somos + Equipo -->
+        <section id="nosotros" class="section" aria-labelledby="nosotros-title">
+            <div class="container split">
+                <h2 id="nosotros-title" class="section__title">Distintas disciplinas. Una misma intención: encontrar
+                    mejores soluciones.</h2>
+                <div class="prose">
+                    <p>Somos una plataforma de consultoría y colaboración interdisciplinaria que reúne capacidades en
+                        investigación social, estrategia, análisis de datos, desarrollo tecnológico, gestión
+                        financiera, diseño y procesos participativos.</p>
+                    <p>Creemos que los desafíos complejos requieren algo más que respuestas estandarizadas. Por eso
+                        combinamos perspectivas, herramientas y conocimientos para diseñar soluciones pertinentes,
+                        prácticas y adaptadas a cada contexto.</p>
+                    <p>Trabajamos desde la colaboración, el rigor metodológico y el compromiso con generar información
+                        útil, fortalecer capacidades y facilitar decisiones fundamentadas.</p>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <!-- Start of Mother Structure (Navigator) -->
-    <section id="estructura" class="py-24 bg-surface-light dark:bg-surface-dark relative overflow-hidden">
-        <!-- Decoration -->
-        <div class="absolute top-0 right-0 p-12 opacity-5 pointer-events-none">
-            <svg class="text-primary w-96 h-96" fill="currentColor" viewBox="0 0 100 100">
-                <circle cx="50" cy="50" r="50" />
-            </svg>
-        </div>
-
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="text-center mb-16">
-                <span class="text-primary font-bold tracking-wider uppercase text-sm">Navegador Visual</span>
-                <h2 class="mt-2 text-4xl font-bold text-navy dark:text-white">La Estructura Madre</h2>
-                <p class="mt-4 text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
-                    Cinco ramas interconectadas que dialogan entre sí. Selecciona una para profundizar.
-                </p>
+            <div class="container split team" aria-labelledby="equipo-title">
+                <h3 id="equipo-title" class="team__title">Una red de talentos, múltiples perspectivas.</h3>
+                <div class="prose">
+                    <p>Toolkit Social se construye a partir de la colaboración entre profesionales de distintas
+                        disciplinas.</p>
+                    <p>Integramos experiencia en sociología, evaluación de proyectos, análisis de datos, desarrollo
+                        tecnológico, gestión financiera, diseño visual y psicología comunitaria.</p>
+                    <p>Conformamos equipos de trabajo de acuerdo con las necesidades de cada proyecto, reconociendo el
+                        conocimiento, la experiencia y las contribuciones de quienes participan.</p>
+                    <p>Creemos en el talento que se conecta, el conocimiento que se comparte y las soluciones que se
+                        construyen colectivamente.</p>
+                </div>
             </div>
+        </section>
 
-            <!-- "Tree/Network" Layout using Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+        <!-- Soluciones: áreas de especialización -->
+        <section id="soluciones" class="section section--lavender" aria-labelledby="areas-title">
+            <div class="container" id="areas">
+                <h2 id="areas-title" class="section__title">Áreas de especialización</h2>
 
-                <!-- Card 1: Consultoría -->
-                <a href="pages/consultoria.html"
-                    class="group relative bg-white dark:bg-navy rounded-2xl p-8 shadow-sm hover:shadow-xl transition-all duration-300 border-l-4 border-primary overflow-hidden">
-                    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                        <span class="material-icons text-6xl text-primary">architecture</span>
-                    </div>
-                    <h3
-                        class="text-2xl font-bold text-navy dark:text-white mb-2 group-hover:text-primary transition-colors">
-                        Consultoría Estratégica</h3>
-                    <p class="text-gray-600 dark:text-gray-300 text-sm mb-4">Diseño de intervenciones con estructura
-                        pero sin ceguera.</p>
-                    <div class="flex items-center text-primary font-semibold text-sm">
-                        Explorar rama <span
-                            class="material-icons text-sm ml-1 group-hover:translate-x-1 transition-transform">arrow_forward</span>
-                    </div>
-                </a>
+                <div class="areas">
+                    <article class="area" id="area-consulting">
+                        <header class="area__head">
+                            <h3>Toolkit Consulting</h3>
+                            <p class="area__sub">Estrategia, investigación y fortalecimiento organizacional</p>
+                        </header>
+                        <p>Acompañamos el diseño, implementación, seguimiento y evaluación de proyectos, programas y
+                            procesos organizacionales.</p>
+                        <ul class="area__list">
+                            <li>Diagnósticos e investigación aplicada.</li>
+                            <li>Planeación estratégica y diseño de proyectos.</li>
+                            <li>Monitoreo, evaluación y aprendizaje (MEL).</li>
+                            <li>Diseño y revisión de indicadores.</li>
+                            <li>Sistematización de experiencias y resultados.</li>
+                            <li>Seguimiento presupuestal y financiero de proyectos.</li>
+                            <li>Mejora de procesos y fortalecimiento institucional.</li>
+                        </ul>
+                    </article>
 
-                <!-- Card 2: Laboratorio -->
-                <a href="pages/laboratorio.html"
-                    class="group relative bg-white dark:bg-navy rounded-2xl p-8 shadow-sm hover:shadow-xl transition-all duration-300 border-l-4 border-secondary overflow-hidden">
-                    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                        <span class="material-icons text-6xl text-secondary">science</span>
-                    </div>
-                    <h3
-                        class="text-2xl font-bold text-navy dark:text-white mb-2 group-hover:text-secondary transition-colors">
-                        Laboratorio Metodológico</h3>
-                    <p class="text-gray-600 dark:text-gray-300 text-sm mb-4">El espacio para "pensar mejor" y diseñar
-                        herramientas.</p>
-                    <div class="flex items-center text-secondary font-semibold text-sm">
-                        Explorar rama <span
-                            class="material-icons text-sm ml-1 group-hover:translate-x-1 transition-transform">arrow_forward</span>
-                    </div>
-                </a>
+                    <article class="area" id="area-data">
+                        <header class="area__head">
+                            <h3>Toolkit Data &amp; Tech</h3>
+                            <p class="area__sub">Información y tecnología para tomar mejores decisiones</p>
+                        </header>
+                        <p>Transformamos datos dispersos y procesos manuales en herramientas prácticas para organizar
+                            información, reducir trabajo repetitivo y facilitar el seguimiento.</p>
+                        <ul class="area__list">
+                            <li>Organización, depuración y análisis de bases de datos.</li>
+                            <li>Diseño de sistemas de información y registro.</li>
+                            <li>Automatización de procesos y reportes.</li>
+                            <li>Tableros de indicadores y visualización de datos.</li>
+                            <li>Integración y mejora de herramientas digitales.</li>
+                            <li>Desarrollo de soluciones tecnológicas a medida.</li>
+                        </ul>
+                    </article>
 
-                <!-- Card 3: Datos -->
-                <a href="pages/datos.html"
-                    class="group relative bg-white dark:bg-navy rounded-2xl p-8 shadow-sm hover:shadow-xl transition-all duration-300 border-l-4 border-blue-500 overflow-hidden">
-                    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                        <span class="material-icons text-6xl text-blue-500">analytics</span>
-                    </div>
-                    <h3
-                        class="text-2xl font-bold text-navy dark:text-white mb-2 group-hover:text-blue-500 transition-colors">
-                        Análisis de Datos</h3>
-                    <p class="text-gray-600 dark:text-gray-300 text-sm mb-4">Evidencia con conexión humana e
-                        inteligencia accionable.</p>
-                    <div class="flex items-center text-blue-500 font-semibold text-sm">
-                        Explorar rama <span
-                            class="material-icons text-sm ml-1 group-hover:translate-x-1 transition-transform">arrow_forward</span>
-                    </div>
-                </a>
+                    <article class="area" id="area-lab">
+                        <header class="area__head">
+                            <h3>Toolkit Lab</h3>
+                            <p class="area__sub">Innovación, participación y soluciones construidas colectivamente</p>
+                        </header>
+                        <p>Diseñamos espacios y metodologías para comprender problemas, explorar alternativas y
+                            desarrollar soluciones con las personas involucradas.</p>
+                        <ul class="area__list">
+                            <li>Diagnósticos participativos.</li>
+                            <li>Diseño y facilitación de talleres.</li>
+                            <li>Procesos de cocreación y prototipado.</li>
+                            <li>Investigación comunitaria y territorial.</li>
+                            <li>Diseño de metodologías participativas.</li>
+                            <li>Acompañamiento a iniciativas de innovación social.</li>
+                        </ul>
+                    </article>
 
-                <!-- Card 4: Comunicación (Centered/Bottom in desktop often looks nice, but simple grid is safer for responsiveness) -->
-                <a href="pages/comunicacion.html"
-                    class="group relative bg-white dark:bg-navy rounded-2xl p-8 shadow-sm hover:shadow-xl transition-all duration-300 border-l-4 border-purple-500 overflow-hidden lg:col-start-1 lg:col-end-2">
-                    <!-- Adjusted position -->
-                    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                        <span class="material-icons text-6xl text-purple-500">campaign</span>
-                    </div>
-                    <h3
-                        class="text-2xl font-bold text-navy dark:text-white mb-2 group-hover:text-purple-500 transition-colors">
-                        Comunicación</h3>
-                    <p class="text-gray-600 dark:text-gray-300 text-sm mb-4">Visibilidad del pensamiento y narrativas de
-                        impacto.</p>
-                    <div class="flex items-center text-purple-500 font-semibold text-sm">
-                        Explorar rama <span
-                            class="material-icons text-sm ml-1 group-hover:translate-x-1 transition-transform">arrow_forward</span>
-                    </div>
-                </a>
+                    <article class="area" id="area-studio">
+                        <header class="area__head">
+                            <h3>Toolkit Studio</h3>
+                            <p class="area__sub">Diseño y comunicación que hacen visible el conocimiento</p>
+                        </header>
+                        <p>Convertimos información, conceptos y resultados en recursos visuales claros, accesibles y
+                            significativos.</p>
+                        <ul class="area__list">
+                            <li>Diseño editorial de informes y publicaciones.</li>
+                            <li>Infografías y visualización de información.</li>
+                            <li>Materiales gráficos para proyectos y campañas.</li>
+                            <li>Identidad visual y recursos de comunicación.</li>
+                            <li>Narrativas visuales de resultados y aprendizajes.</li>
+                        </ul>
+                    </article>
+                </div>
+            </div>
+        </section>
 
-                <!-- Card 5: Formación -->
-                <a href="pages/formacion.html"
-                    class="group relative bg-white dark:bg-navy rounded-2xl p-8 shadow-sm hover:shadow-xl transition-all duration-300 border-l-4 border-pink-500 overflow-hidden lg:col-start-2 lg:col-end-4 md:col-span-2">
-                    <!-- Spanning 2 cols for emphasis or fit -->
-                    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                        <span class="material-icons text-6xl text-pink-500">school</span>
+        <!-- Problemas que ayudamos a resolver.
+             Mapeo problema → áreas propuesto por desarrollo: PENDIENTE de validar con el cliente. -->
+        <section id="desafios" class="section" aria-labelledby="desafios-title">
+            <div class="container">
+                <h2 id="desafios-title" class="section__title">¿Qué desafío necesitas resolver?</h2>
+
+                <div class="challenges" data-challenges>
+                    <div class="challenges__list" role="tablist" aria-orientation="vertical"
+                        aria-labelledby="desafios-title">
+                        <button class="challenge-tab" role="tab" id="tab-1" aria-controls="panel-1"
+                            aria-selected="true" type="button">Tenemos información, pero no sabemos cómo
+                            aprovecharla.</button>
+                        <button class="challenge-tab" role="tab" id="tab-2" aria-controls="panel-2"
+                            aria-selected="false" tabindex="-1" type="button">Nuestros procesos son lentos, manuales o
+                            están fragmentados.</button>
+                        <button class="challenge-tab" role="tab" id="tab-3" aria-controls="panel-3"
+                            aria-selected="false" tabindex="-1" type="button">Necesitamos diseñar, fortalecer o evaluar
+                            un proyecto.</button>
+                        <button class="challenge-tab" role="tab" id="tab-4" aria-controls="panel-4"
+                            aria-selected="false" tabindex="-1" type="button">Queremos comprender mejor a las personas
+                            y los territorios con los que trabajamos.</button>
+                        <button class="challenge-tab" role="tab" id="tab-5" aria-controls="panel-5"
+                            aria-selected="false" tabindex="-1" type="button">Necesitamos comunicar mejor nuestros
+                            resultados.</button>
+                        <button class="challenge-tab" role="tab" id="tab-6" aria-controls="panel-6"
+                            aria-selected="false" tabindex="-1" type="button">Tenemos una idea, pero necesitamos
+                            convertirla en un proyecto viable.</button>
                     </div>
-                    <div class="flex flex-col md:flex-row items-center md:items-start gap-4">
-                        <div class="flex-1">
-                            <h3
-                                class="text-2xl font-bold text-navy dark:text-white mb-2 group-hover:text-pink-500 transition-colors">
-                                Formación e Incidencia</h3>
-                            <p class="text-gray-600 dark:text-gray-300 text-sm mb-4">Crecimiento compartido y expansión
-                                de trayectoria en el sector social.</p>
-                            <div class="flex items-center text-pink-500 font-semibold text-sm">
-                                Explorar rama <span
-                                    class="material-icons text-sm ml-1 group-hover:translate-x-1 transition-transform">arrow_forward</span>
-                            </div>
+
+                    <div class="challenges__panels">
+                        <div class="challenge-panel" role="tabpanel" id="panel-1" aria-labelledby="tab-1">
+                            <p class="challenge-panel__q">Tenemos información, pero no sabemos cómo aprovecharla.</p>
+                            <p class="challenge-panel__a">Organizamos, analizamos y transformamos datos en información
+                                útil para orientar decisiones.</p>
+                            <p class="challenge-panel__areas">Áreas que intervienen:
+                                <a href="#area-data">Data &amp; Tech</a> <a href="#area-studio">Studio</a></p>
+                            <a class="btn" href="#contacto" data-apoyo="Data & Tech">Hablemos de esto</a>
+                        </div>
+                        <div class="challenge-panel" role="tabpanel" id="panel-2" aria-labelledby="tab-2">
+                            <p class="challenge-panel__q">Nuestros procesos son lentos, manuales o están fragmentados.
+                            </p>
+                            <p class="challenge-panel__a">Identificamos oportunidades de mejora y desarrollamos
+                                herramientas para simplificar el trabajo.</p>
+                            <p class="challenge-panel__areas">Áreas que intervienen:
+                                <a href="#area-data">Data &amp; Tech</a> <a href="#area-consulting">Consulting</a></p>
+                            <a class="btn" href="#contacto" data-apoyo="Data & Tech">Hablemos de esto</a>
+                        </div>
+                        <div class="challenge-panel" role="tabpanel" id="panel-3" aria-labelledby="tab-3">
+                            <p class="challenge-panel__q">Necesitamos diseñar, fortalecer o evaluar un proyecto.</p>
+                            <p class="challenge-panel__a">Aportamos metodologías, instrumentos e indicadores para mejorar
+                                su planeación, seguimiento y resultados.</p>
+                            <p class="challenge-panel__areas">Áreas que intervienen:
+                                <a href="#area-consulting">Consulting</a> <a href="#area-lab">Lab</a></p>
+                            <a class="btn" href="#contacto" data-apoyo="Consulting">Hablemos de esto</a>
+                        </div>
+                        <div class="challenge-panel" role="tabpanel" id="panel-4" aria-labelledby="tab-4">
+                            <p class="challenge-panel__q">Queremos comprender mejor a las personas y los territorios con
+                                los que trabajamos.</p>
+                            <p class="challenge-panel__a">Desarrollamos diagnósticos, investigación aplicada y procesos
+                                participativos.</p>
+                            <p class="challenge-panel__areas">Áreas que intervienen:
+                                <a href="#area-lab">Lab</a> <a href="#area-consulting">Consulting</a></p>
+                            <a class="btn" href="#contacto" data-apoyo="Lab">Hablemos de esto</a>
+                        </div>
+                        <div class="challenge-panel" role="tabpanel" id="panel-5" aria-labelledby="tab-5">
+                            <p class="challenge-panel__q">Necesitamos comunicar mejor nuestros resultados.</p>
+                            <p class="challenge-panel__a">Traducimos información compleja en informes, visualizaciones y
+                                materiales claros.</p>
+                            <p class="challenge-panel__areas">Áreas que intervienen:
+                                <a href="#area-studio">Studio</a> <a href="#area-data">Data &amp; Tech</a></p>
+                            <a class="btn" href="#contacto" data-apoyo="Studio">Hablemos de esto</a>
+                        </div>
+                        <div class="challenge-panel" role="tabpanel" id="panel-6" aria-labelledby="tab-6">
+                            <p class="challenge-panel__q">Tenemos una idea, pero necesitamos convertirla en un proyecto
+                                viable.</p>
+                            <p class="challenge-panel__a">Acompañamos la definición del problema, los objetivos, la
+                                estrategia y las herramientas necesarias para avanzar.</p>
+                            <p class="challenge-panel__areas">Áreas que intervienen:
+                                <a href="#area-consulting">Consulting</a> <a href="#area-lab">Lab</a></p>
+                            <a class="btn" href="#contacto" data-apoyo="Consulting">Hablemos de esto</a>
                         </div>
                     </div>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer id="contacto" class="bg-navy pt-20 pb-10 border-t border-white/10">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
-                <!-- Brand -->
-                <div class="col-span-1 md:col-span-2">
-                    <div class="flex items-center gap-3 mb-6">
-                        <div class="text-white">
-                            <span class="material-icons text-4xl">share</span>
-                        </div>
-                        <span class="text-2xl font-bold text-white">ToolKit Social</span>
-                    </div>
-                    <p class="text-gray-300 mb-6 max-w-sm">
-                        ¿Qué tendría que ocurrir para que este sea un espacio en el que quieras estar? Únete a nosotros
-                        para construir respuestas.
-                    </p>
                 </div>
+            </div>
+        </section>
 
-                <!-- Quick Links -->
-                <div>
-                    <h4 class="font-bold text-white mb-6">Explorar</h4>
-                    <ul class="space-y-4">
-                        <li><a href="pages/cultura.html"
-                                class="text-gray-400 hover:text-white transition-colors">Nuestra Cultura</a></li>
-                        <li><a href="pages/proyectos.html"
-                                class="text-gray-400 hover:text-white transition-colors">Portafolio</a></li>
-                        <li><a href="#estructura" class="text-gray-400 hover:text-white transition-colors">Ramas de
-                                Servicio</a></li>
+        <!-- Cómo trabajamos -->
+        <section id="como-trabajamos" class="section section--lavender" aria-labelledby="proceso-title">
+            <div class="container">
+                <h2 id="proceso-title" class="section__title">Soluciones a la medida, no respuestas prefabricadas.</h2>
+                <ol class="steps">
+                    <li class="step">
+                        <span class="step__num" aria-hidden="true">01</span>
+                        <h3>Comprendemos</h3>
+                        <p>Escuchamos tus necesidades, analizamos el contexto e identificamos el problema que realmente
+                            necesitamos resolver.</p>
+                    </li>
+                    <li class="step">
+                        <span class="step__num" aria-hidden="true">02</span>
+                        <h3>Diseñamos</h3>
+                        <p>Integramos las capacidades y herramientas más adecuadas para construir una propuesta viable.
+                        </p>
+                    </li>
+                    <li class="step">
+                        <span class="step__num" aria-hidden="true">03</span>
+                        <h3>Implementamos</h3>
+                        <p>Desarrollamos soluciones concretas con objetivos, entregables y responsabilidades claras.</p>
+                    </li>
+                    <li class="step">
+                        <span class="step__num" aria-hidden="true">04</span>
+                        <h3>Fortalecemos</h3>
+                        <p>Documentamos, compartimos conocimientos y buscamos que las soluciones puedan seguir
+                            utilizándose y mejorándose.</p>
+                    </li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- Sectores -->
+        <section id="sectores" class="section" aria-labelledby="sectores-title">
+            <div class="container">
+                <h2 id="sectores-title" class="section__title">Colaboramos con quienes buscan hacer mejor las cosas.
+                </h2>
+                <dl class="sectors">
+                    <div class="sector">
+                        <dt>Empresas y emprendimientos</dt>
+                        <dd>Organización de información, mejora de procesos, automatización y análisis para la toma de
+                            decisiones.</dd>
+                    </div>
+                    <div class="sector">
+                        <dt>Organizaciones sociales y fundaciones</dt>
+                        <dd>Planeación, fortalecimiento institucional, seguimiento, evaluación y gestión de proyectos.
+                        </dd>
+                    </div>
+                    <div class="sector">
+                        <dt>Instituciones públicas</dt>
+                        <dd>Diagnósticos, investigación aplicada, indicadores, participación y seguimiento de programas.
+                        </dd>
+                    </div>
+                    <div class="sector">
+                        <dt>Instituciones educativas</dt>
+                        <dd>Investigación, análisis de información, evaluación y desarrollo de herramientas de
+                            seguimiento.</dd>
+                    </div>
+                </dl>
+                <p class="sectors__close">Cada proyecto es distinto. Por eso adaptamos nuestros servicios al problema,
+                    las capacidades y los recursos disponibles.</p>
+            </div>
+        </section>
+
+        <!-- Contacto -->
+        <section id="contacto" class="section section--ink" aria-labelledby="contacto-title">
+            <div class="container contact">
+                <div class="contact__intro">
+                    <h2 id="contacto-title" class="section__title">Cuéntanos qué necesitas resolver.</h2>
+                    <p class="contact__lead">No necesitas tener una solución definida para comenzar.</p>
+                    <p>Si tienes un proyecto por desarrollar, un proceso que mejorar, información que analizar o un
+                        desafío que aún no sabes cómo abordar, conversemos.</p>
+                    <p>Podemos ayudarte a identificar por dónde empezar.</p>
+
+                    <ul class="channels">
+                        <li>
+                            <span class="channels__label">Correo</span>
+                            <a class="channels__email" href="mailto:genesisrodriguez@toolkitsocialconsulting.com">genesisrodriguez@<wbr />toolkitsocialconsulting.com</a>
+                        </li>
+                        <li>
+                            <span class="channels__label">WhatsApp</span>
+                            <a href="https://wa.me/526567608980" target="_blank" rel="noopener">+52 656 760 8980</a>
+                        </li>
+                        <li>
+                            <span class="channels__label">Llamadas</span>
+                            <a href="tel:+526568208353">+52 656 820 8353</a>
+                        </li>
                     </ul>
                 </div>
 
-                <!-- Contact -->
-                <div>
-                    <h4 class="font-bold text-white mb-6">Contacto</h4>
-                    <ul class="space-y-4">
-                        <li class="flex items-center gap-3 text-gray-400">
-                            <span class="material-icons text-sm">email</span>
-                            hola@toolkit.social
-                        </li>
-                        <li class="flex items-center gap-3 text-gray-400">
-                            <span class="material-icons text-sm">location_on</span>
-                            Ciudad de México
-                        </li>
-                    </ul>
-                </div>
-            </div>
+                <!-- FORMULARIO: sin backend todavía. Si data-endpoint está vacío, el envío abre el correo del
+                     usuario con el mensaje armado. Poner aquí la URL del endpoint real y probar la recepción
+                     antes de publicar. -->
+                <form class="contact-form" data-endpoint="" novalidate>
+                    <div class="field">
+                        <label for="f-nombre">Nombre</label>
+                        <input id="f-nombre" name="nombre" type="text" autocomplete="name" required />
+                        <p class="field__error" id="f-nombre-error"></p>
+                    </div>
 
-            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center bg-navy">
-                <p class="text-sm text-gray-500">© 2026 Toolkit Social. Todos los derechos reservados.</p>
+                    <div class="field">
+                        <label for="f-org">Organización <span class="optional">(opcional)</span></label>
+                        <input id="f-org" name="organizacion" type="text" autocomplete="organization" />
+                    </div>
+
+                    <fieldset class="field">
+                        <legend>¿Cómo prefieres que te contactemos?</legend>
+                        <div class="choice-row">
+                            <label class="choice"><input type="radio" name="medio" value="correo" checked />
+                                Correo</label>
+                            <label class="choice"><input type="radio" name="medio" value="whatsapp" /> WhatsApp</label>
+                        </div>
+                    </fieldset>
+
+                    <div class="field">
+                        <label for="f-contacto" data-contact-label>Correo electrónico</label>
+                        <input id="f-contacto" name="contacto" type="email" autocomplete="email" required />
+                        <p class="field__error" id="f-contacto-error"></p>
+                    </div>
+
+                    <div class="field">
+                        <label for="f-apoyo">Tipo de apoyo</label>
+                        <select id="f-apoyo" name="apoyo">
+                            <option>Consulting</option>
+                            <option>Data &amp; Tech</option>
+                            <option>Lab</option>
+                            <option>Studio</option>
+                            <option selected>No estoy seguro/a</option>
+                        </select>
+                    </div>
+
+                    <div class="field">
+                        <label for="f-desafio">Describe brevemente tu desafío</label>
+                        <textarea id="f-desafio" name="desafio" rows="4" required></textarea>
+                        <p class="field__error" id="f-desafio-error"></p>
+                    </div>
+
+                    <!-- Honeypot anti-spam: debe quedar vacío -->
+                    <div class="hp" aria-hidden="true">
+                        <label for="f-web">No llenar este campo</label>
+                        <input id="f-web" name="web" type="text" tabindex="-1" autocomplete="off" />
+                    </div>
+
+                    <div class="field">
+                        <label class="choice choice--consent">
+                            <input id="f-consent" name="consentimiento" type="checkbox" required />
+                            <span>Acepto el tratamiento de mis datos de contacto conforme al
+                                <a href="#aviso-privacidad" data-open-privacy>aviso de privacidad</a>.</span>
+                        </label>
+                        <p class="field__error" id="f-consent-error"></p>
+                    </div>
+
+                    <button class="btn btn--block" type="submit">Hablemos de tu proyecto</button>
+                    <p class="form-status" role="status" aria-live="polite"></p>
+                </form>
             </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container site-footer__inner">
+            <!-- LOGO: marcador temporal. Reemplazar por el SVG oficial (versión blanca). -->
+            <span class="brand brand--light">
+                <span class="brand__mark" aria-hidden="true">logo</span>
+                <span class="brand__word">ToolKit <small>Social</small></span>
+            </span>
+            <ul class="site-footer__links">
+                <li><a href="mailto:genesisrodriguez@toolkitsocialconsulting.com">Correo</a></li>
+                <li><a href="https://wa.me/526567608980" target="_blank" rel="noopener">WhatsApp</a></li>
+                <li><a href="tel:+526568208353">Llamadas</a></li>
+                <li><a href="#aviso-privacidad" data-open-privacy>Aviso de privacidad</a></li>
+            </ul>
+            <p class="site-footer__copy">© 2026 Toolkit Social</p>
         </div>
     </footer>
 
-    <!-- Main JS -->
-    <script src="js/main.js"></script>
+    <!-- AVISO DE PRIVACIDAD: texto pendiente de entregar por Toolkit Social (LFPDPPP). -->
+    <dialog id="aviso-privacidad" class="privacy" aria-labelledby="privacy-title">
+        <h2 id="privacy-title">Aviso de privacidad</h2>
+        <p class="privacy__pending">Texto pendiente. Toolkit Social debe proporcionar su aviso de privacidad antes de
+            publicar el sitio.</p>
+        <form method="dialog">
+            <button class="btn" type="submit">Cerrar</button>
+        </form>
+    </dialog>
+
+    <script src="js/landing.js" defer></script>
 </body>
 
 </html>
