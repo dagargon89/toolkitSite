@@ -655,44 +655,75 @@ a {
     }
 }
 
-/* Áreas */
+/* Áreas: cada una con su pieza del engrane; la rejilla 2×2 repite su posición */
 
 .areas {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1.5rem;
+    gap: clamp(3rem, 2rem + 3vw, 4.5rem) clamp(2rem, 1rem + 4vw, 5rem);
 }
 
 .area {
     display: flex;
     flex-direction: column;
     gap: 1.25rem;
-    padding: clamp(1.5rem, 1rem + 2vw, 2.5rem);
-    background: var(--white);
-    border-top: 4px solid var(--violet);
-    border-radius: var(--radius-sm);
+    max-width: 34rem;
     color: var(--graphite);
 }
 
-.area__head h3 {
+.area__head {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+.area__gear {
+    flex: none;
+    width: 4rem;
+    height: 4rem;
+    overflow: visible;
+}
+
+.area__gear-rest {
+    fill: var(--lavender-line);
+}
+
+.area__gear-piece {
+    fill: var(--ink);
+    transform-box: fill-box;
+    transform-origin: center;
+}
+
+/* Hacia dónde sale cada pieza (las mismas direcciones que en el hero) */
+#area-consulting { --x: -42px; --y: -105px; }
+#area-data       { --x: 105px; --y: -42px; }
+#area-studio     { --x: 42px;  --y: 105px; }
+#area-lab        { --x: -105px; --y: 42px; }
+
+.area h3 {
     font-size: var(--fs-lg);
-    font-weight: 600;
-    line-height: 1.15;
+    line-height: 1.1;
     letter-spacing: -0.015em;
     color: var(--ink);
+}
+
+.area__brand {
+    font-weight: 400;
+}
+
+.area__name {
+    font-weight: 700;
 }
 
 .area__sub {
     margin-top: 0.375rem;
     font-weight: 500;
-    color: var(--violet-strong);
+    color: var(--violet-deep);
 }
 
 .area__list {
     display: grid;
     gap: 0.5rem;
-    padding-top: 1.25rem;
-    border-top: 1px solid var(--lavender);
 }
 
 .area__list li {
@@ -708,17 +739,25 @@ a {
     top: 0.8em;
     width: 0.625rem;
     height: 2px;
-    background: var(--violet);
+    background: var(--violet-strong);
 }
 
-.area:target {
-    outline: 2px solid var(--violet);
-    outline-offset: 4px;
+/* Al llegar desde el hero, la pieza del área se separa un instante y vuelve */
+@media (prefers-reduced-motion: no-preference) {
+    .area:target .area__gear-piece {
+        animation: piece-nudge 0.9s cubic-bezier(0.4, 0, 0.2, 1) 0.15s;
+    }
+
+    @keyframes piece-nudge {
+        40% {
+            transform: translate(var(--x), var(--y));
+        }
+    }
 }
 
 @media (max-width: 52rem) {
     .areas {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0, 1fr);
     }
 }
 
