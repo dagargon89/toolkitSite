@@ -321,7 +321,7 @@
                             <p class="challenge-panel__a">Organizamos, analizamos y transformamos datos en información
                                 útil para orientar decisiones.</p>
                             <p class="challenge-panel__areas">Intervienen <a href="#area-data">Data &amp; Tech</a> y <a href="#area-studio">Studio</a></p>
-                            <a class="btn" href="#contacto" data-apoyo="Data & Tech">Hablemos de esto</a>
+                            <a class="btn" href="#contacto" data-apoyo="Data & Tech,Studio">Hablemos de esto</a>
                         </div>
                         <div class="challenge-panel" role="tabpanel" id="panel-2" aria-labelledby="tab-2">
                             <p class="challenge-panel__q">Nuestros procesos son lentos, manuales o están fragmentados.
@@ -342,7 +342,7 @@
                             <p class="challenge-panel__a">Identificamos oportunidades de mejora y desarrollamos
                                 herramientas para simplificar el trabajo.</p>
                             <p class="challenge-panel__areas">Intervienen <a href="#area-data">Data &amp; Tech</a> y <a href="#area-consulting">Consulting</a></p>
-                            <a class="btn" href="#contacto" data-apoyo="Data & Tech">Hablemos de esto</a>
+                            <a class="btn" href="#contacto" data-apoyo="Data & Tech,Consulting">Hablemos de esto</a>
                         </div>
                         <div class="challenge-panel" role="tabpanel" id="panel-3" aria-labelledby="tab-3">
                             <p class="challenge-panel__q">Necesitamos diseñar, fortalecer o evaluar un proyecto.</p>
@@ -362,7 +362,7 @@
                             <p class="challenge-panel__a">Aportamos metodologías, instrumentos e indicadores para mejorar
                                 su planeación, seguimiento y resultados.</p>
                             <p class="challenge-panel__areas">Intervienen <a href="#area-consulting">Consulting</a> y <a href="#area-lab">Lab</a></p>
-                            <a class="btn" href="#contacto" data-apoyo="Consulting">Hablemos de esto</a>
+                            <a class="btn" href="#contacto" data-apoyo="Consulting,Lab">Hablemos de esto</a>
                         </div>
                         <div class="challenge-panel" role="tabpanel" id="panel-4" aria-labelledby="tab-4">
                             <p class="challenge-panel__q">Queremos comprender mejor a las personas y los territorios con
@@ -383,7 +383,7 @@
                             <p class="challenge-panel__a">Desarrollamos diagnósticos, investigación aplicada y procesos
                                 participativos.</p>
                             <p class="challenge-panel__areas">Intervienen <a href="#area-lab">Lab</a> y <a href="#area-consulting">Consulting</a></p>
-                            <a class="btn" href="#contacto" data-apoyo="Lab">Hablemos de esto</a>
+                            <a class="btn" href="#contacto" data-apoyo="Lab,Consulting">Hablemos de esto</a>
                         </div>
                         <div class="challenge-panel" role="tabpanel" id="panel-5" aria-labelledby="tab-5">
                             <p class="challenge-panel__q">Necesitamos comunicar mejor nuestros resultados.</p>
@@ -403,7 +403,7 @@
                             <p class="challenge-panel__a">Traducimos información compleja en informes, visualizaciones y
                                 materiales claros.</p>
                             <p class="challenge-panel__areas">Intervienen <a href="#area-studio">Studio</a> y <a href="#area-data">Data &amp; Tech</a></p>
-                            <a class="btn" href="#contacto" data-apoyo="Studio">Hablemos de esto</a>
+                            <a class="btn" href="#contacto" data-apoyo="Studio,Data & Tech">Hablemos de esto</a>
                         </div>
                         <div class="challenge-panel" role="tabpanel" id="panel-6" aria-labelledby="tab-6">
                             <p class="challenge-panel__q">Tenemos una idea, pero necesitamos convertirla en un proyecto
@@ -424,7 +424,7 @@
                             <p class="challenge-panel__a">Acompañamos la definición del problema, los objetivos, la
                                 estrategia y las herramientas necesarias para avanzar.</p>
                             <p class="challenge-panel__areas">Intervienen <a href="#area-consulting">Consulting</a> y <a href="#area-lab">Lab</a></p>
-                            <a class="btn" href="#contacto" data-apoyo="Consulting">Hablemos de esto</a>
+                            <a class="btn" href="#contacto" data-apoyo="Consulting,Lab">Hablemos de esto</a>
                         </div>
                     </div>
                 </div>
@@ -551,16 +551,30 @@
                         <p class="field__error" id="f-contacto-error"></p>
                     </div>
 
-                    <div class="field">
-                        <label for="f-apoyo">Tipo de apoyo</label>
-                        <select id="f-apoyo" name="apoyo">
-                            <option>Consulting</option>
-                            <option>Data &amp; Tech</option>
-                            <option>Lab</option>
-                            <option>Studio</option>
-                            <option selected>No estoy seguro/a</option>
-                        </select>
-                    </div>
+                    <!-- Tipo de apoyo: casillas reales; el engrane refleja las marcadas. Sin ninguna se envía
+                         "No estoy seguro/a". -->
+                    <fieldset class="field picker" aria-describedby="apoyo-hint">
+                        <legend>Tipo de apoyo</legend>
+                        <p class="picker__hint" id="apoyo-hint">Puedes elegir más de una. Si no estás seguro/a, déjalo
+                            vacío.</p>
+                        <div class="picker__gear">
+                            <svg class="picker__svg" viewBox="-14 -14 525 525" aria-hidden="true" focusable="false">
+                                <use class="picker__rest" href="#gear-shape" />
+                                <g class="picker__piece picker__piece--consulting" data-for="f-apoyo-consulting"><use href="#gear-shape" clip-path="url(#cut-consulting)" /></g>
+                                <g class="picker__piece picker__piece--data" data-for="f-apoyo-data"><use href="#gear-shape" clip-path="url(#cut-data)" /></g>
+                                <g class="picker__piece picker__piece--lab" data-for="f-apoyo-lab"><use href="#gear-shape" clip-path="url(#cut-lab)" /></g>
+                                <g class="picker__piece picker__piece--studio" data-for="f-apoyo-studio"><use href="#gear-shape" clip-path="url(#cut-studio)" /></g>
+                            </svg>
+                            <label class="choice picker__opt picker__opt--consulting"><input id="f-apoyo-consulting"
+                                    type="checkbox" name="apoyo" value="Consulting" /> Consulting</label>
+                            <label class="choice picker__opt picker__opt--data"><input id="f-apoyo-data"
+                                    type="checkbox" name="apoyo" value="Data &amp; Tech" /> Data &amp; Tech</label>
+                            <label class="choice picker__opt picker__opt--lab"><input id="f-apoyo-lab"
+                                    type="checkbox" name="apoyo" value="Lab" /> Lab</label>
+                            <label class="choice picker__opt picker__opt--studio"><input id="f-apoyo-studio"
+                                    type="checkbox" name="apoyo" value="Studio" /> Studio</label>
+                        </div>
+                    </fieldset>
 
                     <div class="field">
                         <label for="f-desafio">Describe brevemente tu desafío</label>
@@ -596,9 +610,6 @@
                 <img class="brand__logo" src="img/logo/toolkit-horizontal-blanco.png" alt="Toolkit Social" width="1634" height="496">
             </span>
             <ul class="site-footer__links">
-                <li><a href="mailto:genesisrodriguez@toolkitsocialconsulting.com">Correo</a></li>
-                <li><a href="https://wa.me/526567608980" target="_blank" rel="noopener">WhatsApp</a></li>
-                <li><a href="tel:+526568208353">Llamadas</a></li>
                 <li><a href="#aviso-privacidad" data-open-privacy>Aviso de privacidad</a></li>
             </ul>
             <p class="site-footer__copy">© 2026 Toolkit Social</p>

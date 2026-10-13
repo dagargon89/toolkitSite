@@ -1095,6 +1095,8 @@ a {
 }
 
 .contact__intro {
+    position: sticky;
+    top: calc(var(--header-h) + 2rem);
     color: var(--lavender);
 }
 
@@ -1113,15 +1115,14 @@ a {
 }
 
 .channels {
+    display: grid;
+    gap: 1.25rem;
     margin-top: 2.5rem;
-    border-top: 1px solid rgb(194 200 250 / 0.3);
 }
 
 .channels li {
     display: grid;
     gap: 0.125rem;
-    padding-block: 1rem;
-    border-bottom: 1px solid rgb(194 200 250 / 0.3);
 }
 
 .channels__label {
@@ -1184,7 +1185,6 @@ a {
 .field input[type="text"],
 .field input[type="email"],
 .field input[type="tel"],
-.field select,
 .field textarea {
     width: 100%;
     min-height: 3rem;
@@ -1201,7 +1201,6 @@ a {
 }
 
 .field input:focus-visible,
-.field select:focus-visible,
 .field textarea:focus-visible {
     outline-offset: 0;
     border-color: var(--violet-strong);
@@ -1253,6 +1252,90 @@ a {
     margin-top: 0.1rem;
 }
 
+/* Tipo de apoyo: el visitante arma su engrane. Las casillas son el control;
+   el engrane refleja las marcadas y sus piezas también se pueden pulsar. */
+
+.picker__hint {
+    margin-bottom: 0.75rem;
+    font-size: var(--fs-xs);
+    color: var(--graphite);
+}
+
+.picker__gear {
+    position: relative;
+    width: min(100%, 17rem);
+    margin-inline: auto;
+    aspect-ratio: 1;
+}
+
+/* El engrane va hacia adentro para dejar las esquinas libres a los nombres */
+.picker__svg {
+    position: absolute;
+    inset: 13%;
+    width: 74%;
+    height: 74%;
+    overflow: visible;
+}
+
+.picker__rest,
+.picker__piece {
+    fill: var(--lavender-line);
+}
+
+.picker__piece {
+    cursor: pointer;
+    transform-box: fill-box;
+    transform-origin: center;
+    transition: fill 0.15s ease;
+}
+
+.picker__piece--consulting { --x: -25px; --y: -63px; }
+.picker__piece--data       { --x: 63px;  --y: -25px; }
+.picker__piece--studio     { --x: 25px;  --y: 63px; }
+.picker__piece--lab        { --x: -63px; --y: 25px; }
+
+.picker__opt {
+    position: absolute;
+    font-size: 0.9375rem;
+}
+
+.picker__opt--consulting { top: 0; left: 0; }
+.picker__opt--data       { top: 0; right: 0; }
+.picker__opt--lab        { bottom: 0; left: 0; }
+.picker__opt--studio     { bottom: 0; right: 0; }
+
+/* Al señalar un área (pieza o nombre), su pieza se tiñe de violeta */
+.picker__piece:hover,
+.picker:has(.picker__opt--consulting:hover) .picker__piece--consulting,
+.picker:has(.picker__opt--data:hover) .picker__piece--data,
+.picker:has(.picker__opt--lab:hover) .picker__piece--lab,
+.picker:has(.picker__opt--studio:hover) .picker__piece--studio {
+    fill: var(--violet);
+}
+
+/* Marcada: la pieza queda en tinta */
+.picker:has(#f-apoyo-consulting:checked) .picker__piece--consulting,
+.picker:has(#f-apoyo-data:checked) .picker__piece--data,
+.picker:has(#f-apoyo-lab:checked) .picker__piece--lab,
+.picker:has(#f-apoyo-studio:checked) .picker__piece--studio {
+    fill: var(--ink);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .picker:has(#f-apoyo-consulting:checked) .picker__piece--consulting,
+    .picker:has(#f-apoyo-data:checked) .picker__piece--data,
+    .picker:has(#f-apoyo-lab:checked) .picker__piece--lab,
+    .picker:has(#f-apoyo-studio:checked) .picker__piece--studio {
+        animation: picker-in 0.45s cubic-bezier(0.3, 0, 0.2, 1);
+    }
+
+    @keyframes picker-in {
+        from {
+            transform: translate(var(--x), var(--y));
+        }
+    }
+}
+
 .hp {
     position: absolute;
     left: -9999px;
@@ -1276,6 +1359,10 @@ a {
 @media (max-width: 52rem) {
     .contact {
         grid-template-columns: 1fr;
+    }
+
+    .contact__intro {
+        position: static;
     }
 }
 

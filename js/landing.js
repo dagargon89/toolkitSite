@@ -74,11 +74,13 @@ function initChallenges() {
 
     select(0, false);
 
-    // "Hablemos de esto" preselecciona el tipo de apoyo en el formulario
+    // "Hablemos de esto" preselecciona en el formulario las áreas que intervienen
     root.querySelectorAll('[data-apoyo]').forEach((link) => {
         link.addEventListener('click', () => {
-            const field = document.getElementById('f-apoyo');
-            if (field) field.value = link.dataset.apoyo;
+            const areas = link.dataset.apoyo.split(',');
+            document.querySelectorAll('.contact-form input[name="apoyo"]').forEach((box) => {
+                box.checked = areas.includes(box.value);
+            });
         });
     });
 }
@@ -120,6 +122,14 @@ function initContactForm() {
         });
     });
 
+    // Las piezas del engrane también marcan su casilla al hacer clic (el teclado usa las casillas)
+    form.querySelectorAll('.picker__piece[data-for]').forEach((piece) => {
+        piece.addEventListener('click', () => {
+            const box = document.getElementById(piece.dataset.for);
+            box.checked = !box.checked;
+        });
+    });
+
     form.addEventListener('input', (event) => clearError(event.target));
 
     form.addEventListener('submit', async (event) => {
@@ -129,8 +139,10 @@ function initContactForm() {
         if (form.elements.web.value) return; // honeypot
         if (!validate()) return;
 
-        const data = Object.fromEntries(new FormData(form));
+        const formData = new FormData(form);
+        const data = Object.fromEntries(formData);
         delete data.web;
+        data.apoyo = formData.getAll('apoyo').join(', ') || 'No estoy seguro/a';
 
         const endpoint = form.dataset.endpoint;
         if (!endpoint) {
