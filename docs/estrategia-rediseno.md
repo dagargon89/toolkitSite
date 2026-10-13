@@ -1,6 +1,6 @@
 # Toolkit Social — Estrategia de rediseño (landing v2)
 
-**Fecha:** 12 oct 2026 · **Fuentes:** `Toolkit_Social_Contenido_Landing_Page_v2.md/.pdf` (idénticos), `Examples/toolkit_identidad_1_page-0001.jpg.png` (manual de identidad), `Examples/restructura.md` (propuesta anterior), sitio actual (`index.html`, `pages/*`).
+**Fecha:** 12 oct 2026 (actualizado el mismo día: logos, og:image, hero) · **Fuentes:** `Toolkit_Social_Contenido_Landing_Page_v2.md/.pdf` (idénticos), `Examples/toolkit_identidad_1_page-0001.jpg.png` (manual de identidad), `Examples/restructura.md` (propuesta anterior), sitio actual (`index.html`, `pages/*`).
 
 ---
 
@@ -14,7 +14,7 @@ El sitio actual se construyó sobre `restructura.md` (la "Estructura Madre"). El
 | Oferta | 5 ramas (Consultoría, Laboratorio, Datos, Comunicación, Formación) | **4 áreas**: Consulting, Data & Tech, Lab, Studio | Nueva sección de áreas; Formación desaparece como rama |
 | Tono | "Infraestructura de colaboración", "Estructura Madre", reflexivo | Comercial, claro, orientado a problemas | Usar el texto v2 literal |
 | Prueba social | `pages/proyectos.html` con "Proyecto Renacer" | **Sin testimonios, cifras ni clientes no validados** | Eliminar |
-| Logo | SVG dibujado a mano (no es el logo; le falta la burbuja de diálogo) | **Logotipo original** | Pedir el SVG oficial |
+| Logo | SVG dibujado a mano (no es el logo; le falta la burbuja de diálogo) | **Logotipo original** | Hecho: variantes oficiales en `img/logo/` |
 | Contacto | Footer con enlaces | Formulario mínimo + correo, WhatsApp, llamadas | Sección de contacto real |
 | Navegación | Estructura ▾ · Cultura · Proyectos | Inicio · Nosotros · Soluciones · Cómo trabajamos · Sectores · Contacto | Anclas a secciones |
 
@@ -34,15 +34,30 @@ El v2 y el manual difieren ligeramente. Se usa el v2 como base y el manual como 
 
 | Token | Hex | Origen | Uso |
 |---|---|---|---|
-| `ink` (Morado profundo) | `#25204F` | v2 | Texto principal, superficies oscuras (hero, contacto) |
+| `ink` (Morado profundo) | `#25204F` | v2 | Texto principal, superficies oscuras (contacto, footer), engrane y botón del hero |
+| `ink-deep` | `#1A1640` | derivado | Hover del botón tinta en el hero |
 | `violet` | `#7C78F2` | v2 (≈ `#7a78ee` del manual) | Marca, tipografía grande, ilustración. **No para texto pequeño sobre blanco** (contraste 3.6:1) |
-| `violet-strong` | `#6A5DE7` | manual | Fondo de botones con texto blanco (4.8:1, pasa AA) y enlaces |
+| `violet-strong` | `#6A5DE7` | manual | Fondo del hero; fondo de botones con texto blanco (4.8:1, pasa AA) y enlaces |
 | `lavender` | `#EDEBFA` | v2 | Fondo de secciones alternas |
 | `lavender-line` | `#C2C8FA` | manual | Bordes, separadores, estados seleccionados |
 | `graphite` | `#4F4F4F` | manual | Texto secundario |
 | `white` | `#FFFFFF` | ambos | Fondo base |
 
-Sin degradados decorativos; el único "degradado" permitido es el plano violeta del manual detrás del logo si se usa en el hero.
+Sin degradados decorativos. El hero usa el plano violeta del manual como color sólido.
+
+### Logotipo (recibido)
+
+Las 12 variantes oficiales están en `img/logo/` como PNG con fondo transparente: horizontal, vertical, solo texto e isotipo, cada una en color, gris y blanco (`toolkit-<forma>-<color>.png`).
+
+| Uso | Archivo |
+|---|---|
+| Header (fondo blanco) | `toolkit-horizontal-color.png` |
+| Footer (fondo tinta) | `toolkit-horizontal-blanco.png` |
+| Favicon y `logo` del JSON-LD | `toolkit-isotipo-color.png` |
+| Imagen para redes (`img/og-image.png`, 1200×630) | horizontal blanco sobre tinta |
+| Hero | engrane trazado a SVG desde el isotipo, inline |
+
+La imagen para redes va sobre tinta y no sobre violeta porque el "Kit" del logo blanco es violeta y se perdería.
 
 ### Tipografía
 
@@ -77,19 +92,28 @@ Orden del documento v2, con anclas para la navegación sugerida:
 
 ### Wireframes
 
-**Hero** — el momento memorable. El titular se compone en dos tiempos: la primera frase aparece *repartida* en cuatro columnas (una por área, como piezas sueltas); la segunda frase corre unida a lo ancho. La tipografía cuenta la idea: separado → integrado. A la derecha (desktop) el engrane del logo en violeta, grande y recortado por el borde.
+**Hero** — el momento memorable: **el engrane del logo se arma**. El engrane oficial (trazado a SVG desde el PNG) se divide en cuatro piezas, una por área, con los cortes en los valles entre dientes para que cada pieza lleve dos. Al cargar, las piezas están separadas mientras se lee el problema; encajan, se forma el logo con la burbuja al centro y entonces aparece la solución. El logo cuenta el titular: separado → integrado.
 
 ```
 ┌──────────────────────────────────────────────────────────┐
-│ Los problemas │ no vienen   │ separados   │ por          │   ← 4 columnas, gris lavanda
-│               │             │             │ disciplinas. │
-│ Las soluciones tampoco deberían.                     ⚙   │   ← una sola línea, blanco
+│ Los problemas no vienen         Consulting   Data & Tech │  ← condensada (wdth 75), tinta
+│ separados por disciplinas.            ⚙  (4 piezas)      │
+│ Las soluciones                                           │  ← ancho completo, 700, blanco
+│ tampoco deberían.               Lab               Studio │
 │                                                          │
 │ Reunimos investigación, estrategia, datos…  (≤ 60 ch)    │
 │ [Cuéntanos tu desafío]  Conoce nuestras soluciones       │
 └──────────────────────────────────────────────────────────┘
+        fondo: plano violeta del manual (#6A5DE7)
 ```
-Animación única de carga (≈ 600 ms): las cuatro piezas de la primera frase se asientan y la segunda frase entra completa. Con `prefers-reduced-motion` se muestra estática. No hay más animaciones de entrada en el resto de la página.
+- **Fondo:** `violet-strong` (#6A5DE7), el plano violeta que el manual usa detrás del logo. Sustituye al fondo tinta, que caía en el patrón genérico "oscuro + un acento".
+- **Tipografía:** el eje de ancho de Instrument Sans es parte del recurso. Problema en ancho 75, color tinta; solución en ancho 100, peso 700, blanco.
+- **Engrane:** color tinta. Las cuatro áreas rodean el engrane como enlaces a su bloque (`#area-consulting`, `#area-data`, `#area-lab`, `#area-studio`). Al señalar una con cursor o teclado, su pieza se separa. Reparto: Consulting arriba-izquierda, Data & Tech arriba-derecha, Lab abajo-izquierda, Studio abajo-derecha (**a validar con el cliente**; no viene del manual).
+- **Botones sobre violeta:** principal con fondo tinta (hover `ink-deep` #1A1640); secundario blanco con subrayado tinta. Foco visible en blanco.
+- **Móvil:** el engrane va arriba a 14rem para que el titular quede en la primera pantalla.
+- **Contraste:** blanco sobre #6A5DE7 = 4.8:1 (AA). Tinta sobre #6A5DE7 = 3.1:1, válido sólo para texto grande; no usarlo en texto de cuerpo.
+
+Animación única de carga (≈ 2 s): las piezas encajan (0.55–1.45 s), el engrane completo cubre las uniones y la segunda frase entra con un barrido. Con `prefers-reduced-motion` se muestra armado y estático. No hay más animaciones de entrada en el resto de la página.
 
 **Áreas de especialización** — cuatro bloques en rejilla 2×2 (1 col en móvil). No son tarjetas idénticas con sombra: cada bloque lleva una franja superior con el nombre y el subtítulo, y la lista completa de servicios visible (el cliente la pidió completa; no esconderla en acordeones en desktop). Sin numeración (no es una secuencia).
 
@@ -160,7 +184,7 @@ Botón: **Hablemos de tu proyecto**. Confirmación: "Recibimos tu mensaje. Te co
 - Tailwind por CDN (`cdn.tailwindcss.com`) no es para producción: compilar con Tailwind CLI o pasar a CSS propio (la página es pequeña; CSS propio con variables es viable y más ligero).
 - Quitar Material Icons (una fuente completa para 5 flechas) → SVG inline.
 - Quitar la imagen de Unsplash del hero (dependencia externa sin relación con la marca).
-- Logo como SVG oficial inline; favicon con el engrane.
+- Logo: PNG oficiales con `width`/`height` declarados; favicon con el isotipo (hecho). Si llega el SVG oficial, sustituir los PNG del header y footer.
 
 **Accesibilidad**
 - Contraste: texto pequeño nunca en `#7C78F2` sobre blanco; botones `#6A5DE7` con texto blanco.
@@ -171,8 +195,9 @@ Botón: **Hablemos de tu proyecto**. Confirmación: "Recibimos tu mensaje. Te co
 
 **SEO / compartir**
 - `<title>`: "Toolkit Social — Consultoría interdisciplinaria". Meta description con el texto del hero.
-- Open Graph con imagen del logo sobre violeta.
-- JSON-LD `Organization` sólo con datos reales (nombre, correo, teléfonos).
+- Dominio: `https://toolkitsocial.com/`. `<link rel="canonical">` y `og:url` apuntan a él.
+- Open Graph: `og:image` absoluta (`https://toolkitsocial.com/img/og-image.png`, 1200×630, logo blanco sobre tinta) y `twitter:card` `summary_large_image` (hecho). Al publicar, probar en el Sharing Debugger de Facebook y el Post Inspector de LinkedIn.
+- JSON-LD `Organization` sólo con datos reales: nombre, `url`, `logo`, correo y teléfonos (hecho).
 
 **Formulario y datos personales (México)**
 - Backend real: endpoint PHP propio o servicio (Formspree, Netlify Forms, etc.). **Probar recepción antes de publicar**, como pide el v2.
@@ -196,9 +221,10 @@ Botón: **Hablemos de tu proyecto**. Confirmación: "Recibimos tu mensaje. Te co
 
 ## 7. Pendientes para el cliente
 
-1. **Logo original en SVG** (versiones color y blanco) — imprescindible.
+1. ~~Logo original~~ — recibido en PNG. Opcional: el SVG oficial, para mayor nitidez.
 2. **Backend del formulario**: ¿a qué correo llegan los mensajes y dónde se aloja el sitio?
 3. **Aviso de privacidad**: ¿existe ya un texto?
 4. **Mapeo problema → áreas** de la tabla de §3: validar.
 5. **Fuente**: ¿aprueban Instrument Sans o quieren la del logotipo?
 6. ¿Se borran las páginas de `pages/` o se conservan fuera de la navegación?
+7. **Hero**: validar el reparto de áreas en las piezas del engrane (§3).
