@@ -1,6 +1,6 @@
 # Toolkit Social — Estrategia de rediseño (landing v2)
 
-**Fecha:** 12 oct 2026 (actualizado el mismo día: logos, og:image, hero) · **Fuentes:** `Toolkit_Social_Contenido_Landing_Page_v2.md/.pdf` (idénticos), `Examples/toolkit_identidad_1_page-0001.jpg.png` (manual de identidad), `Examples/restructura.md` (propuesta anterior), sitio actual (`index.html`, `pages/*`).
+**Fecha:** 12 oct 2026 (actualizado el mismo día: logos, og:image y rediseño de todas las secciones) · **Fuentes:** `Toolkit_Social_Contenido_Landing_Page_v2.md/.pdf` (idénticos), `Examples/toolkit_identidad_1_page-0001.jpg.png` (manual de identidad), `Examples/restructura.md` (propuesta anterior), sitio actual (`index.html`, `pages/*`).
 
 ---
 
@@ -66,6 +66,7 @@ Montserrat es genérica y no se parece al wordmark (geométrico, terminaciones s
 - Cuerpo: 400, 17–18 px, interlineado 1.6, medida ≤ 68 caracteres.
 - Escala (razón 1.25): 14 · 17 · 21 · 27 · 33 · 42 · 52 · 66 (hero, `clamp()` en móvil).
 - Sin mayúsculas sostenidas en etiquetas; sentence case en todo (coincide con el texto del cliente).
+- El eje de ancho tiene significado (ver §3, "Lenguaje común"): ancho 75 = problema, separado; ancho 100 = solución, integrado.
 
 Alternativa si el cliente prefiere la fuente del logo: confirmar cuál es (parece DM Sans/Lexend) y usarla en titulares.
 
@@ -78,17 +79,27 @@ Orden del documento v2, con anclas para la navegación sugerida:
 ```
 [Header fijo] logo original · Nosotros · Soluciones · Cómo trabajamos · Sectores · [Contacto]
 ─────────────────────────────────────────────────────────────
-#inicio        HERO  (fondo ink)
-#nosotros      Quiénes somos  +  Equipo (al final de la misma zona)
-#soluciones    4 áreas de especialización
-               ¿Qué desafío necesitas resolver?  (selector de problemas)
-#como-trabajamos  4 pasos
-#sectores      4 sectores + texto de cierre
-#contacto      Texto + canales + formulario  (fondo ink)
-[Footer] logo · canales · aviso de privacidad · ©
+#inicio        HERO  (fondo violeta, engrane que se arma)
+#nosotros      Quiénes somos (blanco)  +  Equipo (franja tinta)
+#soluciones    4 áreas de especialización (lavanda)
+#desafios      ¿Qué desafío necesitas resolver?  (blanco, selector de problemas)
+#como-trabajamos  4 pasos (lavanda)
+#sectores      4 sectores + texto de cierre (blanco)
+#contacto      Texto + canales + formulario  (fondo tinta)
+[Footer] logo · aviso de privacidad · ©
 ```
 
 "Equipo" no tiene entrada en el menú del cliente, así que vive dentro de `#nosotros` (es el mismo tema: quiénes somos / cómo nos organizamos).
+
+### Lenguaje común entre secciones
+
+Tres recursos se repiten a lo largo de la página y el visitante los aprende sin explicación:
+
+1. **Ancho tipográfico = separado → integrado.** Instrument Sans condensada (ancho 75) para el problema o lo suelto; ancho completo (100) para la solución o lo unido. Se usa en el titular del hero, el titular de Quiénes somos, la lista de disciplinas del Equipo, los problemas y respuestas de Desafíos.
+2. **Cada pieza del engrane es un área, siempre en la misma posición:** Consulting arriba-izquierda, Data & Tech arriba-derecha, Lab abajo-izquierda, Studio abajo-derecha. El engrane aparece en el hero (se arma solo), en Áreas (la pieza de cada una), en Desafíos (se encienden las del problema) y en Contacto (lo arma el visitante). Forma y recortes viven una sola vez en el SVG del hero (`#gear-shape`, `#cut-*`) y las demás instancias los reutilizan con `<use>`.
+3. **Movimiento:** una sola animación automática (la carga del hero). Todo lo demás se mueve sólo en respuesta a una acción (señalar un área, llegar desde un enlace, elegir un problema, marcar una casilla) y nada se anima con `prefers-reduced-motion`.
+
+Sin tarjetas con sombra, sin filetes de periódico, sin píldoras: las secciones se separan por color de fondo y espacio.
 
 ### Wireframes
 
@@ -113,27 +124,46 @@ Orden del documento v2, con anclas para la navegación sugerida:
 - **Móvil:** el engrane va arriba a 14rem para que el titular quede en la primera pantalla.
 - **Contraste:** blanco sobre #6A5DE7 = 4.8:1 (AA). Tinta sobre #6A5DE7 = 3.1:1, válido sólo para texto grande; no usarlo en texto de cuerpo.
 
-Animación única de carga (≈ 2 s): las piezas encajan (0.55–1.45 s), el engrane completo cubre las uniones y la segunda frase entra con un barrido. Con `prefers-reduced-motion` se muestra armado y estático. No hay más animaciones de entrada en el resto de la página.
+Animación única de carga (≈ 2 s): las piezas encajan (0.55–1.45 s), el engrane completo cubre las uniones y la segunda frase entra con un barrido. Con `prefers-reduced-motion` se muestra armado y estático. Es la única animación automática de la página.
 
-**Áreas de especialización** — cuatro bloques en rejilla 2×2 (1 col en móvil). No son tarjetas idénticas con sombra: cada bloque lleva una franja superior con el nombre y el subtítulo, y la lista completa de servicios visible (el cliente la pidió completa; no esconderla en acordeones en desktop). Sin numeración (no es una secuencia).
-
-```
-┌ Toolkit Consulting ─────────┐┌ Toolkit Data & Tech ───────┐
-│ Estrategia, investigación…  ││ Información y tecnología…  │
-│ Acompañamos el diseño…      ││ Transformamos datos…       │
-│ – Diagnósticos…             ││ – Organización…            │
-└─────────────────────────────┘└────────────────────────────┘
-┌ Toolkit Lab ────────────────┐┌ Toolkit Studio ────────────┐
-```
-
-**¿Qué desafío necesitas resolver?** — la pieza funcional. Seis problemas como lista seleccionable (botones). Al elegir uno se muestra la respuesta, se resaltan las áreas que intervienen y aparece "Hablemos de esto", que lleva a contacto con el tipo de apoyo ya preseleccionado en el formulario. Refuerza el mensaje (un problema = varias disciplinas) y reduce fricción al contactar.
+**Quiénes somos + Equipo** — el titular repite el recurso del hero: "Distintas disciplinas." condensada, "Una misma intención: encontrar mejores soluciones." a ancho completo. Debajo, el primer párrafo grande a la izquierda y los otros dos apilados a la derecha. Equipo va en una franja tinta: las 7 disciplinas como lista en tipografía grande que se abre de condensada (Sociología, 75 %) a ancha (Psicología comunitaria, 100 %), como piezas que se integran.
 
 ```
-  Tenemos información, pero no sabemos…  ●    │ Organizamos, analizamos y transformamos…
-  Nuestros procesos son lentos…               │ Áreas: [Data & Tech] [Studio]
-  Necesitamos diseñar, fortalecer…            │ Hablemos de esto
-  …                                           │
+┌────────────────────────────────────────────────────────────┐
+│ Distintas disciplinas.                       ← condensada  │
+│ Una misma intención: encontrar mejores soluciones. ← ancha │
+│ Somos una plataforma… (grande)   │ Creemos que…            │
+│                                  │ Trabajamos desde…       │
+├──────────────── franja tinta ──────────────────────────────┤
+│ Una red de talentos…            Toolkit Social se construye│
+│ Integramos experiencia en:                                 │
+│ Sociología  Evaluación de proyectos  Análisis de datos …   │
+│ Conformamos equipos…            Creemos en el talento…     │
+└────────────────────────────────────────────────────────────┘
 ```
+La frase "Integramos experiencia en sociología, evaluación…" pasa a "Integramos experiencia en:" + lista (**a validar con el cliente**; el resto del texto es literal).
+
+**Áreas de especialización** — sin tarjetas. Rejilla 2×2 sobre lavanda (1 columna en móvil) que repite la posición de las piezas: cada área lleva un engrane pequeño (4rem) con su pieza en tinta y las otras en lavanda claro. "Toolkit" en peso normal y el nombre del área en negrita (el `h3` conserva "Toolkit Consulting" completo). Subtítulos en `violet-deep` (5.4:1 sobre lavanda; `violet-strong` daba 4.1:1). Lista completa de servicios visible, sin acordeones. Al llegar desde el hero (`:target`), la pieza del área sale un instante y vuelve. Sin numeración (no es una secuencia).
+
+```
+  ⚙◤ Toolkit Consulting          ⚙◥ Toolkit Data & Tech
+  Estrategia, investigación…     Información y tecnología…
+  – Diagnósticos…                – Organización…
+  ⚙◣ Toolkit Lab                 ⚙◢ Toolkit Studio
+```
+
+**¿Qué desafío necesitas resolver?** — la pieza funcional y donde se demuestra la tesis (un problema = varias disciplinas). Seis problemas como tabs verticales accesibles (flechas, Home/End). Los problemas van en condensada, más grandes; el elegido en tinta, negrita y entre comillas « » con la de apertura colgada al margen. La respuesta va a ancho completo junto a un engrane con las piezas de las áreas que intervienen en tinta; al cambiar de problema, esas piezas llegan desde afuera y encajan. Debajo: "Intervienen Data & Tech y Studio" (enlaces) y "Hablemos de esto", que lleva a contacto con **las dos áreas** preseleccionadas.
+
+```
+  «Tenemos información, pero no       Consulting   Data & Tech
+   sabemos cómo aprovecharla.»              ⚙  (piezas encendidas)
+  Nuestros procesos son lentos…       Lab          Studio
+  Necesitamos diseñar, fortalecer…    Organizamos, analizamos y…
+  …                                   Intervienen Data & Tech y Studio
+                                      [Hablemos de esto]
+```
+En móvil cada respuesta aparece bajo su pregunta, con su engrane (14rem). Sin JS, todos los problemas se muestran con su engrane y su respuesta.
+
 Mapeo propuesto (**a validar con el cliente**, no está en el v2):
 
 | Problema | Áreas |
@@ -147,11 +177,18 @@ Mapeo propuesto (**a validar con el cliente**, no está en el v2):
 
 Sin JS, la sección degrada a una lista de pares problema/respuesta (contenido completo y rastreable).
 
-**Cómo trabajamos** — aquí sí hay secuencia real, así que la numeración 01–04 es legítima. Línea horizontal con cuatro paradas en desktop, vertical en móvil.
+**Cómo trabajamos** — escalera tipográfica. Hay secuencia real, así que la numeración 01–04 es legítima, pero el número es una marca pequeña: mandan los verbos (Comprendemos, Diseñamos, Implementamos, Fortalecemos) en grande. En escritorio cada verbo entra un escalón más (diagonal de avance) y las descripciones forman una columna recta a la derecha. Debajo de 64rem, sin escalera: número, verbo y descripción debajo. Sin engrane aquí, a propósito: sus piezas significan áreas, no pasos.
 
-**Sectores** — lista de cuatro filas (sector a la izquierda, descripción a la derecha), no tarjetas. Texto de cierre debajo.
+```
+  01 Comprendemos                     Escuchamos tus necesidades…
+       02 Diseñamos                   Integramos las capacidades…
+            03 Implementamos          Desarrollamos soluciones…
+                 04 Fortalecemos      Documentamos…
+```
 
-**Contacto** — fondo `ink`. Columna izquierda: titular, texto y los tres canales como enlaces grandes (correo `mailto:`, WhatsApp `https://wa.me/526567608980`, llamadas `tel:+526568208353`). Columna derecha: formulario.
+**Sectores** — rejilla 2×2 sin filetes (1 columna en móvil). El nombre del sector va grande (27 px, negrita) para que cada visitante se reconozca; la descripción debajo. El cierre "Cada proyecto es distinto." se destaca en grande como puente al contacto; el resto de la frase sigue en tamaño de lectura (mismo párrafo, texto literal).
+
+**Contacto** — fondo `ink`. Columna izquierda (fija al hacer scroll en escritorio): titular, texto y los tres canales como enlaces grandes separados por espacio (correo `mailto:`, WhatsApp `https://wa.me/526567608980`, llamadas `tel:+526568208353`). Columna derecha: formulario sobre fondo blanco. **Tipo de apoyo** es el engrane que arma el visitante: cuatro casillas reales en las esquinas y el engrane centrado; cada área marcada pone su pieza en tinta, y las piezas también se pueden pulsar. El footer ya no repite los canales.
 
 ### Formulario (según v2)
 
@@ -160,7 +197,7 @@ Sin JS, la sección degrada a una lista de pares problema/respuesta (contenido c
 | Nombre | texto | sí |
 | Organización | texto | no |
 | Medio de contacto | radio correo / WhatsApp + campo correspondiente | sí |
-| Tipo de apoyo | Consulting · Data & Tech · Lab · Studio · No estoy seguro/a | sí (default "No estoy seguro/a") |
+| Tipo de apoyo | casillas Consulting · Data & Tech · Lab · Studio (**varias**; sin ninguna se envía "No estoy seguro/a"). Se envía como lista: "Consulting, Lab" | no (default "No estoy seguro/a") |
 | Descripción breve del desafío | textarea | sí |
 | Consentimiento + enlace a aviso de privacidad | checkbox | sí |
 
@@ -181,9 +218,9 @@ Botón: **Hablemos de tu proyecto**. Confirmación: "Recibimos tu mensaje. Te co
 ## 5. Buenas prácticas técnicas
 
 **Producción**
-- Tailwind por CDN (`cdn.tailwindcss.com`) no es para producción: compilar con Tailwind CLI o pasar a CSS propio (la página es pequeña; CSS propio con variables es viable y más ligero).
-- Quitar Material Icons (una fuente completa para 5 flechas) → SVG inline.
-- Quitar la imagen de Unsplash del hero (dependencia externa sin relación con la marca).
+- ~~Tailwind por CDN~~ — hecho: la página usa CSS propio con variables (`css/landing.css`) y ya no carga Tailwind.
+- ~~Quitar Material Icons~~ — hecho: la página no los carga.
+- ~~Quitar la imagen de Unsplash del hero~~ — hecho: el hero usa el engrane de la marca.
 - Logo: PNG oficiales con `width`/`height` declarados; favicon con el isotipo (hecho). Si llega el SVG oficial, sustituir los PNG del header y footer.
 
 **Accesibilidad**
@@ -209,13 +246,14 @@ Botón: **Hablemos de tu proyecto**. Confirmación: "Recibimos tu mensaje. Te co
 ## 6. Plan de ejecución
 
 1. **Confirmar con el cliente** (ver §7).
-2. Tokens: actualizar `js/tailwind-config.js` (o CSS variables) con la paleta y la fuente.
-3. Reescribir `index.html` sección por sección con el texto v2.
-4. Hero: composición tipográfica + animación única + reduced motion.
-5. Selector de problemas (`js/main.js`) con preselección del formulario.
-6. Formulario + backend + aviso de privacidad; probar envío real.
-7. ~~Retirar `pages/`~~ — hecho. Si había enlaces externos a esas páginas, redirigirlos a `/#soluciones` en el servidor.
-8. Revisión: móvil (360 px), teclado, contraste, Lighthouse.
+2. ~~Tokens~~ — hecho, como variables CSS en `css/landing.css` (sin Tailwind).
+3. ~~Reescribir `index.html` con el texto v2~~ — hecho.
+4. ~~Hero~~ — hecho: engrane que se arma, animación única, reduced motion.
+5. ~~Rediseño por secciones~~ — hecho: Quiénes somos, Áreas, Desafíos, Cómo trabajamos, Sectores y Contacto (§3).
+6. ~~Selector de problemas~~ — hecho (`js/landing.js`), con preselección de las dos áreas en el formulario.
+7. Formulario: **backend real + aviso de privacidad; probar envío real.** Pendiente. Hoy, sin `data-endpoint`, el envío abre el correo del visitante con el mensaje armado.
+8. ~~Retirar `pages/`~~ — hecho. Si había enlaces externos a esas páginas, redirigirlos a `/#soluciones` en el servidor.
+9. Revisión final: móvil (360 px), teclado, contraste, Lighthouse. Cada sección ya se revisó en escritorio y a 375 px; falta la pasada completa con Lighthouse.
 
 ---
 
@@ -224,7 +262,9 @@ Botón: **Hablemos de tu proyecto**. Confirmación: "Recibimos tu mensaje. Te co
 1. ~~Logo original~~ — recibido en PNG. Opcional: el SVG oficial, para mayor nitidez.
 2. **Backend del formulario**: ¿a qué correo llegan los mensajes y dónde se aloja el sitio?
 3. **Aviso de privacidad**: ¿existe ya un texto?
-4. **Mapeo problema → áreas** de la tabla de §3: validar.
+4. **Mapeo problema → áreas** de la tabla de §3: validar. Ahora también decide qué piezas se encienden en Desafíos y qué áreas llegan marcadas al formulario.
 5. **Fuente**: ¿aprueban Instrument Sans o quieren la del logotipo?
 6. ~~¿Se borran las páginas de `pages/`?~~ — borradas (siguen en el historial de git).
-7. **Hero**: validar el reparto de áreas en las piezas del engrane (§3).
+7. **Engrane**: validar el reparto de áreas en las piezas (Consulting arriba-izquierda, Data & Tech arriba-derecha, Lab abajo-izquierda, Studio abajo-derecha). Se usa en hero, Áreas, Desafíos y Contacto.
+8. **Equipo**: aprobar que "Integramos experiencia en sociología, evaluación…" se muestre como "Integramos experiencia en:" + lista de las 7 disciplinas.
+9. **Tipo de apoyo**: el v2 lo define como una sola opción; el formulario permite elegir varias. Confirmar.
