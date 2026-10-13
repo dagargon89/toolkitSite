@@ -160,43 +160,10 @@ a {
     text-decoration: none;
 }
 
-.brand__mark {
-    display: grid;
-    place-items: center;
-    width: 2.5rem;
-    height: 2.5rem;
-    border: 2px dashed var(--violet);
-    border-radius: 50%;
-    color: var(--violet-strong);
-    font-size: 0.625rem;
-    font-weight: 600;
-}
-
-.brand__word {
-    font-size: 1.375rem;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    line-height: 1;
-}
-
-.brand__word small {
-    font-size: 0.75rem;
-    font-weight: 500;
-    letter-spacing: 0;
-    color: var(--graphite);
-}
-
-.brand--light {
-    color: var(--white);
-}
-
-.brand--light .brand__mark {
-    border-color: var(--lavender-line);
-    color: var(--lavender-line);
-}
-
-.brand--light .brand__word small {
-    color: var(--lavender-line);
+.brand__logo {
+    display: block;
+    width: auto;
+    height: 2.75rem;
 }
 
 /* Header */

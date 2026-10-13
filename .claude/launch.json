@@ -3,8 +3,8 @@
   "configurations": [
     {
       "name": "landing",
-      "runtimeExecutable": "python",
-      "runtimeArgs": ["-m", "http.server", "8137"],
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["-y", "http-server@14.1.1", "-p", "8137", "-c-1"],
       "port": 8137
     }
   ]
