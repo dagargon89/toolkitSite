@@ -979,51 +979,60 @@ a {
     }
 }
 
-/* Pasos (secuencia real, por eso numerada) */
+/* Pasos (secuencia real, por eso numerada): escalera tipográfica.
+   Cada paso entra un escalón más; el verbo manda, el número acompaña. */
 
 .steps {
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 2rem;
-    counter-reset: none;
+    gap: clamp(1.25rem, 0.75rem + 1.25vw, 2rem);
+    --stair: clamp(0rem, -5rem + 11vw, 5.5rem);
 }
 
 .step {
-    position: relative;
-    padding-top: 1.75rem;
-    border-top: 2px solid var(--ink);
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) minmax(0, 28rem);
+    column-gap: 0.75rem;
+    align-items: baseline;
 }
 
+/* Sólo el número y el verbo bajan en diagonal; las descripciones quedan en una columna recta */
+.step:nth-child(2) .step__num { margin-left: var(--stair); }
+.step:nth-child(3) .step__num { margin-left: calc(var(--stair) * 2); }
+.step:nth-child(4) .step__num { margin-left: calc(var(--stair) * 3); }
+
 .step__num {
-    display: block;
-    margin-bottom: 1rem;
-    font-size: var(--fs-xl);
+    font-size: var(--fs-xs);
     font-weight: 600;
-    font-stretch: 82%;
-    line-height: 1;
-    color: var(--violet-strong);
+    color: var(--violet-deep);
 }
 
 .step h3 {
-    margin-bottom: 0.5rem;
-    font-size: var(--fs-md);
-    font-weight: 600;
+    font-size: clamp(2rem, 1rem + 3vw, 3.25rem);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.025em;
 }
 
 .step p {
     color: var(--graphite);
+    padding-left: 1.5rem;
 }
 
-@media (max-width: 60rem) {
-    .steps {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        row-gap: 3rem;
+/* Sin ancho para la escalera: verbo grande y descripción debajo */
+@media (max-width: 64rem) {
+    .step {
+        grid-template-columns: 2rem minmax(0, 1fr);
+        row-gap: 0.5rem;
     }
-}
 
-@media (max-width: 36rem) {
-    .steps {
-        grid-template-columns: 1fr;
+    .step:nth-child(n) .step__num {
+        margin-left: 0;
+    }
+
+    .step p {
+        grid-column: 2;
+        max-width: 34rem;
+        padding-left: 0;
     }
 }
 
