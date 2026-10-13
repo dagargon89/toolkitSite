@@ -3,6 +3,7 @@
 
 :root {
     --ink: #25204F;
+    --ink-deep: #1A1640;
     --violet: #7C78F2;
     --violet-strong: #6A5DE7;
     --violet-deep: #5548d6;
@@ -297,52 +298,50 @@ a {
     }
 }
 
-/* Hero: la primera frase separada en cuatro columnas, la segunda unida */
+/* Hero: el engrane del logo llega en cuatro piezas (una por área) y encaja.
+   La tipografía repite la idea: problema condensado, solución a ancho completo. */
 
 .hero {
-    background: var(--ink);
+    background: var(--violet-strong);
     color: var(--white);
-    padding-block: clamp(4rem, 2rem + 8vw, 8.5rem) clamp(4rem, 2rem + 6vw, 7rem);
+    padding-block: clamp(3.5rem, 2rem + 6vw, 7rem);
     overflow: hidden;
 }
 
+.hero__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    align-items: center;
+    gap: clamp(2rem, 1rem + 4vw, 5rem);
+}
+
 .hero__title {
+    font-size: clamp(2.25rem, 1.1rem + 3.9vw, 4.375rem);
     font-weight: 600;
+    line-height: 1.02;
     letter-spacing: -0.025em;
 }
 
-.hero__split {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    font-size: clamp(1.5rem, 0.8rem + 2.6vw, 3.25rem);
-    font-stretch: 82%;
-    line-height: 1.05;
-    color: var(--lavender-line);
+.hero__problem {
+    display: block;
+    font-stretch: 75%;
+    color: var(--ink);
 }
 
-.hero__piece {
+.hero__answer {
     display: block;
-    padding: 0.35em 0.5em 1.4em 0.55em;
-    border-left: 1px solid rgb(194 200 250 / 0.35);
-}
-
-.hero__join {
-    display: block;
-    margin-top: 0.15em;
-    padding-top: 0.3em;
-    border-top: 2px solid var(--violet);
-    font-size: clamp(2.125rem, 1rem + 4.2vw, 4.25rem);
-    line-height: 1.02;
+    margin-top: 0.3em;
+    font-weight: 700;
+    font-stretch: 100%;
     text-wrap: balance;
     color: var(--white);
 }
 
 .hero__body {
-    max-width: 36rem;
-    margin-top: 2.5rem;
+    max-width: 34rem;
+    margin-top: 2.25rem;
     font-size: var(--fs-md);
     line-height: 1.55;
-    color: var(--lavender);
 }
 
 .hero__body p+p {
@@ -354,48 +353,148 @@ a {
     flex-wrap: wrap;
     align-items: center;
     gap: 1.25rem 2rem;
-    margin-top: 2.5rem;
+    margin-top: 2.25rem;
 }
 
-.hero :focus-visible,
+.hero .btn {
+    background: var(--ink);
+}
+
+.hero .btn:hover {
+    background: var(--ink-deep);
+}
+
+.hero .link-light {
+    text-decoration-color: var(--ink);
+}
+
+.hero .link-light:hover {
+    text-decoration-color: var(--white);
+}
+
+.hero__gear {
+    position: relative;
+    justify-self: end;
+    width: 100%;
+    max-width: 30rem;
+    aspect-ratio: 1;
+}
+
+.gear {
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    fill: var(--ink);
+}
+
+/* Desplazamiento de cada pieza hacia afuera, en la dirección de su centro */
+.gear__piece {
+    transform-box: fill-box;
+    transform-origin: center;
+    transition: transform 0.25s ease;
+}
+
+.gear__piece--consulting { --x: -17px; --y: -42px; --r: -9deg; }
+.gear__piece--data       { --x: 42px;  --y: -17px; --r: 7deg; }
+.gear__piece--studio     { --x: 17px;  --y: 42px;  --r: -6deg; }
+.gear__piece--lab        { --x: -42px; --y: 17px;  --r: 11deg; }
+
+/* El engrane completo tapa las uniones una vez armado */
+.gear__whole {
+    transition: opacity 0.15s ease;
+}
+
+.gear__areas li {
+    position: absolute;
+}
+
+.gear__area--consulting { top: 0; left: 0; }
+.gear__area--data       { top: 0; right: 0; }
+.gear__area--lab        { bottom: 0; left: 0; }
+.gear__area--studio     { bottom: 0; right: 0; }
+
+.gear__areas a {
+    display: inline-block;
+    padding: 0.25rem 0;
+    color: var(--white);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.3em;
+}
+
+.gear__areas a:hover,
+.gear__areas a:focus-visible {
+    text-decoration-color: var(--ink);
+}
+
+/* Al señalar un área, su pieza se separa del engrane */
+.hero__gear:has(.gear__areas a:is(:hover, :focus-visible)) .gear__whole {
+    opacity: 0;
+}
+
+.hero__gear:has(.gear__area--consulting a:is(:hover, :focus-visible)) .gear__piece--consulting,
+.hero__gear:has(.gear__area--data a:is(:hover, :focus-visible)) .gear__piece--data,
+.hero__gear:has(.gear__area--studio a:is(:hover, :focus-visible)) .gear__piece--studio,
+.hero__gear:has(.gear__area--lab a:is(:hover, :focus-visible)) .gear__piece--lab {
+    transform: translate(calc(var(--x) * 0.45), calc(var(--y) * 0.45));
+}
+
+.hero :focus-visible {
+    outline-color: var(--white);
+}
+
 .section--ink :focus-visible,
 .site-footer :focus-visible {
     outline-color: var(--lavender-line);
 }
 
-@media (max-width: 40rem) {
-    .hero__split {
-        grid-template-columns: repeat(2, 1fr);
+@media (max-width: 52rem) {
+    .hero__grid {
+        grid-template-columns: minmax(0, 1fr);
     }
 
-    .hero__piece {
-        padding-bottom: 0.9em;
+    .hero__gear {
+        order: -1;
+        justify-self: start;
+        max-width: 14rem;
+    }
+
+    .gear__areas a {
+        font-size: var(--fs-xs);
     }
 }
 
-/* Única animación de carga: las piezas se asientan, luego entra la frase unida */
+/* Única animación de carga: las piezas encajan y entonces aparece la solución */
 @media (prefers-reduced-motion: no-preference) {
-    .hero__piece {
-        animation: piece-settle 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+    .gear__piece {
+        animation: piece-join 0.9s cubic-bezier(0.65, 0, 0.25, 1) 0.55s backwards;
     }
 
-    .hero__piece:nth-child(1) { --from: -1.2rem; animation-delay: 0.05s; }
-    .hero__piece:nth-child(2) { --from: 1.4rem; animation-delay: 0.12s; }
-    .hero__piece:nth-child(3) { --from: -0.8rem; animation-delay: 0.19s; }
-    .hero__piece:nth-child(4) { --from: 1rem; animation-delay: 0.26s; }
-
-    .hero__join {
-        animation: join-in 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.6s both;
+    .gear__whole {
+        animation: hold-hidden 1.45s linear;
     }
 
-    @keyframes piece-settle {
+    .hero__answer {
+        animation: answer-in 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) 1.3s backwards;
+    }
+
+    @keyframes piece-join {
         from {
-            opacity: 0;
-            transform: translateY(var(--from));
+            transform: translate(var(--x), var(--y)) rotate(var(--r));
         }
     }
 
-    @keyframes join-in {
+    @keyframes hold-hidden {
+        from, to {
+            opacity: 0;
+        }
+    }
+
+    @keyframes answer-in {
         from {
             opacity: 0;
             clip-path: inset(0 100% 0 0);
