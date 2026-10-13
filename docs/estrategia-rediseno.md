@@ -10,7 +10,7 @@ El sitio actual se construyó sobre `restructura.md` (la "Estructura Madre"). El
 
 | Tema | Sitio actual | Lo que pide el cliente (v2) | Acción |
 |---|---|---|---|
-| Arquitectura | Multipágina: home + 7 páginas en `pages/` | **Una sola página** | Reescribir `index.html`; retirar `pages/` |
+| Arquitectura | Multipágina: home + 7 páginas en `pages/` | **Una sola página** | Hecho: `index.html` de una página; `pages/` eliminado |
 | Oferta | 5 ramas (Consultoría, Laboratorio, Datos, Comunicación, Formación) | **4 áreas**: Consulting, Data & Tech, Lab, Studio | Nueva sección de áreas; Formación desaparece como rama |
 | Tono | "Infraestructura de colaboración", "Estructura Madre", reflexivo | Comercial, claro, orientado a problemas | Usar el texto v2 literal |
 | Prueba social | `pages/proyectos.html` con "Proyecto Renacer" | **Sin testimonios, cifras ni clientes no validados** | Eliminar |
@@ -214,7 +214,7 @@ Botón: **Hablemos de tu proyecto**. Confirmación: "Recibimos tu mensaje. Te co
 4. Hero: composición tipográfica + animación única + reduced motion.
 5. Selector de problemas (`js/main.js`) con preselección del formulario.
 6. Formulario + backend + aviso de privacidad; probar envío real.
-7. Retirar `pages/`; si hay enlaces externos a ellas, redirigir a `/#soluciones`.
+7. ~~Retirar `pages/`~~ — hecho. Si había enlaces externos a esas páginas, redirigirlos a `/#soluciones` en el servidor.
 8. Revisión: móvil (360 px), teclado, contraste, Lighthouse.
 
 ---
@@ -226,5 +226,5 @@ Botón: **Hablemos de tu proyecto**. Confirmación: "Recibimos tu mensaje. Te co
 3. **Aviso de privacidad**: ¿existe ya un texto?
 4. **Mapeo problema → áreas** de la tabla de §3: validar.
 5. **Fuente**: ¿aprueban Instrument Sans o quieren la del logotipo?
-6. ¿Se borran las páginas de `pages/` o se conservan fuera de la navegación?
+6. ~~¿Se borran las páginas de `pages/`?~~ — borradas (siguen en el historial de git).
 7. **Hero**: validar el reparto de áreas en las piezas del engrane (§3).
