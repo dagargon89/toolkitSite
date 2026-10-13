@@ -530,58 +530,128 @@ a {
     margin-bottom: clamp(2rem, 1.5rem + 2vw, 3.5rem);
 }
 
-.prose {
+/* Quiénes somos: el titular repite el recurso del hero (condensada = separado, ancha = unido) */
+
+.about {
+    padding-top: var(--section-y);
+}
+
+.about__title {
+    max-width: 24ch;
+    font-size: clamp(2rem, 1.1rem + 3.2vw, 3.625rem);
+    font-weight: 600;
+    line-height: 1.04;
+    letter-spacing: -0.025em;
+}
+
+.about__parts {
+    display: block;
+    font-stretch: 75%;
+}
+
+.about__whole {
+    display: block;
+    font-stretch: 100%;
+}
+
+.about__body {
+    display: grid;
+    grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+    gap: 1.25rem 4rem;
+    align-items: start;
+    margin-top: clamp(1.5rem, 1rem + 2vw, 2.5rem);
+}
+
+.about__lead {
     max-width: 38rem;
+    font-size: var(--fs-md);
+    line-height: 1.5;
+}
+
+.about__cols {
+    max-width: 30rem;
     color: var(--graphite);
 }
 
-.prose p+p {
+.about__cols p+p {
     margin-top: 1rem;
 }
 
-.prose p:first-child {
-    font-size: var(--fs-md);
-    line-height: 1.5;
-    color: var(--ink);
-}
-
-.split {
-    display: grid;
-    grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
-    gap: 2rem 4rem;
-    align-items: start;
-}
-
-.split .section__title {
-    margin-bottom: 0;
-}
+/* Equipo: franja tinta; las disciplinas pasan de condensada a ancha */
 
 .team {
-    margin-top: clamp(3.5rem, 2rem + 5vw, 6rem);
-    padding-top: clamp(2.5rem, 2rem + 2vw, 3.5rem);
-    position: relative;
+    margin-top: clamp(3.5rem, 2.5rem + 3vw, 5rem);
+    padding-block: clamp(3.5rem, 2.5rem + 3vw, 5rem);
+    background: var(--ink);
+    color: var(--lavender);
 }
 
-.team::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: var(--gutter);
-    right: var(--gutter);
-    border-top: 1px solid var(--lavender-line);
+.team__head {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+    gap: 1.25rem 4rem;
+    align-items: end;
+}
+
+.team__head p {
+    max-width: 30rem;
+    font-size: var(--fs-md);
+    line-height: 1.5;
 }
 
 .team__title {
-    max-width: 18ch;
-    font-size: var(--fs-lg);
+    max-width: 16ch;
+    font-size: var(--fs-xl);
     font-weight: 600;
-    line-height: 1.15;
-    letter-spacing: -0.015em;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--white);
+}
+
+.team__lead-in {
+    margin-top: clamp(2rem, 1.5rem + 2vw, 3rem);
+    color: var(--lavender-line);
+}
+
+.team__disciplines {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.1em 0.75em;
+    margin-top: 0.75rem;
+    font-size: clamp(1.5rem, 0.9rem + 2vw, 2.5rem);
+    font-weight: 600;
+    line-height: 1.12;
+    letter-spacing: -0.02em;
+    color: var(--white);
+}
+
+.team__disciplines li:nth-child(1) { font-stretch: 75%; }
+.team__disciplines li:nth-child(2) { font-stretch: 79%; }
+.team__disciplines li:nth-child(3) { font-stretch: 83%; }
+.team__disciplines li:nth-child(4) { font-stretch: 87%; }
+.team__disciplines li:nth-child(5) { font-stretch: 92%; }
+.team__disciplines li:nth-child(6) { font-stretch: 96%; }
+.team__disciplines li:nth-child(7) { font-stretch: 100%; }
+
+.team__cols {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 26rem));
+    gap: 1.25rem 3rem;
+    align-items: start;
+    margin-top: clamp(2rem, 1.5rem + 2vw, 3rem);
+}
+
+.team__belief {
+    font-size: var(--fs-md);
+    line-height: 1.45;
+    color: var(--white);
 }
 
 @media (max-width: 52rem) {
-    .split {
-        grid-template-columns: 1fr;
+    .about__body,
+    .team__head,
+    .team__cols {
+        grid-template-columns: minmax(0, 1fr);
     }
 }
 
