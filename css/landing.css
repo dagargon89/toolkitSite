@@ -161,10 +161,11 @@ a {
     text-decoration: none;
 }
 
+/* Versión reducida del logo (sin el lema, que a este tamaño no se lee) */
 .brand__logo {
     display: block;
     width: auto;
-    height: 2.75rem;
+    height: 2.5rem;
 }
 
 /* Header */
@@ -452,19 +453,62 @@ a {
     outline-color: var(--lavender-line);
 }
 
+/* Móvil: engrane compacto con las áreas en 2×2 a su lado (misma posición que sus piezas),
+   para que titular y botón principal quepan en la primera pantalla */
 @media (max-width: 52rem) {
+    .hero {
+        padding-block: 2rem 3rem;
+    }
+
     .hero__grid {
         grid-template-columns: minmax(0, 1fr);
+        gap: 1.75rem;
     }
 
     .hero__gear {
         order: -1;
-        justify-self: start;
-        max-width: 14rem;
+        display: grid;
+        grid-template-columns: 6.5rem max-content max-content;
+        grid-template-areas:
+            "gear consulting data"
+            "gear lab studio";
+        align-items: center;
+        justify-content: start;
+        column-gap: 1.25rem;
+        max-width: none;
+        aspect-ratio: auto;
     }
+
+    .gear {
+        grid-area: gear;
+        width: 6.5rem;
+        height: 6.5rem;
+    }
+
+    .gear__areas {
+        display: contents;
+    }
+
+    .gear__areas li {
+        position: static;
+    }
+
+    .gear__area--consulting { grid-area: consulting; }
+    .gear__area--data       { grid-area: data; }
+    .gear__area--lab        { grid-area: lab; }
+    .gear__area--studio     { grid-area: studio; }
 
     .gear__areas a {
         font-size: var(--fs-xs);
+    }
+
+    .hero__body {
+        margin-top: 1.5rem;
+        font-size: 1.125rem;
+    }
+
+    .hero__actions {
+        margin-top: 1.75rem;
     }
 }
 
@@ -633,12 +677,17 @@ a {
 .team__disciplines li:nth-child(6) { font-stretch: 96%; }
 .team__disciplines li:nth-child(7) { font-stretch: 100%; }
 
+/* Misma rejilla que .team__head para que las dos columnas de la franja alineen */
 .team__cols {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 26rem));
-    gap: 1.25rem 3rem;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+    gap: 1.25rem 4rem;
     align-items: start;
     margin-top: clamp(2rem, 1.5rem + 2vw, 3rem);
+}
+
+.team__cols p {
+    max-width: 30rem;
 }
 
 .team__belief {
@@ -647,7 +696,7 @@ a {
     color: var(--white);
 }
 
-@media (max-width: 52rem) {
+@media (max-width: 40rem) {
     .about__body,
     .team__head,
     .team__cols {
@@ -756,6 +805,13 @@ a {
 }
 
 @media (max-width: 52rem) {
+    .area__gear {
+        width: 3rem;
+        height: 3rem;
+    }
+}
+
+@media (max-width: 40rem) {
     .areas {
         grid-template-columns: minmax(0, 1fr);
     }
@@ -771,33 +827,61 @@ a {
     align-items: start;
 }
 
+.section__title:has(+ .challenges__hint) {
+    margin-bottom: 0.75rem;
+}
+
+.challenges__hint {
+    margin-bottom: clamp(2rem, 1.5rem + 2vw, 3.5rem);
+    color: var(--graphite);
+}
+
+/* Los problemas se leen como filas pulsables: filete entre filas, flecha y fondo al señalar */
 .challenges__list {
     display: grid;
-    gap: 0.25rem;
+    border-top: 1px solid var(--lavender-line);
 }
 
 .challenge-tab {
     position: relative;
-    padding: 0.625rem 0;
+    padding: 0.75rem 2.5rem 0.75rem 1rem;
     border: 0;
+    border-bottom: 1px solid var(--lavender-line);
     background: none;
     color: var(--graphite);
     font: 500 clamp(1.25rem, 0.9rem + 1vw, 1.5rem)/1.25 var(--font);
     font-stretch: 75%;
     text-align: left;
     cursor: pointer;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.challenge-tab[aria-selected="false"]::after {
+    content: "→";
+    position: absolute;
+    right: 1rem;
+    top: 0.75rem;
+    color: var(--violet-strong);
+    font-stretch: 100%;
+    transition: transform 0.15s ease;
 }
 
 .challenge-tab:hover {
+    background: #F6F5FD;
     color: var(--ink);
 }
 
+.challenge-tab:hover::after {
+    transform: translateX(0.2em);
+}
+
 .challenge-tab[aria-selected="true"] {
+    background: var(--lavender);
     color: var(--ink);
     font-weight: 700;
 }
 
-/* Comillas colgadas: la de apertura sale al margen para no mover el texto */
+/* Comillas colgadas: la de apertura entra en el relleno para no mover el texto */
 .challenge-tab[aria-selected="true"]::before,
 .challenge-tab[aria-selected="true"]::after {
     color: var(--violet-strong);
@@ -806,8 +890,8 @@ a {
 .challenge-tab[aria-selected="true"]::before {
     content: "«";
     position: absolute;
-    right: 100%;
-    margin-right: 0.1em;
+    left: 1rem;
+    transform: translateX(calc(-100% - 0.1em));
 }
 
 .challenge-tab[aria-selected="true"]::after {
@@ -969,9 +1053,13 @@ a {
     .challenge-tab:nth-child(6) { order: 11; }
     .challenge-panel:nth-child(6) { order: 12; }
 
+    .challenge-tab:first-child {
+        border-top: 1px solid var(--lavender-line);
+    }
+
     .challenge-panel,
     .challenge-panel+.challenge-panel {
-        margin-block: 0.75rem 1.75rem;
+        margin-block: 1.25rem 1.75rem;
     }
 
     .fit {
@@ -1079,7 +1167,7 @@ a {
     color: var(--ink);
 }
 
-@media (max-width: 52rem) {
+@media (max-width: 40rem) {
     .sectors {
         grid-template-columns: minmax(0, 1fr);
     }
@@ -1261,20 +1349,41 @@ a {
     color: var(--graphite);
 }
 
-.picker__gear {
-    position: relative;
-    width: min(100%, 17rem);
-    margin-inline: auto;
-    aspect-ratio: 1;
+/* Casillas en columna junto a un engrane pequeño; con ancho suficiente,
+   en 2×2 (misma posición que sus piezas) y el engrane a la derecha */
+.contact-form {
+    container-type: inline-size;
 }
 
-/* El engrane va hacia adentro para dejar las esquinas libres a los nombres */
+.picker__gear {
+    display: grid;
+    grid-template-columns: 5.5rem max-content;
+    grid-template-areas:
+        "gear consulting"
+        "gear data"
+        "gear lab"
+        "gear studio";
+    align-items: center;
+    justify-content: start;
+    gap: 0.5rem 1.5rem;
+}
+
 .picker__svg {
-    position: absolute;
-    inset: 13%;
-    width: 74%;
-    height: 74%;
+    grid-area: gear;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1;
     overflow: visible;
+}
+
+@container (min-width: 24rem) {
+    .picker__gear {
+        grid-template-columns: max-content max-content 6rem;
+        grid-template-areas:
+            "consulting data gear"
+            "lab studio gear";
+        gap: 1rem 2rem;
+    }
 }
 
 .picker__rest,
@@ -1295,14 +1404,13 @@ a {
 .picker__piece--lab        { --x: -63px; --y: 25px; }
 
 .picker__opt {
-    position: absolute;
     font-size: 0.9375rem;
 }
 
-.picker__opt--consulting { top: 0; left: 0; }
-.picker__opt--data       { top: 0; right: 0; }
-.picker__opt--lab        { bottom: 0; left: 0; }
-.picker__opt--studio     { bottom: 0; right: 0; }
+.picker__opt--consulting { grid-area: consulting; }
+.picker__opt--data       { grid-area: data; }
+.picker__opt--lab        { grid-area: lab; }
+.picker__opt--studio     { grid-area: studio; }
 
 /* Al señalar un área (pieza o nombre), su pieza se tiñe de violeta */
 .picker__piece:hover,

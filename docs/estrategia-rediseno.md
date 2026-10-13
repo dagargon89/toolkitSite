@@ -51,11 +51,13 @@ Las 12 variantes oficiales están en `img/logo/` como PNG con fondo transparente
 
 | Uso | Archivo |
 |---|---|
-| Header (fondo blanco) | `toolkit-horizontal-color.png` |
-| Footer (fondo tinta) | `toolkit-horizontal-blanco.png` |
+| Header (fondo blanco) | `toolkit-horizontal-reducido-color.png` (sin lema) |
+| Footer (fondo tinta) | `toolkit-horizontal-reducido-blanco.png` (sin lema) |
 | Favicon y `logo` del JSON-LD | `toolkit-isotipo-color.png` |
 | Imagen para redes (`img/og-image.png`, 1200×630) | horizontal blanco sobre tinta |
 | Hero | engrane trazado a SVG desde el isotipo, inline |
+
+Versión reducida: a 40 px de alto el lema "SOCIAL CONSULTING" no se lee, así que header y footer usan `toolkit-horizontal-reducido-*.png`, generadas desde la horizontal sin el lema y con la palabra centrada respecto al engrane (**a validar con el cliente**).
 
 La imagen para redes va sobre tinta y no sobre violeta porque el "Kit" del logo blanco es violeta y se perdería.
 
@@ -268,3 +270,5 @@ Botón: **Hablemos de tu proyecto**. Confirmación: "Recibimos tu mensaje. Te co
 7. **Engrane**: validar el reparto de áreas en las piezas (Consulting arriba-izquierda, Data & Tech arriba-derecha, Lab abajo-izquierda, Studio abajo-derecha). Se usa en hero, Áreas, Desafíos y Contacto.
 8. **Equipo**: aprobar que "Integramos experiencia en sociología, evaluación…" se muestre como "Integramos experiencia en:" + lista de las 7 disciplinas.
 9. **Tipo de apoyo**: el v2 lo define como una sola opción; el formulario permite elegir varias. Confirmar.
+10. **Logo reducido** (sin lema) en header y footer: aprobar, o enviar la versión reducida oficial si existe.
+11. **Desafíos**: se añadió la línea de ayuda "Elige el que más se parezca al tuyo." bajo el titular (no está en el v2). Aprobar.
