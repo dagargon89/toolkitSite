@@ -271,6 +271,10 @@ Botón: **Hablemos de tu proyecto**. Confirmación: "Recibimos tu mensaje. Te co
 - ~~Quitar Material Icons~~ — hecho: la página no los carga.
 - ~~Quitar la imagen de Unsplash del hero~~ — hecho: el hero usa el engrane de la marca.
 - Logo: PNG oficiales con `width`/`height` declarados; favicon con el isotipo (hecho). Si llega el SVG oficial, sustituir los PNG del header y footer.
+- **Versión de CSS y JS:**
+  - Por qué: Hostinger publica solo desde `main` y no envía cabeceras de caché, así que el navegador puede reutilizar un `landing.css` viejo con un `index.html` nuevo. Pasó el 28 oct 2026: el hero nuevo se veía con los estilos del anterior.
+  - Cómo: los enlaces llevan `?v=AAAAMMDD` (`css/landing.css?v=…`, `js/landing.js?v=…`) en `index.html` y `aviso-de-privacidad.html`.
+  - **Regla: en cada publicación que toque el CSS o el JS, cambiar la versión en las dos páginas.**
 
 **Accesibilidad**
 - Contraste: texto pequeño nunca en `#7C78F2` sobre blanco; botones `#6A5DE7` con texto blanco.
