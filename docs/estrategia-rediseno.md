@@ -110,18 +110,21 @@ Sin tarjetas con sombra, sin filetes de periódico, sin píldoras: las secciones
 ```
 ┌──────────────────────────────────────────────────────────┐
 │ ToolKit            Nosotros Soluciones …  [Contacto]     │  ← cabecera translúcida
-│            Los problemas no vienen                       │  ← condensada (wdth 75), tinta
-│            separados por disciplinas.                    │
-│            Las soluciones tampoco deberían.              │  ← ancho completo, 700, tinta
-│   Reunimos investigación, estrategia, datos… (centrado)  │
-│   [Cuéntanos tu desafío]  Conoce nuestras soluciones     │
-│          Consulting   ◤ ◥   Data & Tech                  │  ← piezas en violeta; las áreas
-│                Lab    ◣ ◢   Studio                       │    aparecen al terminar de armarse
+│                                   Consulting  Data & Tech│  ← las áreas aparecen al
+│ Los problemas no vienen               ◤  ◥               │    terminar de armarse
+│ separados por disciplinas.        (engrane en violeta)   │  ← condensada (wdth 75), tinta
+│ Las soluciones tampoco deberían.      ◣  ◢               │  ← ancho completo, 700, tinta
+│ Reunimos investigación…           Lab         Studio     │
+│ [Cuéntanos tu desafío]  Conoce nuestras soluciones       │
 └──────────────────────────────────────────────────────────┘
-        fondo blanco; el violeta sólo en el engrane
+        fondo lavanda; el violeta sólo en el engrane
 ```
-- **Fondo:** blanco, continuo con la cabecera (translúcida, `blur(20px)`). El violeta (`violet-strong`) queda sólo en el engrane, que así pesa más. Sustituye al bloque violeta, que cortaba la página.
-- **Tipografía:** titular centrado, máx. 58 px (48 px en pantallas bajas). Problema en ancho 75 y solución en ancho 100, peso 700, ambos en tinta. Texto de apoyo en `graphite`.
+- **Fondo:** lavanda (`lavender`), para que el hero se distinga de Quiénes somos (blanco) sin volver al bloque de color fuerte. La cabecera es translúcida (`blur(20px)`). El violeta (`violet-strong`) queda sólo en el engrane, que así pesa más.
+- **Distribución:**
+  - Desde 64rem, dos columnas: el texto a la izquierda (7fr) y el engrane a la derecha (5fr, hasta 26rem), a la misma altura.
+  - Por debajo de 64rem, todo centrado y apilado.
+  - Primera versión (27 oct): centrado en todos los tamaños. Se cambió porque en pantalla ancha desperdiciaba los lados y dejaba el engrane pequeño y abajo; el hero blanco, además, no se distinguía de la sección siguiente.
+- **Tipografía:** titular de máx. 58 px (48 px en pantallas bajas). Problema en ancho 75 y solución en ancho 100, peso 700, ambos en tinta. Texto de apoyo en `graphite` (7.3:1 sobre lavanda).
 - **Movimiento:**
   - Al cargar, sólo el texto sube 14 px y aparece (0.9 s).
   - Con JS y movimiento permitido, el hero mide 220vh y su escenario queda fijo bajo la cabecera.
@@ -130,8 +133,8 @@ Sin tarjetas con sombra, sin filetes de periódico, sin píldoras: las secciones
   - El CSS lee `--spread`, `--turn`, `--whole` y `--labels`. Ya armado, el engrane completo tapa las uniones entre piezas.
 - **Sin movimiento** (`prefers-reduced-motion`), **sin JS** o **en pantallas de menos de 36rem de alto:** el hero mide una pantalla, con el engrane armado y las áreas visibles.
 - **Engrane:**
-  - Ocupa el alto que deja el texto, hasta 20rem.
-  - Las cuatro áreas son enlaces a su tarjeta (`#area-consulting`, …), a los lados en escritorio y arriba y abajo en móvil.
+  - Ocupa el alto disponible, hasta 26rem en dos columnas y 20rem apilado.
+  - Las cuatro áreas son enlaces a su tarjeta (`#area-consulting`, …). Van arriba y abajo de su pieza (`--label-room` les reserva ese espacio): a los lados chocaban con el texto en laptops.
   - Al señalar una con cursor o teclado, su pieza pasa a tinta.
   - Mientras están ocultas, el foco del teclado las muestra.
   - Reparto: Consulting arriba-izquierda, Data & Tech arriba-derecha, Lab abajo-izquierda, Studio abajo-derecha (**a validar con el cliente**).

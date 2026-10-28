@@ -315,6 +315,11 @@ a {
    lo calcula js/landing.js en --spread, --turn, --whole y --labels.
    La tipografía repite la idea: problema condensado, solución a ancho completo. */
 
+/* Lavanda: separa el hero de Quiénes somos (blanco) sin volver al bloque de color fuerte */
+.hero {
+    background: var(--lavender);
+}
+
 .hero__stage {
     display: grid;
     align-items: center;
@@ -400,11 +405,14 @@ a {
     }
 }
 
+/* --label-room reserva arriba y abajo el lugar de las áreas */
 .hero__gear {
     --gear: min(32vh, 20rem);
+    --label-room: 4.5rem;
     position: relative;
     width: var(--gear);
     aspect-ratio: 1;
+    margin-block: 2.25rem;
 }
 
 .gear {
@@ -438,15 +446,15 @@ a {
     opacity: var(--labels, 1);
 }
 
-/* Las áreas, a los lados de su pieza */
+/* Las áreas, arriba y abajo de su pieza: a los lados chocarían con el texto */
 .gear__areas li {
     position: absolute;
 }
 
-.gear__area--consulting { top: 8%; right: calc(100% + 1rem); }
-.gear__area--data       { top: 8%; left: calc(100% + 1rem); }
-.gear__area--lab        { bottom: 8%; right: calc(100% + 1rem); }
-.gear__area--studio     { bottom: 8%; left: calc(100% + 1rem); }
+.gear__area--consulting { top: -2rem; left: 0; }
+.gear__area--data       { top: -2rem; right: 0; }
+.gear__area--lab        { bottom: -2rem; left: 0; }
+.gear__area--studio     { bottom: -2rem; right: 0; }
 
 .gear__areas a {
     display: inline-block;
@@ -531,6 +539,44 @@ a {
     }
 }
 
+/* Pantallas anchas: el texto a la izquierda y el engrane grande a la derecha, a la misma altura */
+@media (min-width: 64rem) {
+    .hero__inner {
+        grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+        align-items: center;
+        justify-items: start;
+        column-gap: clamp(3rem, 1rem + 4vw, 6rem);
+        text-align: left;
+    }
+
+    .hero__copy {
+        justify-items: start;
+    }
+
+    .hero__title {
+        text-align: left;
+    }
+
+    .hero__actions {
+        justify-content: flex-start;
+    }
+
+    .hero__gear {
+        --gear: min(56vh, 26rem);
+        justify-self: center;
+    }
+}
+
+@media (prefers-reduced-motion: no-preference) and (min-height: 36rem) and (min-width: 64rem) {
+    .js .hero__inner {
+        grid-template-rows: minmax(0, 1fr);
+    }
+
+    .js .hero__gear {
+        max-height: 26rem;
+    }
+}
+
 /* Pantallas bajas: titular y espacios más compactos para que el engrane tenga lugar */
 @media (min-width: 52rem) and (max-height: 50rem) {
     .hero__title {
@@ -546,22 +592,16 @@ a {
     }
 }
 
-/* Móvil: las áreas arriba y abajo del engrane (--label-room les reserva ese espacio) */
+/* Móvil: el engrane es angosto, así que las áreas se abren un poco hacia los lados */
 @media (max-width: 52rem) {
     .hero__gear {
         --gear: min(26vh, 48vw);
-        --label-room: 4.5rem;
-        margin-block: 2.25rem;
     }
 
     .gear__area--consulting,
-    .gear__area--lab        { right: auto; left: -2.5rem; }
+    .gear__area--lab        { left: -2.5rem; }
     .gear__area--data,
-    .gear__area--studio     { left: auto; right: -2.5rem; }
-    .gear__area--consulting,
-    .gear__area--data       { top: -2rem; }
-    .gear__area--lab,
-    .gear__area--studio     { bottom: -2rem; }
+    .gear__area--studio     { right: -2.5rem; }
 
     .gear__areas a {
         font-size: var(--fs-xs);
