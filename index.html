@@ -552,34 +552,29 @@
                         <p class="field__error" id="f-contacto-error"></p>
                     </div>
 
-                    <!-- Tipo de apoyo: casillas reales; el engrane refleja las marcadas. Sin ninguna se envía
-                         "No estoy seguro/a". -->
+                    <!-- Tipo de apoyo: "No estoy seguro/a" excluye a las áreas. Sin ninguna marcada también se
+                         envía "No estoy seguro/a". -->
                     <fieldset class="field picker" aria-describedby="apoyo-hint">
                         <legend>Tipo de apoyo</legend>
-                        <p class="picker__hint" id="apoyo-hint">Puedes elegir más de una. Si no estás seguro/a, déjalo
-                            vacío.</p>
-                        <div class="picker__gear">
-                            <svg class="picker__svg" viewBox="-14 -14 525 525" aria-hidden="true" focusable="false">
-                                <use class="picker__rest" href="#gear-shape" />
-                                <g class="picker__piece picker__piece--consulting" data-for="f-apoyo-consulting"><use href="#gear-shape" clip-path="url(#cut-consulting)" /></g>
-                                <g class="picker__piece picker__piece--data" data-for="f-apoyo-data"><use href="#gear-shape" clip-path="url(#cut-data)" /></g>
-                                <g class="picker__piece picker__piece--lab" data-for="f-apoyo-lab"><use href="#gear-shape" clip-path="url(#cut-lab)" /></g>
-                                <g class="picker__piece picker__piece--studio" data-for="f-apoyo-studio"><use href="#gear-shape" clip-path="url(#cut-studio)" /></g>
-                            </svg>
-                            <label class="choice picker__opt picker__opt--consulting"><input id="f-apoyo-consulting"
+                        <p class="picker__hint" id="apoyo-hint">Puedes elegir más de una.</p>
+                        <div class="picker__opts">
+                            <label class="choice picker__opt"><input id="f-apoyo-consulting"
                                     type="checkbox" name="apoyo" value="Consulting" /> Consulting</label>
-                            <label class="choice picker__opt picker__opt--data"><input id="f-apoyo-data"
+                            <label class="choice picker__opt"><input id="f-apoyo-data"
                                     type="checkbox" name="apoyo" value="Data &amp; Tech" /> Data &amp; Tech</label>
-                            <label class="choice picker__opt picker__opt--lab"><input id="f-apoyo-lab"
+                            <label class="choice picker__opt"><input id="f-apoyo-lab"
                                     type="checkbox" name="apoyo" value="Lab" /> Lab</label>
-                            <label class="choice picker__opt picker__opt--studio"><input id="f-apoyo-studio"
+                            <label class="choice picker__opt"><input id="f-apoyo-studio"
                                     type="checkbox" name="apoyo" value="Studio" /> Studio</label>
+                            <label class="choice picker__opt"><input id="f-apoyo-nose"
+                                    type="checkbox" name="apoyo" value="No estoy seguro/a" /> No estoy seguro/a</label>
                         </div>
                     </fieldset>
 
                     <div class="field">
                         <label for="f-desafio">Describe brevemente tu desafío</label>
-                        <textarea id="f-desafio" name="desafio" rows="4" required></textarea>
+                        <textarea id="f-desafio" name="desafio" rows="4" required
+                            placeholder="¿Qué necesitas mejorar, desarrollar o resolver?"></textarea>
                         <p class="field__error" id="f-desafio-error"></p>
                     </div>
 

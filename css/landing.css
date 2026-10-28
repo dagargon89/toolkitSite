@@ -1340,8 +1340,7 @@ a {
     margin-top: 0.1rem;
 }
 
-/* Tipo de apoyo: el visitante arma su engrane. Las casillas son el control;
-   el engrane refleja las marcadas y sus piezas también se pueden pulsar. */
+/* Tipo de apoyo: casillas en rejilla; con ancho suficiente caben en dos o tres columnas */
 
 .picker__hint {
     margin-bottom: 0.75rem;
@@ -1349,99 +1348,14 @@ a {
     color: var(--graphite);
 }
 
-/* Casillas en columna junto a un engrane pequeño; con ancho suficiente,
-   en 2×2 (misma posición que sus piezas) y el engrane a la derecha */
-.contact-form {
-    container-type: inline-size;
-}
-
-.picker__gear {
+.picker__opts {
     display: grid;
-    grid-template-columns: 5.5rem max-content;
-    grid-template-areas:
-        "gear consulting"
-        "gear data"
-        "gear lab"
-        "gear studio";
-    align-items: center;
-    justify-content: start;
+    grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr));
     gap: 0.5rem 1.5rem;
 }
 
-.picker__svg {
-    grid-area: gear;
-    width: 100%;
-    height: auto;
-    aspect-ratio: 1;
-    overflow: visible;
-}
-
-@container (min-width: 24rem) {
-    .picker__gear {
-        grid-template-columns: max-content max-content 6rem;
-        grid-template-areas:
-            "consulting data gear"
-            "lab studio gear";
-        gap: 1rem 2rem;
-    }
-}
-
-.picker__rest,
-.picker__piece {
-    fill: var(--lavender-line);
-}
-
-.picker__piece {
-    cursor: pointer;
-    transform-box: fill-box;
-    transform-origin: center;
-    transition: fill 0.15s ease;
-}
-
-.picker__piece--consulting { --x: -25px; --y: -63px; }
-.picker__piece--data       { --x: 63px;  --y: -25px; }
-.picker__piece--studio     { --x: 25px;  --y: 63px; }
-.picker__piece--lab        { --x: -63px; --y: 25px; }
-
 .picker__opt {
     font-size: 0.9375rem;
-}
-
-.picker__opt--consulting { grid-area: consulting; }
-.picker__opt--data       { grid-area: data; }
-.picker__opt--lab        { grid-area: lab; }
-.picker__opt--studio     { grid-area: studio; }
-
-/* Al señalar un área (pieza o nombre), su pieza se tiñe de violeta */
-.picker__piece:hover,
-.picker:has(.picker__opt--consulting:hover) .picker__piece--consulting,
-.picker:has(.picker__opt--data:hover) .picker__piece--data,
-.picker:has(.picker__opt--lab:hover) .picker__piece--lab,
-.picker:has(.picker__opt--studio:hover) .picker__piece--studio {
-    fill: var(--violet);
-}
-
-/* Marcada: la pieza queda en tinta */
-.picker:has(#f-apoyo-consulting:checked) .picker__piece--consulting,
-.picker:has(#f-apoyo-data:checked) .picker__piece--data,
-.picker:has(#f-apoyo-lab:checked) .picker__piece--lab,
-.picker:has(#f-apoyo-studio:checked) .picker__piece--studio {
-    fill: var(--ink);
-}
-
-@media (prefers-reduced-motion: no-preference) {
-    .picker:has(#f-apoyo-consulting:checked) .picker__piece--consulting,
-    .picker:has(#f-apoyo-data:checked) .picker__piece--data,
-    .picker:has(#f-apoyo-lab:checked) .picker__piece--lab,
-    .picker:has(#f-apoyo-studio:checked) .picker__piece--studio {
-        animation: picker-in 0.45s cubic-bezier(0.3, 0, 0.2, 1);
-    }
-
-    @keyframes picker-in {
-        from {
-            transform: translate(var(--x), var(--y));
-        }
-    }
 }
 
 .hp {

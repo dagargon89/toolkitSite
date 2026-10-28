@@ -122,11 +122,14 @@ function initContactForm() {
         });
     });
 
-    // Las piezas del engrane también marcan su casilla al hacer clic (el teclado usa las casillas)
-    form.querySelectorAll('.picker__piece[data-for]').forEach((piece) => {
-        piece.addEventListener('click', () => {
-            const box = document.getElementById(piece.dataset.for);
-            box.checked = !box.checked;
+    // "No estoy seguro/a" excluye a las áreas, y marcar un área la desmarca
+    const unsure = form.querySelector('#f-apoyo-nose');
+    form.querySelectorAll('input[name="apoyo"]').forEach((box) => {
+        box.addEventListener('change', () => {
+            if (!box.checked) return;
+            form.querySelectorAll('input[name="apoyo"]').forEach((other) => {
+                if (other !== box && (box === unsure || other === unsure)) other.checked = false;
+            });
         });
     });
 
@@ -152,7 +155,10 @@ function initContactForm() {
         }
 
         const button = form.querySelector('button[type="submit"]');
+        const label = button.textContent;
         button.disabled = true;
+        button.textContent = 'Enviando…';
+        button.setAttribute('aria-busy', 'true');
         try {
             const response = await fetch(endpoint, {
                 method: 'POST',
@@ -167,6 +173,8 @@ function initContactForm() {
             setStatus('No se pudo enviar el mensaje. Escríbenos a genesisrodriguez@toolkitsocialconsulting.com o por WhatsApp al +52 656 760 8980.', true);
         } finally {
             button.disabled = false;
+            button.textContent = label;
+            button.removeAttribute('aria-busy');
         }
     });
 
