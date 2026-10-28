@@ -254,6 +254,6 @@ function initContactForm() {
 
     function openMailDraft(data) {
         const body = Object.entries(messageFields(data)).map(([label, value]) => `${label}: ${value}`).join('\n');
-        window.location.href = `mailto:genesisrodriguez@toolkitsocialconsulting.com?subject=${encodeURIComponent(subjectFor(data))}&body=${encodeURIComponent(body)}`;
+        window.location.href = `mailto:genesis@toolkitsocial.com?subject=${encodeURIComponent(subjectFor(data))}&body=${encodeURIComponent(body)}`;
     }
 }

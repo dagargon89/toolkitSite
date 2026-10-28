@@ -254,7 +254,8 @@ Botón: **Hablemos de tu proyecto**. Confirmación: "Recibimos tu mensaje. Te co
     - Remitente «Sitio web Toolkit Social».
     - `replyto` con el correo del visitante cuando elige correo, para responderle directo.
     - Campos con etiquetas legibles.
-  - **Sin clave:** si `access_key` está vacío, el envío sigue abriendo el correo del visitante.
+  - **Destinatario:** `genesis@toolkitsocial.com`, el correo con el que se genera la clave.
+  - **Sin clave:** si `access_key` está vacío, el envío sigue abriendo el correo del visitante, dirigido a ese mismo correo.
   - **Aviso de privacidad:** Web3Forms es un tercero que procesa los datos, así que el aviso debe mencionarlo. **Probar recepción antes de publicar**, como pide el v2.
 - Aviso de privacidad (LFPDPPP): página o modal propio; el checkbox debe enlazarlo.
 - Protección anti-spam sin CAPTCHA visible: campo honeypot + límite de envíos.
@@ -283,7 +284,7 @@ Botón: **Hablemos de tu proyecto**. Confirmación: "Recibimos tu mensaje. Te co
 ## 7. Pendientes para el cliente
 
 1. ~~Logo original~~ — recibido en PNG. Opcional: el SVG oficial, para mayor nitidez.
-2. **Backend del formulario:** se usa Web3Forms. Falta la clave de acceso, que se genera en web3forms.com con el correo que recibirá los mensajes.
+2. **Backend del formulario:** se usa Web3Forms y los mensajes llegan a `genesis@toolkitsocial.com`. Falta la clave de acceso, que se genera en web3forms.com con ese correo. Los canales públicos (Contacto, pie, JSON-LD y el mensaje de error del formulario) siguen mostrando `genesisrodriguez@toolkitsocialconsulting.com`.
 3. **Aviso de privacidad**: ¿existe ya un texto?
 4. **Mapeo problema → áreas** de la tabla de §3: validar. Ahora también decide qué piezas se encienden en Desafíos y qué áreas llegan marcadas al formulario.
 5. **Fuente**: ¿aprueban Instrument Sans o quieren la del logotipo?
