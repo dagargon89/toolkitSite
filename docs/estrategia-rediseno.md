@@ -1,6 +1,6 @@
 # Toolkit Social — Estrategia de rediseño (landing v2)
 
-**Fecha:** 12 oct 2026 (actualizado el mismo día: logos, og:image y rediseño de todas las secciones) · **Fuentes:** `Toolkit_Social_Contenido_Landing_Page_v2.md/.pdf` (idénticos), `Examples/toolkit_identidad_1_page-0001.jpg.png` (manual de identidad), `Examples/restructura.md` (propuesta anterior), sitio actual (`index.html`, `pages/*`).
+**Fecha:** 12 oct 2026 (actualizado el mismo día: logos, og:image y rediseño de todas las secciones; 27 oct 2026: cambios de la revisión UX externa, ver `docs/superpowers/plans/2026-10-27-revision-ux-landing.md`) · **Fuentes:** `Toolkit_Social_Contenido_Landing_Page_v2.md/.pdf` (idénticos), `Examples/toolkit_identidad_1_page-0001.jpg.png` (manual de identidad), `Examples/restructura.md` (propuesta anterior), sitio actual (`index.html`, `pages/*`).
 
 ---
 
@@ -66,7 +66,7 @@ La imagen para redes va sobre tinta y no sobre violeta porque el "Kit" del logo 
 Montserrat es genérica y no se parece al wordmark (geométrico, terminaciones suaves, "K" amplia). Propuesta: **una sola familia variable, Instrument Sans** (Google Fonts, ejes de peso 400–700 y ancho 75–100).
 - Titulares: 600, ancho 100, interlineado 1.05, tracking ligeramente negativo.
 - Cuerpo: 400, 17–18 px, interlineado 1.6, medida ≤ 68 caracteres.
-- Escala (razón 1.25): 14 · 17 · 21 · 27 · 33 · 42 · 52 · 66 (hero, `clamp()` en móvil).
+- Escala (razón 1.25): 14 · 17 · 21 · 27 · 33 · 42 · 52 · 66, con `clamp()` en móvil. Desde la revisión UX (27 oct), el H1 del hero tiene un máximo de 58 px y el titular de Quiénes somos de 44 px, para que no compitan.
 - Sin mayúsculas sostenidas en etiquetas; sentence case en todo (coincide con el texto del cliente).
 - El eje de ancho tiene significado (ver §3, "Lenguaje común"): ancho 75 = problema, separado; ancho 100 = solución, integrado.
 
@@ -97,8 +97,8 @@ Orden del documento v2, con anclas para la navegación sugerida:
 
 Tres recursos se repiten a lo largo de la página y el visitante los aprende sin explicación:
 
-1. **Ancho tipográfico = separado → integrado.** Instrument Sans condensada (ancho 75) para el problema o lo suelto; ancho completo (100) para la solución o lo unido. Se usa en el titular del hero, el titular de Quiénes somos, la lista de disciplinas del Equipo, los problemas y respuestas de Desafíos.
-2. **Cada pieza del engrane es un área, siempre en la misma posición:** Consulting arriba-izquierda, Data & Tech arriba-derecha, Lab abajo-izquierda, Studio abajo-derecha. El engrane aparece en el hero (se arma solo), en Áreas (la pieza de cada una), en Desafíos (se encienden las del problema) y en Contacto (lo arma el visitante). Forma y recortes viven una sola vez en el SVG del hero (`#gear-shape`, `#cut-*`) y las demás instancias los reutilizan con `<use>`.
+1. **Ancho tipográfico = separado → integrado.** Instrument Sans condensada (ancho 75) para el problema o lo suelto; ancho completo (100) para la solución o lo unido. Se usa en el titular del hero, el titular de Quiénes somos y los problemas y respuestas de Desafíos. Desde la revisión UX, la lista de disciplinas del Equipo ya no lo usa.
+2. **Cada pieza del engrane es un área, siempre en la misma posición:** Consulting arriba-izquierda, Data & Tech arriba-derecha, Lab abajo-izquierda, Studio abajo-derecha. El engrane aparece en el hero (se arma solo), en Áreas (la pieza de cada una) y en Desafíos (se encienden las del problema). Desde la revisión UX, ya no aparece en el formulario de Contacto. Forma y recortes viven una sola vez en el SVG del hero (`#gear-shape`, `#cut-*`) y las demás instancias los reutilizan con `<use>`.
 3. **Movimiento:** una sola animación automática (la carga del hero). Todo lo demás se mueve sólo en respuesta a una acción (señalar un área, llegar desde un enlace, elegir un problema, marcar una casilla) y nada se anima con `prefers-reduced-motion`.
 
 Sin tarjetas con sombra, sin filetes de periódico, sin píldoras: las secciones se separan por color de fondo y espacio.
@@ -128,7 +128,7 @@ Sin tarjetas con sombra, sin filetes de periódico, sin píldoras: las secciones
 
 Animación única de carga (≈ 2 s): las piezas encajan (0.55–1.45 s), el engrane completo cubre las uniones y la segunda frase entra con un barrido. Con `prefers-reduced-motion` se muestra armado y estático. Es la única animación automática de la página.
 
-**Quiénes somos + Equipo** — el titular repite el recurso del hero: "Distintas disciplinas." condensada, "Una misma intención: encontrar mejores soluciones." a ancho completo. Debajo, el primer párrafo grande a la izquierda y los otros dos apilados a la derecha. Equipo va en una franja tinta: las 7 disciplinas como lista en tipografía grande que se abre de condensada (Sociología, 75 %) a ancha (Psicología comunitaria, 100 %), como piezas que se integran.
+**Quiénes somos + Equipo** — el titular repite el recurso del hero: "Distintas disciplinas." condensada, "Una misma intención: encontrar mejores soluciones." a ancho completo. Debajo, el primer párrafo grande a la izquierda y los otros dos apilados a la derecha. Equipo va en una franja tinta. Desde la revisión UX, las 7 disciplinas forman una retícula uniforme: mismo tamaño (27 px), ancho completo y un filete fino encima de cada una. Sustituye a la lista que se abría de condensada a ancha, que el revisor leía como una nube irregular.
 
 ```
 ┌────────────────────────────────────────────────────────────┐
@@ -190,7 +190,15 @@ Sin JS, la sección degrada a una lista de pares problema/respuesta (contenido c
 
 **Sectores** — rejilla 2×2 sin filetes (1 columna en móvil). El nombre del sector va grande (27 px, negrita) para que cada visitante se reconozca; la descripción debajo. El cierre "Cada proyecto es distinto." se destaca en grande como puente al contacto; el resto de la frase sigue en tamaño de lectura (mismo párrafo, texto literal).
 
-**Contacto** — fondo `ink`. Columna izquierda (fija al hacer scroll en escritorio): titular, texto y los tres canales como enlaces grandes separados por espacio (correo `mailto:`, WhatsApp `https://wa.me/526567608980`, llamadas `tel:+526568208353`). Columna derecha: formulario sobre fondo blanco. **Tipo de apoyo** es el engrane que arma el visitante: cuatro casillas reales en las esquinas y el engrane centrado; cada área marcada pone su pieza en tinta, y las piezas también se pueden pulsar. El footer ya no repite los canales.
+**Contacto** — fondo `ink`. Columna izquierda (fija al hacer scroll en escritorio): titular, texto y los tres canales como enlaces grandes separados por espacio (correo `mailto:`, WhatsApp `https://wa.me/526567608980`, llamadas `tel:+526568208353`). Columna derecha: formulario sobre fondo blanco.
+
+**Tipo de apoyo** (revisión UX):
+- Cinco casillas en rejilla, sin engrane: las cuatro áreas y «No estoy seguro/a».
+- «No estoy seguro/a» excluye a las áreas, y marcar un área la desmarca.
+- La descripción tiene la pista «¿Qué necesitas mejorar, desarrollar o resolver?».
+- Mientras se envía, el botón muestra «Enviando…».
+
+El footer enlaza Soluciones, correo, WhatsApp y el aviso de privacidad.
 
 ### Formulario (según v2)
 
@@ -199,7 +207,7 @@ Sin JS, la sección degrada a una lista de pares problema/respuesta (contenido c
 | Nombre | texto | sí |
 | Organización | texto | no |
 | Medio de contacto | radio correo / WhatsApp + campo correspondiente | sí |
-| Tipo de apoyo | casillas Consulting · Data & Tech · Lab · Studio (**varias**; sin ninguna se envía "No estoy seguro/a"). Se envía como lista: "Consulting, Lab" | no (default "No estoy seguro/a") |
+| Tipo de apoyo | casillas Consulting · Data & Tech · Lab · Studio (**varias**) + «No estoy seguro/a» (excluyente). Sin ninguna marcada se envía "No estoy seguro/a". Se envía como lista: "Consulting, Lab" | no (default "No estoy seguro/a") |
 | Descripción breve del desafío | textarea | sí |
 | Consentimiento + enlace a aviso de privacidad | checkbox | sí |
 
@@ -267,7 +275,7 @@ Botón: **Hablemos de tu proyecto**. Confirmación: "Recibimos tu mensaje. Te co
 4. **Mapeo problema → áreas** de la tabla de §3: validar. Ahora también decide qué piezas se encienden en Desafíos y qué áreas llegan marcadas al formulario.
 5. **Fuente**: ¿aprueban Instrument Sans o quieren la del logotipo?
 6. ~~¿Se borran las páginas de `pages/`?~~ — borradas (siguen en el historial de git).
-7. **Engrane**: validar el reparto de áreas en las piezas (Consulting arriba-izquierda, Data & Tech arriba-derecha, Lab abajo-izquierda, Studio abajo-derecha). Se usa en hero, Áreas, Desafíos y Contacto.
+7. **Engrane**: validar el reparto de áreas en las piezas (Consulting arriba-izquierda, Data & Tech arriba-derecha, Lab abajo-izquierda, Studio abajo-derecha). Se usa en hero, Áreas y Desafíos.
 8. **Equipo**: aprobar que "Integramos experiencia en sociología, evaluación…" se muestre como "Integramos experiencia en:" + lista de las 7 disciplinas.
 9. **Tipo de apoyo**: el v2 lo define como una sola opción; el formulario permite elegir varias. Confirmar.
 10. **Logo reducido** (sin lema) en header y footer: aprobar, o enviar la versión reducida oficial si existe.
