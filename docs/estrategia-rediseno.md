@@ -270,8 +270,7 @@ Botón: **Hablemos de tu proyecto**. Confirmación: "Recibimos tu mensaje. Te co
 4. ~~Hero~~ — hecho: engrane que se arma, animación única, reduced motion.
 5. ~~Rediseño por secciones~~ — hecho: Quiénes somos, Áreas, Desafíos, Cómo trabajamos, Sectores y Contacto (§3).
 6. ~~Selector de problemas~~ — hecho (`js/landing.js`), con preselección de las dos áreas en el formulario.
-7. Formulario: conectado a Web3Forms. **Pendiente:**
-   - poner la clave de acceso en `access_key`;
+7. Formulario: conectado a Web3Forms, con la clave de acceso ya en `access_key`. **Pendiente:**
    - probar un envío real;
    - el aviso de privacidad.
 
@@ -284,7 +283,7 @@ Botón: **Hablemos de tu proyecto**. Confirmación: "Recibimos tu mensaje. Te co
 ## 7. Pendientes para el cliente
 
 1. ~~Logo original~~ — recibido en PNG. Opcional: el SVG oficial, para mayor nitidez.
-2. **Backend del formulario:** se usa Web3Forms y los mensajes llegan a `genesis@toolkitsocial.com`. Falta la clave de acceso, que se genera en web3forms.com con ese correo. Desde el 27 oct 2026 también es el correo público del sitio: Contacto, pie, JSON-LD y el mensaje de error del formulario. Sustituye a `genesisrodriguez@toolkitsocialconsulting.com`.
+2. **Backend del formulario:** se usa Web3Forms y los mensajes llegan a `genesis@toolkitsocial.com`. La clave de acceso, generada con ese correo, ya está en `index.html`; falta probar un envío real. Desde el 27 oct 2026 también es el correo público del sitio: Contacto, pie, JSON-LD y el mensaje de error del formulario. Sustituye a `genesisrodriguez@toolkitsocialconsulting.com`.
 3. **Aviso de privacidad**: ¿existe ya un texto?
 4. **Mapeo problema → áreas** de la tabla de §3: validar. Ahora también decide qué piezas se encienden en Desafíos y qué áreas llegan marcadas al formulario.
 5. **Fuente**: ¿aprueban Instrument Sans o quieren la del logotipo?
