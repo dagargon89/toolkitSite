@@ -621,7 +621,7 @@ a {
     margin-top: 1rem;
 }
 
-/* Equipo: franja tinta; las disciplinas pasan de condensada a ancha */
+/* Equipo: franja tinta; las disciplinas en una retícula uniforme */
 
 .team {
     margin-top: clamp(3.5rem, 2.5rem + 3vw, 5rem);
@@ -658,24 +658,22 @@ a {
 }
 
 .team__disciplines {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.1em 0.75em;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+    gap: 0.75rem 2rem;
     margin-top: 0.75rem;
-    font-size: clamp(1.5rem, 0.9rem + 2vw, 2.5rem);
+    font-size: var(--fs-lg);
     font-weight: 600;
-    line-height: 1.12;
-    letter-spacing: -0.02em;
+    font-stretch: 100%;
+    line-height: 1.2;
+    letter-spacing: -0.015em;
     color: var(--white);
 }
 
-.team__disciplines li:nth-child(1) { font-stretch: 75%; }
-.team__disciplines li:nth-child(2) { font-stretch: 79%; }
-.team__disciplines li:nth-child(3) { font-stretch: 83%; }
-.team__disciplines li:nth-child(4) { font-stretch: 87%; }
-.team__disciplines li:nth-child(5) { font-stretch: 92%; }
-.team__disciplines li:nth-child(6) { font-stretch: 96%; }
-.team__disciplines li:nth-child(7) { font-stretch: 100%; }
+.team__disciplines li {
+    padding-top: 0.5rem;
+    border-top: 1px solid rgb(194 200 250 / 0.3);
+}
 
 /* Misma rejilla que .team__head para que las dos columnas de la franja alineen */
 .team__cols {
