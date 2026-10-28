@@ -170,7 +170,7 @@ function initContactForm() {
             const medio = data.medio === 'whatsapp' ? 'WhatsApp' : 'correo';
             setStatus(`Recibimos tu mensaje. Te contactaremos por ${medio} en los próximos días.`);
         } catch {
-            setStatus('No se pudo enviar el mensaje. Escríbenos a genesisrodriguez@toolkitsocialconsulting.com o por WhatsApp al +52 656 760 8980.', true);
+            setStatus('No se pudo enviar el mensaje. Escríbenos a genesis@toolkitsocial.com o por WhatsApp al +52 656 760 8980.', true);
         } finally {
             button.disabled = false;
             button.textContent = label;

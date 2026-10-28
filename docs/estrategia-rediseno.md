@@ -284,7 +284,7 @@ Botón: **Hablemos de tu proyecto**. Confirmación: "Recibimos tu mensaje. Te co
 ## 7. Pendientes para el cliente
 
 1. ~~Logo original~~ — recibido en PNG. Opcional: el SVG oficial, para mayor nitidez.
-2. **Backend del formulario:** se usa Web3Forms y los mensajes llegan a `genesis@toolkitsocial.com`. Falta la clave de acceso, que se genera en web3forms.com con ese correo. Los canales públicos (Contacto, pie, JSON-LD y el mensaje de error del formulario) siguen mostrando `genesisrodriguez@toolkitsocialconsulting.com`.
+2. **Backend del formulario:** se usa Web3Forms y los mensajes llegan a `genesis@toolkitsocial.com`. Falta la clave de acceso, que se genera en web3forms.com con ese correo. Desde el 27 oct 2026 también es el correo público del sitio: Contacto, pie, JSON-LD y el mensaje de error del formulario. Sustituye a `genesisrodriguez@toolkitsocialconsulting.com`.
 3. **Aviso de privacidad**: ¿existe ya un texto?
 4. **Mapeo problema → áreas** de la tabla de §3: validar. Ahora también decide qué piezas se encienden en Desafíos y qué áreas llegan marcadas al formulario.
 5. **Fuente**: ¿aprueban Instrument Sans o quieren la del logotipo?

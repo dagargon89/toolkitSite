@@ -1451,7 +1451,3 @@ a {
     border-radius: var(--radius-sm);
     color: var(--graphite);
 }
-
-.channels a.channels__email {
-    font-size: var(--fs-base);
-}
