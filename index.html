@@ -522,10 +522,13 @@
                     </ul>
                 </div>
 
-                <!-- FORMULARIO: sin backend todavía. Si data-endpoint está vacío, el envío abre el correo del
-                     usuario con el mensaje armado. Poner aquí la URL del endpoint real y probar la recepción
-                     antes de publicar. -->
-                <form class="contact-form" data-endpoint="" novalidate>
+                <!-- FORMULARIO: se envía a Web3Forms, que lo reenvía al correo asociado a la clave de acceso.
+                     La clave es pública por diseño (docs.web3forms.com/getting-started/faq). Mientras access_key
+                     esté vacío, el envío abre el correo del usuario con el mensaje armado. -->
+                <form class="contact-form" data-endpoint="https://api.web3forms.com/submit" novalidate>
+                    <input type="hidden" name="access_key" value="" />
+                    <input type="hidden" name="from_name" value="Sitio web Toolkit Social" />
+
                     <div class="field">
                         <label for="f-nombre">Nombre</label>
                         <input id="f-nombre" name="nombre" type="text" autocomplete="name" required />

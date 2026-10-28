@@ -144,11 +144,10 @@ function initContactForm() {
 
         const formData = new FormData(form);
         const data = Object.fromEntries(formData);
-        delete data.web;
         data.apoyo = formData.getAll('apoyo').join(', ') || 'No estoy seguro/a';
 
         const endpoint = form.dataset.endpoint;
-        if (!endpoint) {
+        if (!endpoint || !data.access_key) {
             openMailDraft(data);
             setStatus('Abrimos tu aplicación de correo con el mensaje listo. Envíalo para completar el contacto.');
             return;
@@ -163,9 +162,10 @@ function initContactForm() {
             const response = await fetch(endpoint, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-                body: JSON.stringify(data),
+                body: JSON.stringify(buildPayload(data)),
             });
-            if (!response.ok) throw new Error(response.status);
+            const result = await response.json().catch(() => ({}));
+            if (!response.ok || !result.success) throw new Error(response.status);
             form.reset();
             const medio = data.medio === 'whatsapp' ? 'WhatsApp' : 'correo';
             setStatus(`Recibimos tu mensaje. Te contactaremos por ${medio} en los próximos días.`);
@@ -224,16 +224,36 @@ function initContactForm() {
         status.classList.toggle('is-error', isError);
     }
 
+    // Campos del mensaje con etiquetas legibles: Web3Forms los usa tal cual en el correo
+    function messageFields(data) {
+        return {
+            'Nombre': data.nombre,
+            'Organización': data.organizacion || '—',
+            'Medio de contacto': `${data.medio === 'whatsapp' ? 'WhatsApp' : 'Correo'}: ${data.contacto}`,
+            'Tipo de apoyo': data.apoyo,
+            'Desafío': data.desafio,
+            'Aviso de privacidad': 'Aceptado',
+        };
+    }
+
+    function subjectFor(data) {
+        return `Contacto desde el sitio: ${data.nombre}`;
+    }
+
+    // Formato de Web3Forms; replyto permite responder directo cuando el contacto es por correo
+    function buildPayload(data) {
+        const payload = {
+            access_key: data.access_key,
+            from_name: data.from_name,
+            subject: subjectFor(data),
+            ...messageFields(data),
+        };
+        if (data.medio === 'correo') payload.replyto = data.contacto;
+        return payload;
+    }
+
     function openMailDraft(data) {
-        const subject = `Contacto desde el sitio: ${data.nombre}`;
-        const body = [
-            `Nombre: ${data.nombre}`,
-            `Organización: ${data.organizacion || '—'}`,
-            `Medio de contacto: ${data.medio === 'whatsapp' ? 'WhatsApp' : 'Correo'} (${data.contacto})`,
-            `Tipo de apoyo: ${data.apoyo}`,
-            '',
-            data.desafio,
-        ].join('\n');
-        window.location.href = `mailto:genesisrodriguez@toolkitsocialconsulting.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        const body = Object.entries(messageFields(data)).map(([label, value]) => `${label}: ${value}`).join('\n');
+        window.location.href = `mailto:genesisrodriguez@toolkitsocialconsulting.com?subject=${encodeURIComponent(subjectFor(data))}&body=${encodeURIComponent(body)}`;
     }
 }

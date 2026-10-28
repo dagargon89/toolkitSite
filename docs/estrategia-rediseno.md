@@ -247,7 +247,15 @@ Botón: **Hablemos de tu proyecto**. Confirmación: "Recibimos tu mensaje. Te co
 - JSON-LD `Organization` sólo con datos reales: nombre, `url`, `logo`, correo y teléfonos (hecho).
 
 **Formulario y datos personales (México)**
-- Backend real: endpoint PHP propio o servicio (Formspree, Netlify Forms, etc.). **Probar recepción antes de publicar**, como pide el v2.
+- Backend: **Web3Forms** (decidido el 27 oct 2026).
+  - **Envío:** el formulario manda JSON a `https://api.web3forms.com/submit` con la clave de acceso en el campo oculto `access_key` de `index.html`. La clave es pública por diseño.
+  - **El correo que llega:**
+    - Asunto «Contacto desde el sitio: [nombre]».
+    - Remitente «Sitio web Toolkit Social».
+    - `replyto` con el correo del visitante cuando elige correo, para responderle directo.
+    - Campos con etiquetas legibles.
+  - **Sin clave:** si `access_key` está vacío, el envío sigue abriendo el correo del visitante.
+  - **Aviso de privacidad:** Web3Forms es un tercero que procesa los datos, así que el aviso debe mencionarlo. **Probar recepción antes de publicar**, como pide el v2.
 - Aviso de privacidad (LFPDPPP): página o modal propio; el checkbox debe enlazarlo.
 - Protección anti-spam sin CAPTCHA visible: campo honeypot + límite de envíos.
 
@@ -261,7 +269,12 @@ Botón: **Hablemos de tu proyecto**. Confirmación: "Recibimos tu mensaje. Te co
 4. ~~Hero~~ — hecho: engrane que se arma, animación única, reduced motion.
 5. ~~Rediseño por secciones~~ — hecho: Quiénes somos, Áreas, Desafíos, Cómo trabajamos, Sectores y Contacto (§3).
 6. ~~Selector de problemas~~ — hecho (`js/landing.js`), con preselección de las dos áreas en el formulario.
-7. Formulario: **backend real + aviso de privacidad; probar envío real.** Pendiente. Hoy, sin `data-endpoint`, el envío abre el correo del visitante con el mensaje armado.
+7. Formulario: conectado a Web3Forms. **Pendiente:**
+   - poner la clave de acceso en `access_key`;
+   - probar un envío real;
+   - el aviso de privacidad.
+
+   Sin clave, el envío abre el correo del visitante con el mensaje armado.
 8. ~~Retirar `pages/`~~ — hecho. Si había enlaces externos a esas páginas, redirigirlos a `/#soluciones` en el servidor.
 9. Revisión final: móvil (360 px), teclado, contraste, Lighthouse. Cada sección ya se revisó en escritorio y a 375 px; falta la pasada completa con Lighthouse.
 
@@ -270,7 +283,7 @@ Botón: **Hablemos de tu proyecto**. Confirmación: "Recibimos tu mensaje. Te co
 ## 7. Pendientes para el cliente
 
 1. ~~Logo original~~ — recibido en PNG. Opcional: el SVG oficial, para mayor nitidez.
-2. **Backend del formulario**: ¿a qué correo llegan los mensajes y dónde se aloja el sitio?
+2. **Backend del formulario:** se usa Web3Forms. Falta la clave de acceso, que se genera en web3forms.com con el correo que recibirá los mensajes.
 3. **Aviso de privacidad**: ¿existe ya un texto?
 4. **Mapeo problema → áreas** de la tabla de §3: validar. Ahora también decide qué piezas se encienden en Desafíos y qué áreas llegan marcadas al formulario.
 5. **Fuente**: ¿aprueban Instrument Sans o quieren la del logotipo?
