@@ -3,6 +3,7 @@ document.documentElement.classList.add('js');
 
 document.addEventListener('DOMContentLoaded', () => {
     initNav();
+    initHeroGear();
     initAreas();
     initChallenges();
     initPreselect();
@@ -35,6 +36,67 @@ function initNav() {
             toggle.focus();
         }
     });
+}
+
+// Hero: mientras el escenario está fijo, el avance del scroll junta las piezas del engrane
+// (0–60 %) y luego muestra las áreas (60–80 %). Se suaviza por cuadro para no copiar los saltos
+// de la rueda, y sólo corre mientras falta llegar. Sin movimiento, el CSS lo deja armado.
+function initHeroGear() {
+    const hero = document.querySelector('.hero');
+    const stage = hero?.querySelector('.hero__stage');
+    const gear = hero?.querySelector('.hero__gear');
+    if (!stage || !gear) return;
+
+    const motion = matchMedia('(prefers-reduced-motion: no-preference) and (min-height: 36rem)');
+    const clamp = (value) => Math.min(1, Math.max(0, value));
+    const ease = (t) => 1 - (1 - t) ** 3;
+    const props = ['--spread', '--turn', '--whole', '--labels'];
+    let target = 0;
+    let current = 0;
+    let frame = 0;
+
+    const render = (progress) => {
+        const assembled = ease(clamp(progress / 0.6));
+        const labels = clamp((progress - 0.6) / 0.2);
+        gear.style.setProperty('--spread', ((1 - assembled) * 70).toFixed(2));
+        gear.style.setProperty('--turn', ((1 - assembled) * 12).toFixed(2));
+        gear.style.setProperty('--whole', clamp((assembled - 0.97) / 0.03).toFixed(3));
+        gear.style.setProperty('--labels', labels.toFixed(3));
+        gear.classList.toggle('is-labeled', labels > 0.5);
+    };
+
+    const tick = () => {
+        current += (target - current) * 0.12;
+        if (Math.abs(target - current) < 0.0005) current = target;
+        render(current);
+        frame = current === target ? 0 : requestAnimationFrame(tick);
+    };
+
+    const measure = () => {
+        if (!motion.matches) return;
+        const range = hero.offsetHeight - stage.offsetHeight;
+        const scrolled = parseFloat(getComputedStyle(stage).top) - hero.getBoundingClientRect().top;
+        target = range > 0 ? clamp(scrolled / range) : 1;
+        if (!frame) frame = requestAnimationFrame(tick);
+    };
+
+    const setup = () => {
+        cancelAnimationFrame(frame);
+        frame = 0;
+        if (!motion.matches) {
+            props.forEach((prop) => gear.style.removeProperty(prop));
+            gear.classList.remove('is-labeled');
+            return;
+        }
+        measure();
+        current = target;
+        render(current);
+    };
+
+    addEventListener('scroll', measure, { passive: true });
+    addEventListener('resize', measure);
+    motion.addEventListener('change', setup);
+    setup();
 }
 
 // Selector "¿Qué desafío necesitas resolver?" (patrón tabs vertical)

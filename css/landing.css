@@ -184,8 +184,9 @@ a {
     position: sticky;
     top: 0;
     z-index: 50;
-    background: rgb(255 255 255 / 0.94);
-    backdrop-filter: blur(8px);
+    background: rgb(255 255 255 / 0.72);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    backdrop-filter: saturate(180%) blur(20px);
     border-bottom: 1px solid var(--lavender);
 }
 
@@ -309,85 +310,100 @@ a {
     }
 }
 
-/* Hero: el engrane del logo llega en cuatro piezas (una por área) y encaja.
+/* Hero: en calma y centrado. El engrane del logo (en violeta, el único color fuerte) se arma
+   mientras se desplaza: el hero mide más que la pantalla y su escenario queda fijo. El avance
+   lo calcula js/landing.js en --spread, --turn, --whole y --labels.
    La tipografía repite la idea: problema condensado, solución a ancho completo. */
 
-.hero {
-    background: var(--violet-strong);
-    color: var(--white);
-    padding-block: clamp(3.5rem, 2rem + 6vw, 7rem);
-    overflow: hidden;
+.hero__stage {
+    display: grid;
+    align-items: center;
+    padding-block: clamp(2.5rem, 1.5rem + 4vw, 5rem);
 }
 
-.hero__grid {
+.hero__inner {
     display: grid;
-    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
-    align-items: center;
-    gap: clamp(2rem, 1rem + 4vw, 5rem);
+    justify-items: center;
+    gap: clamp(1.5rem, 1rem + 2vh, 2.5rem);
+    text-align: center;
+}
+
+.hero__copy {
+    display: grid;
+    justify-items: center;
+    max-width: 46rem;
 }
 
 .hero__title {
-    font-size: clamp(2.25rem, 1.2rem + 3.1vw, 3.625rem);
+    font-size: clamp(2.25rem, 1.2rem + 2.8vw, 3.625rem);
     font-weight: 600;
-    line-height: 1.02;
-    letter-spacing: -0.025em;
+    line-height: 1.04;
+    letter-spacing: -0.03em;
+    text-align: center;
+    text-wrap: balance;
 }
 
 .hero__problem {
     display: block;
     font-stretch: 75%;
-    color: var(--ink);
 }
 
 .hero__answer {
     display: block;
-    margin-top: 0.3em;
     font-weight: 700;
     font-stretch: 100%;
-    text-wrap: balance;
-    color: var(--white);
 }
 
 .hero__body {
-    max-width: 34rem;
-    margin-top: 2.25rem;
-    font-size: var(--fs-md);
-    line-height: 1.55;
+    max-width: 40rem;
+    margin-top: 1.25rem;
+    font-size: clamp(1.0625rem, 1rem + 0.3vw, 1.25rem);
+    line-height: 1.5;
+    color: var(--graphite);
 }
 
-.hero__body p+p {
-    margin-top: 0.75rem;
+.hero__body p + p {
+    margin-top: 0.5rem;
 }
 
 .hero__actions {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 1.25rem 2rem;
-    margin-top: 2.25rem;
-}
-
-.hero .btn {
-    background: var(--ink);
-}
-
-.hero .btn:hover {
-    background: var(--ink-deep);
+    justify-content: center;
+    gap: 1rem 1.75rem;
+    margin-top: 1.75rem;
 }
 
 .hero .link-light {
-    text-decoration-color: var(--ink);
+    color: var(--ink);
 }
 
 .hero .link-light:hover {
-    text-decoration-color: var(--white);
+    text-decoration-color: var(--ink);
+}
+
+/* Entrada única al cargar: el texto sube un poco y aparece */
+@media (prefers-reduced-motion: no-preference) {
+    .hero__copy > * {
+        animation: hero-rise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) backwards;
+    }
+
+    .hero__copy > :nth-child(2) { animation-delay: 0.08s; }
+    .hero__copy > :nth-child(3) { animation-delay: 0.16s; }
+
+    @keyframes hero-rise {
+        from {
+            opacity: 0;
+            transform: translateY(14px);
+        }
+    }
 }
 
 .hero__gear {
+    --gear: min(32vh, 20rem);
     position: relative;
-    justify-self: end;
-    width: 100%;
-    max-width: 30rem;
+    width: var(--gear);
     aspect-ratio: 1;
 }
 
@@ -396,41 +412,49 @@ a {
     width: 100%;
     height: 100%;
     overflow: visible;
-    fill: var(--ink);
+    fill: var(--violet-strong);
 }
 
-/* Desplazamiento de cada pieza hacia afuera, en la dirección de su centro */
+/* Cada pieza sale hacia su esquina (--dx, --dy) y gira un poco; armada, --spread y --turn valen 0 */
 .gear__piece {
     transform-box: fill-box;
     transform-origin: center;
-    transition: transform 0.25s ease;
+    transform: translate(calc(var(--dx) * var(--spread, 0) * 1px), calc(var(--dy) * var(--spread, 0) * 1px))
+        rotate(calc(var(--dx) * var(--dy) * var(--turn, 0) * 1deg));
+    transition: fill 0.2s ease;
 }
 
-.gear__piece--consulting { --x: -17px; --y: -42px; --r: -9deg; }
-.gear__piece--data       { --x: 42px;  --y: -17px; --r: 7deg; }
-.gear__piece--studio     { --x: 17px;  --y: 42px;  --r: -6deg; }
-.gear__piece--lab        { --x: -42px; --y: 17px;  --r: 11deg; }
+.gear__piece--consulting { --dx: -1; --dy: -1; }
+.gear__piece--data       { --dx: 1;  --dy: -1; }
+.gear__piece--studio     { --dx: 1;  --dy: 1; }
+.gear__piece--lab        { --dx: -1; --dy: 1; }
 
-/* El engrane completo tapa las uniones una vez armado */
+/* Ya armado, el engrane completo tapa las uniones entre piezas */
 .gear__whole {
-    transition: opacity 0.15s ease;
+    opacity: var(--whole, 1);
 }
 
+.gear__areas {
+    opacity: var(--labels, 1);
+}
+
+/* Las áreas, a los lados de su pieza */
 .gear__areas li {
     position: absolute;
 }
 
-.gear__area--consulting { top: 0; left: 0; }
-.gear__area--data       { top: 0; right: 0; }
-.gear__area--lab        { bottom: 0; left: 0; }
-.gear__area--studio     { bottom: 0; right: 0; }
+.gear__area--consulting { top: 8%; right: calc(100% + 1rem); }
+.gear__area--data       { top: 8%; left: calc(100% + 1rem); }
+.gear__area--lab        { bottom: 8%; right: calc(100% + 1rem); }
+.gear__area--studio     { bottom: 8%; left: calc(100% + 1rem); }
 
 .gear__areas a {
     display: inline-block;
     padding: 0.25rem 0;
-    color: var(--white);
+    color: var(--ink);
     font-size: 0.9375rem;
     font-weight: 600;
+    white-space: nowrap;
     text-decoration: underline;
     text-decoration-color: transparent;
     text-decoration-thickness: 2px;
@@ -439,10 +463,10 @@ a {
 
 .gear__areas a:hover,
 .gear__areas a:focus-visible {
-    text-decoration-color: var(--ink);
+    text-decoration-color: var(--violet);
 }
 
-/* Al señalar un área, su pieza se separa del engrane */
+/* Al señalar un área, su pieza se oscurece */
 .hero__gear:has(.gear__areas a:is(:hover, :focus-visible)) .gear__whole {
     opacity: 0;
 }
@@ -451,11 +475,7 @@ a {
 .hero__gear:has(.gear__area--data a:is(:hover, :focus-visible)) .gear__piece--data,
 .hero__gear:has(.gear__area--studio a:is(:hover, :focus-visible)) .gear__piece--studio,
 .hero__gear:has(.gear__area--lab a:is(:hover, :focus-visible)) .gear__piece--lab {
-    transform: translate(calc(var(--x) * 0.45), calc(var(--y) * 0.45));
-}
-
-.hero :focus-visible {
-    outline-color: var(--white);
+    fill: var(--ink);
 }
 
 .section--ink :focus-visible,
@@ -463,100 +483,88 @@ a {
     outline-color: var(--lavender-line);
 }
 
-/* Móvil: engrane compacto con las áreas en 2×2 a su lado (misma posición que sus piezas),
-   para que titular y botón principal quepan en la primera pantalla */
-@media (max-width: 52rem) {
-    .hero {
-        padding-block: 2rem 3rem;
+/* Con JS y movimiento, el hero mide más que la pantalla y su escenario queda fijo mientras
+   el engrane se arma. Arranca con las piezas separadas y las áreas ocultas (las muestra el
+   foco del teclado). En pantallas bajas no hay escenario: se ve armado. */
+@media (prefers-reduced-motion: no-preference) and (min-height: 36rem) {
+    .js .hero {
+        height: 220vh;
     }
 
-    .hero__grid {
-        grid-template-columns: minmax(0, 1fr);
-        gap: 1.75rem;
+    .js .hero__stage {
+        position: sticky;
+        top: var(--header-h);
+        height: calc(100svh - var(--header-h));
+        grid-template-rows: minmax(0, 1fr);
+        padding-block: clamp(1.5rem, 4vh, 3rem);
+        overflow: hidden;
     }
 
-    .hero__gear {
-        order: -1;
-        display: grid;
-        grid-template-columns: 6.5rem max-content max-content;
-        grid-template-areas:
-            "gear consulting data"
-            "gear lab studio";
-        align-items: center;
-        justify-content: start;
-        column-gap: 1.25rem;
-        max-width: none;
-        aspect-ratio: auto;
+    /* El engrane ocupa el alto que deja el texto, así cabe en cualquier pantalla */
+    .js .hero__inner {
+        height: 100%;
+        grid-template-rows: auto minmax(0, 1fr);
     }
 
-    .gear {
-        grid-area: gear;
-        width: 6.5rem;
-        height: 6.5rem;
+    .js .hero__gear {
+        align-self: center;
+        width: auto;
+        height: calc(100% - var(--label-room, 0rem));
+        min-height: 0;
+        max-height: 20rem;
+        margin-block: 0;
     }
 
-    .gear__areas {
-        display: contents;
+    .js .hero__gear {
+        --spread: 70;
+        --turn: 12;
+        --whole: 0;
+        --labels: 0;
     }
 
-    .gear__areas li {
-        position: static;
+    .js .hero__gear:not(.is-labeled) .gear__areas a {
+        pointer-events: none;
     }
 
-    .gear__area--consulting { grid-area: consulting; }
-    .gear__area--data       { grid-area: data; }
-    .gear__area--lab        { grid-area: lab; }
-    .gear__area--studio     { grid-area: studio; }
-
-    .gear__areas a {
-        font-size: var(--fs-xs);
-    }
-
-    .hero__body {
-        margin-top: 1.5rem;
-        font-size: 1.125rem;
-    }
-
-    .hero__actions {
-        margin-top: 1.75rem;
+    .js .gear__areas:focus-within {
+        opacity: 1;
     }
 }
 
-/* Única animación de carga: las piezas encajan y entonces aparece la solución */
-@media (prefers-reduced-motion: no-preference) {
-    .gear__piece {
-        animation: piece-join 0.9s cubic-bezier(0.65, 0, 0.25, 1) 0.55s backwards;
+/* Pantallas bajas: titular y espacios más compactos para que el engrane tenga lugar */
+@media (min-width: 52rem) and (max-height: 50rem) {
+    .hero__title {
+        font-size: clamp(2.25rem, 1rem + 2.4vw, 3rem);
     }
 
-    .gear__whole {
-        animation: hold-hidden 1.45s linear;
+    .hero__body {
+        margin-top: 1rem;
     }
 
-    .hero__answer {
-        animation: answer-in 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) 1.3s backwards;
+    .hero__actions {
+        margin-top: 1.25rem;
+    }
+}
+
+/* Móvil: las áreas arriba y abajo del engrane (--label-room les reserva ese espacio) */
+@media (max-width: 52rem) {
+    .hero__gear {
+        --gear: min(26vh, 48vw);
+        --label-room: 4.5rem;
+        margin-block: 2.25rem;
     }
 
-    @keyframes piece-join {
-        from {
-            transform: translate(var(--x), var(--y)) rotate(var(--r));
-        }
-    }
+    .gear__area--consulting,
+    .gear__area--lab        { right: auto; left: -2.5rem; }
+    .gear__area--data,
+    .gear__area--studio     { left: auto; right: -2.5rem; }
+    .gear__area--consulting,
+    .gear__area--data       { top: -2rem; }
+    .gear__area--lab,
+    .gear__area--studio     { bottom: -2rem; }
 
-    @keyframes hold-hidden {
-        from, to {
-            opacity: 0;
-        }
-    }
-
-    @keyframes answer-in {
-        from {
-            opacity: 0;
-            clip-path: inset(0 100% 0 0);
-        }
-        to {
-            opacity: 1;
-            clip-path: inset(0 0 0 0);
-        }
+    .gear__areas a {
+        font-size: var(--fs-xs);
     }
 }
 

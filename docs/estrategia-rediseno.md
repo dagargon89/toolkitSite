@@ -99,34 +99,43 @@ Tres recursos se repiten a lo largo de la página y el visitante los aprende sin
 
 1. **Ancho tipográfico = separado → integrado.** Instrument Sans condensada (ancho 75) para el problema o lo suelto; ancho completo (100) para la solución o lo unido. Se usa en el titular del hero, el titular de Quiénes somos y los problemas y respuestas de Desafíos. Desde la revisión UX, la lista de disciplinas del Equipo ya no lo usa.
 2. **Cada pieza del engrane es un área, siempre en la misma posición:** Consulting arriba-izquierda, Data & Tech arriba-derecha, Lab abajo-izquierda, Studio abajo-derecha. El engrane aparece en el hero (se arma solo), en Áreas (cada tarjeta lleva su pieza y, juntas, forman el engrane) y en Desafíos (se encienden las del problema). Desde la revisión UX, ya no aparece en el formulario de Contacto. Forma y recortes viven una sola vez en el SVG del hero (`#gear-shape`, `#cut-*`) y las demás instancias los reutilizan con `<use>`.
-3. **Movimiento:** una sola animación automática (la carga del hero). Todo lo demás se mueve sólo en respuesta a una acción (señalar un área, voltear una tarjeta, elegir un problema) y nada se anima con `prefers-reduced-motion`.
+3. **Movimiento:** una sola animación automática, la entrada del texto del hero, que sube un poco y aparece. El engrane del hero se arma al ritmo del scroll. Todo lo demás se mueve sólo en respuesta a una acción (señalar un área, voltear una tarjeta, elegir un problema), y nada se anima con `prefers-reduced-motion`.
 
 Sin tarjetas con sombra, sin filetes de periódico, sin píldoras: las secciones se separan por color de fondo y espacio. La única excepción son las tarjetas de Áreas, planas y sin sombra.
 
 ### Wireframes
 
-**Hero** — el momento memorable: **el engrane del logo se arma**. El engrane oficial (trazado a SVG desde el PNG) se divide en cuatro piezas, una por área, con los cortes en los valles entre dientes para que cada pieza lleve dos. Al cargar, las piezas están separadas mientras se lee el problema; encajan, se forma el logo con la burbuja al centro y entonces aparece la solución. El logo cuenta el titular: separado → integrado.
+**Hero** (rediseñado el 27 oct 2026, tras revisar tendencias de Apple y Google): en calma, centrado, y el momento memorable es **el engrane del logo que se arma mientras se desplaza**. El engrane oficial (trazado a SVG desde el PNG) se divide en cuatro piezas, una por área, con los cortes en los valles entre dientes para que cada pieza lleve dos. El logo cuenta el titular: separado → integrado.
 
 ```
 ┌──────────────────────────────────────────────────────────┐
-│ Los problemas no vienen         Consulting   Data & Tech │  ← condensada (wdth 75), tinta
-│ separados por disciplinas.            ⚙  (4 piezas)      │
-│ Las soluciones                                           │  ← ancho completo, 700, blanco
-│ tampoco deberían.               Lab               Studio │
-│                                                          │
-│ Reunimos investigación, estrategia, datos…  (≤ 60 ch)    │
-│ [Cuéntanos tu desafío]  Conoce nuestras soluciones       │
+│ ToolKit            Nosotros Soluciones …  [Contacto]     │  ← cabecera translúcida
+│            Los problemas no vienen                       │  ← condensada (wdth 75), tinta
+│            separados por disciplinas.                    │
+│            Las soluciones tampoco deberían.              │  ← ancho completo, 700, tinta
+│   Reunimos investigación, estrategia, datos… (centrado)  │
+│   [Cuéntanos tu desafío]  Conoce nuestras soluciones     │
+│          Consulting   ◤ ◥   Data & Tech                  │  ← piezas en violeta; las áreas
+│                Lab    ◣ ◢   Studio                       │    aparecen al terminar de armarse
 └──────────────────────────────────────────────────────────┘
-        fondo: plano violeta del manual (#6A5DE7)
+        fondo blanco; el violeta sólo en el engrane
 ```
-- **Fondo:** `violet-strong` (#6A5DE7), el plano violeta que el manual usa detrás del logo. Sustituye al fondo tinta, que caía en el patrón genérico "oscuro + un acento".
-- **Tipografía:** el eje de ancho de Instrument Sans es parte del recurso. Problema en ancho 75, color tinta; solución en ancho 100, peso 700, blanco.
-- **Engrane:** color tinta. Las cuatro áreas rodean el engrane como enlaces a su bloque (`#area-consulting`, `#area-data`, `#area-lab`, `#area-studio`). Al señalar una con cursor o teclado, su pieza se separa. Reparto: Consulting arriba-izquierda, Data & Tech arriba-derecha, Lab abajo-izquierda, Studio abajo-derecha (**a validar con el cliente**; no viene del manual).
-- **Botones sobre violeta:** principal con fondo tinta (hover `ink-deep` #1A1640); secundario blanco con subrayado tinta. Foco visible en blanco.
-- **Móvil:** el engrane va arriba a 14rem para que el titular quede en la primera pantalla.
-- **Contraste:** blanco sobre #6A5DE7 = 4.8:1 (AA). Tinta sobre #6A5DE7 = 3.1:1, válido sólo para texto grande; no usarlo en texto de cuerpo.
-
-Animación única de carga (≈ 2 s): las piezas encajan (0.55–1.45 s), el engrane completo cubre las uniones y la segunda frase entra con un barrido. Con `prefers-reduced-motion` se muestra armado y estático. Es la única animación automática de la página.
+- **Fondo:** blanco, continuo con la cabecera (translúcida, `blur(20px)`). El violeta (`violet-strong`) queda sólo en el engrane, que así pesa más. Sustituye al bloque violeta, que cortaba la página.
+- **Tipografía:** titular centrado, máx. 58 px (48 px en pantallas bajas). Problema en ancho 75 y solución en ancho 100, peso 700, ambos en tinta. Texto de apoyo en `graphite`.
+- **Movimiento:**
+  - Al cargar, sólo el texto sube 14 px y aparece (0.9 s).
+  - Con JS y movimiento permitido, el hero mide 220vh y su escenario queda fijo bajo la cabecera.
+  - El avance del scroll (`initHeroGear` en `js/landing.js`) junta las piezas entre el 0 y el 60 %, y luego muestra las áreas (60–80 %).
+  - El avance se suaviza por cuadro y sólo calcula mientras falta llegar.
+  - El CSS lee `--spread`, `--turn`, `--whole` y `--labels`. Ya armado, el engrane completo tapa las uniones entre piezas.
+- **Sin movimiento** (`prefers-reduced-motion`), **sin JS** o **en pantallas de menos de 36rem de alto:** el hero mide una pantalla, con el engrane armado y las áreas visibles.
+- **Engrane:**
+  - Ocupa el alto que deja el texto, hasta 20rem.
+  - Las cuatro áreas son enlaces a su tarjeta (`#area-consulting`, …), a los lados en escritorio y arriba y abajo en móvil.
+  - Al señalar una con cursor o teclado, su pieza pasa a tinta.
+  - Mientras están ocultas, el foco del teclado las muestra.
+  - Reparto: Consulting arriba-izquierda, Data & Tech arriba-derecha, Lab abajo-izquierda, Studio abajo-derecha (**a validar con el cliente**).
+- **Botones:** el principal con el estilo general (`violet-strong`, texto blanco 4.8:1) y el secundario en tinta con subrayado violeta.
 
 **Quiénes somos + Equipo** — el titular repite el recurso del hero: "Distintas disciplinas." condensada, "Una misma intención: encontrar mejores soluciones." a ancho completo. Debajo, el primer párrafo grande a la izquierda y los otros dos apilados a la derecha. Equipo va en una franja tinta. Desde la revisión UX, las 7 disciplinas forman una retícula uniforme: mismo tamaño (27 px), ancho completo y un filete fino encima de cada una. Sustituye a la lista que se abría de condensada a ancha, que el revisor leía como una nube irregular.
 

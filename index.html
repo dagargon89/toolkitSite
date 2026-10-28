@@ -72,51 +72,54 @@
     </header>
 
     <main id="contenido">
-        <!-- Portada -->
+        <!-- Portada: el hero queda fijo mientras se desplaza y el engrane del logo se arma con el
+             avance (js/landing.js). Sin JS o con movimiento reducido, se muestra armado y estático. -->
         <section id="inicio" class="hero" aria-labelledby="hero-title">
-            <div class="container hero__grid">
-                <div class="hero__copy">
-                    <h1 id="hero-title" class="hero__title">
-                        <span class="hero__problem">Los problemas no vienen separados por disciplinas.</span>
-                        <span class="hero__answer">Las soluciones tampoco deberían.</span>
-                    </h1>
+            <div class="hero__stage">
+                <div class="container hero__inner">
+                    <div class="hero__copy">
+                        <h1 id="hero-title" class="hero__title">
+                            <span class="hero__problem">Los problemas no vienen separados por disciplinas.</span>
+                            <span class="hero__answer">Las soluciones tampoco deberían.</span>
+                        </h1>
 
-                    <div class="hero__body">
-                        <p>Reunimos investigación, estrategia, datos, tecnología y creatividad para resolver desafíos
-                            reales de organizaciones, empresas e instituciones.</p>
-                        <p>Cada realidad merece herramientas a su medida.</p>
+                        <div class="hero__body">
+                            <p>Reunimos investigación, estrategia, datos, tecnología y creatividad para resolver
+                                desafíos reales de organizaciones, empresas e instituciones.</p>
+                            <p>Cada realidad merece herramientas a su medida.</p>
+                        </div>
+
+                        <div class="hero__actions">
+                            <a class="btn" href="#contacto">Cuéntanos tu desafío</a>
+                            <a class="link-light" href="#areas">Conoce nuestras soluciones</a>
+                        </div>
                     </div>
 
-                    <div class="hero__actions">
-                        <a class="btn" href="#contacto">Cuéntanos tu desafío</a>
-                        <a class="link-light" href="#areas">Conoce nuestras soluciones</a>
+                    <!-- El engrane del logo, en cuatro piezas (una por área) -->
+                    <div class="hero__gear">
+                        <svg class="gear" viewBox="-14 -14 525 525" aria-hidden="true" focusable="false">
+                            <defs>
+                                <path id="gear-shape" fill-rule="evenodd" d="M 234.909 2.840 C 219.615 7.888, 214.019 15.150, 205.503 41 C 199.604 58.906, 199.003 60.097, 192.340 67.082 C 186.308 73.406, 177.775 77.901, 166.538 80.674 C 156.136 83.241, 149.837 81.785, 129.312 72.071 C 109.930 62.898, 103.528 61.272, 93.757 63.044 C 76.653 66.146, 64.150 78.628, 61.056 95.693 C 59.181 106.033, 60.754 112.040, 70.628 132.245 C 82.436 156.407, 82.927 164.089, 73.842 182.500 C 67.662 195.025, 61.353 199.488, 38.629 207.415 C 20.589 213.708, 15.898 216.157, 10.555 222.071 C -3.072 237.155, -3.228 260.234, 10.193 275.482 C 15.807 281.859, 20.508 284.311, 39 290.500 C 62.725 298.441, 68.883 302.971, 75.542 317.384 C 83.803 335.265, 83.268 341.503, 71.299 366.860 L 62.500 385.500 62.500 396.021 C 62.500 405.882, 62.705 406.959, 65.768 413.180 C 74.089 430.083, 93.040 439.180, 110.576 434.687 C 113.916 433.831, 123.903 429.537, 132.770 425.144 C 155.190 414.037, 162.324 413.477, 179.640 421.463 C 194.186 428.172, 198.410 433.898, 207.533 459.273 C 213.269 475.226, 217.695 483.005, 223.599 487.508 C 240.477 500.381, 265.855 498.119, 278.418 482.621 C 283.190 476.735, 285.182 472.337, 290.338 456.306 C 297.718 433.356, 301.911 427.735, 316.890 420.708 C 334.674 412.366, 341.824 413.001, 367.166 425.174 L 384.500 433.500 396 433.500 C 407.171 433.500, 407.679 433.403, 413.737 430.118 C 421.077 426.137, 427.716 419.385, 431.666 411.883 C 434.302 406.877, 434.500 405.695, 434.500 395 L 434.500 383.500 425.500 365.580 L 416.500 347.659 416.500 337.080 C 416.500 326.678, 416.572 326.348, 420.796 317.500 C 428.181 302.031, 433.272 298.081, 456.864 289.517 C 465.292 286.457, 473.608 283.233, 475.344 282.353 C 496.675 271.527, 502.606 242.394, 487.508 222.599 C 482.744 216.354, 475.404 212.321, 458.500 206.661 C 433.035 198.135, 427.863 194.415, 420.987 179.677 C 412.620 161.748, 413.162 154.864, 424.883 130.124 C 433.924 111.042, 435.619 104.571, 434.078 95.005 C 431.888 81.405, 424.483 71.325, 412.237 65.272 C 405.011 61.701, 404.092 61.500, 395.001 61.500 L 385.399 61.500 367.450 70.240 C 342.400 82.438, 336.256 83.302, 320.065 76.904 C 303.525 70.368, 298.476 64.202, 289.578 39.676 C 281.122 16.368, 276.869 10.483, 264 4.281 C 256.648 0.738, 243.282 0.076, 234.909 2.840 M 237 129.659 C 152.388 137.151, 101.893 226.594, 139.873 301.703 C 169.351 359.999, 239.776 383.622, 298.535 354.924 C 302.954 352.766, 307.015 351, 307.558 351 C 308.102 351, 318.095 354.825, 329.767 359.500 C 341.667 364.267, 352.463 368, 354.346 368 C 358.435 368, 363.637 364.652, 366.815 359.976 C 370.402 354.697, 369.427 350.918, 358.630 328.241 L 348.984 307.981 352.553 300.895 C 366.525 273.151, 368.580 237.929, 357.934 208.678 C 339.675 158.508, 288.539 125.095, 237 129.659" />
+                                <!-- Cortes en los valles entre dientes (22.5° + 90°·k): cada pieza lleva dos dientes -->
+                                <clipPath id="cut-consulting"><polygon points="248.5,248.5 -120.5,95.7 -120.5,-120.5 401.3,-120.5" /></clipPath>
+                                <clipPath id="cut-data"><polygon points="248.5,248.5 401.3,-120.5 617.5,-120.5 617.5,401.3" /></clipPath>
+                                <clipPath id="cut-studio"><polygon points="248.5,248.5 617.5,401.3 617.5,617.5 95.7,617.5" /></clipPath>
+                                <clipPath id="cut-lab"><polygon points="248.5,248.5 95.7,617.5 -120.5,617.5 -120.5,95.7" /></clipPath>
+                            </defs>
+                            <g class="gear__piece gear__piece--consulting"><use href="#gear-shape" clip-path="url(#cut-consulting)" /></g>
+                            <g class="gear__piece gear__piece--data"><use href="#gear-shape" clip-path="url(#cut-data)" /></g>
+                            <g class="gear__piece gear__piece--studio"><use href="#gear-shape" clip-path="url(#cut-studio)" /></g>
+                            <g class="gear__piece gear__piece--lab"><use href="#gear-shape" clip-path="url(#cut-lab)" /></g>
+                            <use class="gear__whole" href="#gear-shape" />
+                        </svg>
+
+                        <ul class="gear__areas" aria-label="Áreas de especialización">
+                            <li class="gear__area gear__area--consulting"><a href="#area-consulting">Consulting</a></li>
+                            <li class="gear__area gear__area--data"><a href="#area-data">Data &amp; Tech</a></li>
+                            <li class="gear__area gear__area--lab"><a href="#area-lab">Lab</a></li>
+                            <li class="gear__area gear__area--studio"><a href="#area-studio">Studio</a></li>
+                        </ul>
                     </div>
-                </div>
-
-                <!-- El engrane del logo, en cuatro piezas (una por área): llegan separadas y encajan -->
-                <div class="hero__gear">
-                    <svg class="gear" viewBox="-14 -14 525 525" aria-hidden="true" focusable="false">
-                        <defs>
-                            <path id="gear-shape" fill-rule="evenodd" d="M 234.909 2.840 C 219.615 7.888, 214.019 15.150, 205.503 41 C 199.604 58.906, 199.003 60.097, 192.340 67.082 C 186.308 73.406, 177.775 77.901, 166.538 80.674 C 156.136 83.241, 149.837 81.785, 129.312 72.071 C 109.930 62.898, 103.528 61.272, 93.757 63.044 C 76.653 66.146, 64.150 78.628, 61.056 95.693 C 59.181 106.033, 60.754 112.040, 70.628 132.245 C 82.436 156.407, 82.927 164.089, 73.842 182.500 C 67.662 195.025, 61.353 199.488, 38.629 207.415 C 20.589 213.708, 15.898 216.157, 10.555 222.071 C -3.072 237.155, -3.228 260.234, 10.193 275.482 C 15.807 281.859, 20.508 284.311, 39 290.500 C 62.725 298.441, 68.883 302.971, 75.542 317.384 C 83.803 335.265, 83.268 341.503, 71.299 366.860 L 62.500 385.500 62.500 396.021 C 62.500 405.882, 62.705 406.959, 65.768 413.180 C 74.089 430.083, 93.040 439.180, 110.576 434.687 C 113.916 433.831, 123.903 429.537, 132.770 425.144 C 155.190 414.037, 162.324 413.477, 179.640 421.463 C 194.186 428.172, 198.410 433.898, 207.533 459.273 C 213.269 475.226, 217.695 483.005, 223.599 487.508 C 240.477 500.381, 265.855 498.119, 278.418 482.621 C 283.190 476.735, 285.182 472.337, 290.338 456.306 C 297.718 433.356, 301.911 427.735, 316.890 420.708 C 334.674 412.366, 341.824 413.001, 367.166 425.174 L 384.500 433.500 396 433.500 C 407.171 433.500, 407.679 433.403, 413.737 430.118 C 421.077 426.137, 427.716 419.385, 431.666 411.883 C 434.302 406.877, 434.500 405.695, 434.500 395 L 434.500 383.500 425.500 365.580 L 416.500 347.659 416.500 337.080 C 416.500 326.678, 416.572 326.348, 420.796 317.500 C 428.181 302.031, 433.272 298.081, 456.864 289.517 C 465.292 286.457, 473.608 283.233, 475.344 282.353 C 496.675 271.527, 502.606 242.394, 487.508 222.599 C 482.744 216.354, 475.404 212.321, 458.500 206.661 C 433.035 198.135, 427.863 194.415, 420.987 179.677 C 412.620 161.748, 413.162 154.864, 424.883 130.124 C 433.924 111.042, 435.619 104.571, 434.078 95.005 C 431.888 81.405, 424.483 71.325, 412.237 65.272 C 405.011 61.701, 404.092 61.500, 395.001 61.500 L 385.399 61.500 367.450 70.240 C 342.400 82.438, 336.256 83.302, 320.065 76.904 C 303.525 70.368, 298.476 64.202, 289.578 39.676 C 281.122 16.368, 276.869 10.483, 264 4.281 C 256.648 0.738, 243.282 0.076, 234.909 2.840 M 237 129.659 C 152.388 137.151, 101.893 226.594, 139.873 301.703 C 169.351 359.999, 239.776 383.622, 298.535 354.924 C 302.954 352.766, 307.015 351, 307.558 351 C 308.102 351, 318.095 354.825, 329.767 359.500 C 341.667 364.267, 352.463 368, 354.346 368 C 358.435 368, 363.637 364.652, 366.815 359.976 C 370.402 354.697, 369.427 350.918, 358.630 328.241 L 348.984 307.981 352.553 300.895 C 366.525 273.151, 368.580 237.929, 357.934 208.678 C 339.675 158.508, 288.539 125.095, 237 129.659" />
-                            <!-- Cortes en los valles entre dientes (22.5° + 90°·k): cada pieza lleva dos dientes -->
-                            <clipPath id="cut-consulting"><polygon points="248.5,248.5 -120.5,95.7 -120.5,-120.5 401.3,-120.5" /></clipPath>
-                            <clipPath id="cut-data"><polygon points="248.5,248.5 401.3,-120.5 617.5,-120.5 617.5,401.3" /></clipPath>
-                            <clipPath id="cut-studio"><polygon points="248.5,248.5 617.5,401.3 617.5,617.5 95.7,617.5" /></clipPath>
-                            <clipPath id="cut-lab"><polygon points="248.5,248.5 95.7,617.5 -120.5,617.5 -120.5,95.7" /></clipPath>
-                        </defs>
-                        <g class="gear__piece gear__piece--consulting"><use href="#gear-shape" clip-path="url(#cut-consulting)" /></g>
-                        <g class="gear__piece gear__piece--data"><use href="#gear-shape" clip-path="url(#cut-data)" /></g>
-                        <g class="gear__piece gear__piece--studio"><use href="#gear-shape" clip-path="url(#cut-studio)" /></g>
-                        <g class="gear__piece gear__piece--lab"><use href="#gear-shape" clip-path="url(#cut-lab)" /></g>
-                        <use class="gear__whole" href="#gear-shape" />
-                    </svg>
-
-                    <ul class="gear__areas" aria-label="Áreas de especialización">
-                        <li class="gear__area gear__area--consulting"><a href="#area-consulting">Consulting</a></li>
-                        <li class="gear__area gear__area--data"><a href="#area-data">Data &amp; Tech</a></li>
-                        <li class="gear__area gear__area--lab"><a href="#area-lab">Lab</a></li>
-                        <li class="gear__area gear__area--studio"><a href="#area-studio">Studio</a></li>
-                    </ul>
                 </div>
             </div>
         </section>
