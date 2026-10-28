@@ -1628,10 +1628,14 @@ a {
     margin-bottom: 1rem;
 }
 
-.privacy__pending {
-    margin-bottom: 1.5rem;
-    padding: 1rem;
-    border: 2px dashed var(--violet);
-    border-radius: var(--radius-sm);
+.privacy p {
     color: var(--graphite);
+}
+
+.privacy p + p {
+    margin-top: 0.75rem;
+}
+
+.privacy form {
+    margin-top: 1.5rem;
 }
