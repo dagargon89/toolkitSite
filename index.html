@@ -177,97 +177,144 @@
             <div class="container" id="areas">
                 <h2 id="areas-title" class="section__title">Áreas de especialización</h2>
 
+                <!-- Cada área es una tarjeta: al frente su nombre y su pieza del engrane, en la esquina que
+                     mira al centro de la rejilla (las cuatro forman el engrane); al reverso, sus servicios.
+                     Se voltea al señalarla con el cursor o con su botón (táctil y teclado). -->
                 <div class="areas">
-                    <article class="area" id="area-consulting">
-                        <header class="area__head">
-                            <svg class="area__gear" viewBox="-14 -14 525 525" aria-hidden="true" focusable="false">
-                                <use class="area__gear-rest" href="#gear-shape" />
-                                <g class="area__gear-piece"><use href="#gear-shape" clip-path="url(#cut-consulting)" /></g>
-                            </svg>
-                            <div class="area__names">
-                                <h3><span class="area__brand">Toolkit</span> <span class="area__name">Consulting</span></h3>
-                                <p class="area__sub">Estrategia, investigación y fortalecimiento organizacional</p>
+                    <article class="area area--consulting" id="area-consulting">
+                        <div class="area__card">
+                            <div class="area__face area__front">
+                                <svg class="area__piece" viewBox="-14 -14 525 525" aria-hidden="true" focusable="false">
+                                    <use href="#gear-shape" clip-path="url(#cut-consulting)" />
+                                </svg>
+                                <div class="area__names">
+                                    <h3><span class="area__brand">Toolkit</span> <span class="area__name">Consulting</span></h3>
+                                    <p class="area__sub">Estrategia, investigación y fortalecimiento organizacional</p>
+                                </div>
+                                <button class="area__flip" type="button" aria-expanded="false"
+                                    aria-controls="servicios-consulting">Ver servicios<span class="visually-hidden"> de
+                                        Consulting</span></button>
                             </div>
-                        </header>
-                        <p>Acompañamos el diseño, implementación, seguimiento y evaluación de proyectos, programas y
-                            procesos organizacionales.</p>
-                        <ul class="area__list">
-                            <li>Diagnósticos e investigación aplicada.</li>
-                            <li>Planeación estratégica y diseño de proyectos.</li>
-                            <li>Monitoreo, evaluación y aprendizaje (MEL).</li>
-                            <li>Diseño y revisión de indicadores.</li>
-                            <li>Sistematización de experiencias y resultados.</li>
-                            <li>Seguimiento presupuestal y financiero de proyectos.</li>
-                            <li>Mejora de procesos y fortalecimiento institucional.</li>
-                        </ul>
+                            <div class="area__face area__back" id="servicios-consulting">
+                                <p class="area__back-name" aria-hidden="true">Toolkit Consulting</p>
+                                <p>Acompañamos el diseño, implementación, seguimiento y evaluación de proyectos,
+                                    programas y procesos organizacionales.</p>
+                                <ul class="area__list">
+                                    <li>Diagnósticos e investigación aplicada.</li>
+                                    <li>Planeación estratégica y diseño de proyectos.</li>
+                                    <li>Monitoreo, evaluación y aprendizaje (MEL).</li>
+                                    <li>Diseño y revisión de indicadores.</li>
+                                    <li>Sistematización de experiencias y resultados.</li>
+                                    <li>Seguimiento presupuestal y financiero de proyectos.</li>
+                                    <li>Mejora de procesos y fortalecimiento institucional.</li>
+                                </ul>
+                                <a class="area__cta link-light" href="#contacto" data-apoyo="Consulting">Consultar este
+                                    servicio</a>
+                                <button class="area__unflip" type="button">Volver<span class="visually-hidden"> a
+                                        Consulting</span></button>
+                            </div>
+                        </div>
                     </article>
 
-                    <article class="area" id="area-data">
-                        <header class="area__head">
-                            <svg class="area__gear" viewBox="-14 -14 525 525" aria-hidden="true" focusable="false">
-                                <use class="area__gear-rest" href="#gear-shape" />
-                                <g class="area__gear-piece"><use href="#gear-shape" clip-path="url(#cut-data)" /></g>
-                            </svg>
-                            <div class="area__names">
-                                <h3><span class="area__brand">Toolkit</span> <span class="area__name">Data &amp; Tech</span></h3>
-                                <p class="area__sub">Información y tecnología para tomar mejores decisiones</p>
+                    <article class="area area--data" id="area-data">
+                        <div class="area__card">
+                            <div class="area__face area__front">
+                                <svg class="area__piece" viewBox="-14 -14 525 525" aria-hidden="true" focusable="false">
+                                    <use href="#gear-shape" clip-path="url(#cut-data)" />
+                                </svg>
+                                <div class="area__names">
+                                    <h3><span class="area__brand">Toolkit</span> <span class="area__name">Data &amp; Tech</span></h3>
+                                    <p class="area__sub">Información y tecnología para tomar mejores decisiones</p>
+                                </div>
+                                <button class="area__flip" type="button" aria-expanded="false"
+                                    aria-controls="servicios-data">Ver servicios<span class="visually-hidden"> de Data
+                                        &amp; Tech</span></button>
                             </div>
-                        </header>
-                        <p>Transformamos datos dispersos y procesos manuales en herramientas prácticas para organizar
-                            información, reducir trabajo repetitivo y facilitar el seguimiento.</p>
-                        <ul class="area__list">
-                            <li>Organización, depuración y análisis de bases de datos.</li>
-                            <li>Diseño de sistemas de información y registro.</li>
-                            <li>Automatización de procesos y reportes.</li>
-                            <li>Tableros de indicadores y visualización de datos.</li>
-                            <li>Integración y mejora de herramientas digitales.</li>
-                            <li>Desarrollo de soluciones tecnológicas a medida.</li>
-                        </ul>
+                            <div class="area__face area__back" id="servicios-data">
+                                <p class="area__back-name" aria-hidden="true">Toolkit Data &amp; Tech</p>
+                                <p>Transformamos datos dispersos y procesos manuales en herramientas prácticas para
+                                    organizar información, reducir trabajo repetitivo y facilitar el seguimiento.</p>
+                                <ul class="area__list">
+                                    <li>Organización, depuración y análisis de bases de datos.</li>
+                                    <li>Diseño de sistemas de información y registro.</li>
+                                    <li>Automatización de procesos y reportes.</li>
+                                    <li>Tableros de indicadores y visualización de datos.</li>
+                                    <li>Integración y mejora de herramientas digitales.</li>
+                                    <li>Desarrollo de soluciones tecnológicas a medida.</li>
+                                </ul>
+                                <a class="area__cta link-light" href="#contacto" data-apoyo="Data &amp; Tech">Consultar
+                                    este servicio</a>
+                                <button class="area__unflip" type="button">Volver<span class="visually-hidden"> a Data
+                                        &amp; Tech</span></button>
+                            </div>
+                        </div>
                     </article>
 
-                    <article class="area" id="area-lab">
-                        <header class="area__head">
-                            <svg class="area__gear" viewBox="-14 -14 525 525" aria-hidden="true" focusable="false">
-                                <use class="area__gear-rest" href="#gear-shape" />
-                                <g class="area__gear-piece"><use href="#gear-shape" clip-path="url(#cut-lab)" /></g>
-                            </svg>
-                            <div class="area__names">
-                                <h3><span class="area__brand">Toolkit</span> <span class="area__name">Lab</span></h3>
-                                <p class="area__sub">Innovación, participación y soluciones construidas colectivamente</p>
+                    <article class="area area--lab" id="area-lab">
+                        <div class="area__card">
+                            <div class="area__face area__front">
+                                <svg class="area__piece" viewBox="-14 -14 525 525" aria-hidden="true" focusable="false">
+                                    <use href="#gear-shape" clip-path="url(#cut-lab)" />
+                                </svg>
+                                <div class="area__names">
+                                    <h3><span class="area__brand">Toolkit</span> <span class="area__name">Lab</span></h3>
+                                    <p class="area__sub">Innovación, participación y soluciones construidas colectivamente</p>
+                                </div>
+                                <button class="area__flip" type="button" aria-expanded="false"
+                                    aria-controls="servicios-lab">Ver servicios<span class="visually-hidden"> de
+                                        Lab</span></button>
                             </div>
-                        </header>
-                        <p>Diseñamos espacios y metodologías para comprender problemas, explorar alternativas y
-                            desarrollar soluciones con las personas involucradas.</p>
-                        <ul class="area__list">
-                            <li>Diagnósticos participativos.</li>
-                            <li>Diseño y facilitación de talleres.</li>
-                            <li>Procesos de cocreación y prototipado.</li>
-                            <li>Investigación comunitaria y territorial.</li>
-                            <li>Diseño de metodologías participativas.</li>
-                            <li>Acompañamiento a iniciativas de innovación social.</li>
-                        </ul>
+                            <div class="area__face area__back" id="servicios-lab">
+                                <p class="area__back-name" aria-hidden="true">Toolkit Lab</p>
+                                <p>Diseñamos espacios y metodologías para comprender problemas, explorar alternativas y
+                                    desarrollar soluciones con las personas involucradas.</p>
+                                <ul class="area__list">
+                                    <li>Diagnósticos participativos.</li>
+                                    <li>Diseño y facilitación de talleres.</li>
+                                    <li>Procesos de cocreación y prototipado.</li>
+                                    <li>Investigación comunitaria y territorial.</li>
+                                    <li>Diseño de metodologías participativas.</li>
+                                    <li>Acompañamiento a iniciativas de innovación social.</li>
+                                </ul>
+                                <a class="area__cta link-light" href="#contacto" data-apoyo="Lab">Consultar este
+                                    servicio</a>
+                                <button class="area__unflip" type="button">Volver<span class="visually-hidden"> a
+                                        Lab</span></button>
+                            </div>
+                        </div>
                     </article>
 
-                    <article class="area" id="area-studio">
-                        <header class="area__head">
-                            <svg class="area__gear" viewBox="-14 -14 525 525" aria-hidden="true" focusable="false">
-                                <use class="area__gear-rest" href="#gear-shape" />
-                                <g class="area__gear-piece"><use href="#gear-shape" clip-path="url(#cut-studio)" /></g>
-                            </svg>
-                            <div class="area__names">
-                                <h3><span class="area__brand">Toolkit</span> <span class="area__name">Studio</span></h3>
-                                <p class="area__sub">Diseño y comunicación que hacen visible el conocimiento</p>
+                    <article class="area area--studio" id="area-studio">
+                        <div class="area__card">
+                            <div class="area__face area__front">
+                                <svg class="area__piece" viewBox="-14 -14 525 525" aria-hidden="true" focusable="false">
+                                    <use href="#gear-shape" clip-path="url(#cut-studio)" />
+                                </svg>
+                                <div class="area__names">
+                                    <h3><span class="area__brand">Toolkit</span> <span class="area__name">Studio</span></h3>
+                                    <p class="area__sub">Diseño y comunicación que hacen visible el conocimiento</p>
+                                </div>
+                                <button class="area__flip" type="button" aria-expanded="false"
+                                    aria-controls="servicios-studio">Ver servicios<span class="visually-hidden"> de
+                                        Studio</span></button>
                             </div>
-                        </header>
-                        <p>Convertimos información, conceptos y resultados en recursos visuales claros, accesibles y
-                            significativos.</p>
-                        <ul class="area__list">
-                            <li>Diseño editorial de informes y publicaciones.</li>
-                            <li>Infografías y visualización de información.</li>
-                            <li>Materiales gráficos para proyectos y campañas.</li>
-                            <li>Identidad visual y recursos de comunicación.</li>
-                            <li>Narrativas visuales de resultados y aprendizajes.</li>
-                        </ul>
+                            <div class="area__face area__back" id="servicios-studio">
+                                <p class="area__back-name" aria-hidden="true">Toolkit Studio</p>
+                                <p>Convertimos información, conceptos y resultados en recursos visuales claros,
+                                    accesibles y significativos.</p>
+                                <ul class="area__list">
+                                    <li>Diseño editorial de informes y publicaciones.</li>
+                                    <li>Infografías y visualización de información.</li>
+                                    <li>Materiales gráficos para proyectos y campañas.</li>
+                                    <li>Identidad visual y recursos de comunicación.</li>
+                                    <li>Narrativas visuales de resultados y aprendizajes.</li>
+                                </ul>
+                                <a class="area__cta link-light" href="#contacto" data-apoyo="Studio">Consultar este
+                                    servicio</a>
+                                <button class="area__unflip" type="button">Volver<span class="visually-hidden"> a
+                                        Studio</span></button>
+                            </div>
+                        </div>
                     </article>
                 </div>
             </div>

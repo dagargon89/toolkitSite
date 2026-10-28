@@ -106,6 +106,16 @@ a {
     top: 1rem;
 }
 
+/* Texto sólo para lectores de pantalla */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+}
+
 /* Botones y enlaces */
 
 .btn {
@@ -702,55 +712,72 @@ a {
     }
 }
 
-/* Áreas: cada una con su pieza del engrane; la rejilla 2×2 repite su posición */
+/* Áreas: tarjetas que se voltean. Al frente, el nombre y la pieza del engrane en la esquina que
+   mira al centro de la rejilla 2×2: separadas por el hueco, las cuatro arman el engrane del hero.
+   Al reverso (tinta), los servicios. Sin JS, frente y reverso se muestran uno debajo del otro. */
 
 .areas {
+    --gap: clamp(0.75rem, 0.5rem + 0.75vw, 1.25rem);
+    --piece: clamp(16rem, 6rem + 20vw, 32rem);
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: clamp(3rem, 2rem + 3vw, 4.5rem) clamp(2rem, 1rem + 4vw, 5rem);
+    gap: var(--gap);
 }
 
 .area {
+    display: grid;
+    perspective: 1600px;
+}
+
+.area__card {
+    display: grid;
+    gap: var(--gap);
+}
+
+.area__face {
+    position: relative;
     display: flex;
     flex-direction: column;
-    gap: 1.25rem;
-    max-width: 34rem;
-    color: var(--graphite);
-}
-
-.area__head {
-    display: flex;
-    align-items: flex-start;
     gap: 1rem;
+    padding: clamp(1.5rem, 1rem + 1.5vw, 2.5rem);
+    border-radius: var(--radius);
+    overflow: hidden;
 }
 
-.area__gear {
-    flex: none;
-    width: 4rem;
-    height: 4rem;
-    overflow: visible;
+/* Frente: en la fila de abajo el texto baja, para dejar libre la esquina de la pieza */
+.area__front {
+    background: var(--white);
 }
 
-.area__gear-rest {
+.area--lab .area__front,
+.area--studio .area__front {
+    justify-content: flex-end;
+}
+
+/* Los cortes van en los valles (22.5° + 90°·k): girado −22.5°, cada pieza cabe en su cuadrante */
+.area__piece {
+    position: absolute;
+    width: var(--piece);
+    height: var(--piece);
     fill: var(--lavender-line);
+    transform: rotate(-22.5deg);
 }
 
-.area__gear-piece {
-    fill: var(--ink);
-    transform-box: fill-box;
-    transform-origin: center;
-}
+/* El centro del engrane cae en el centro de la rejilla: la esquina interior más medio hueco */
+.area--consulting .area__piece { right: calc(var(--piece) / -2 - var(--gap) / 2); bottom: calc(var(--piece) / -2 - var(--gap) / 2); }
+.area--data .area__piece       { left: calc(var(--piece) / -2 - var(--gap) / 2);  bottom: calc(var(--piece) / -2 - var(--gap) / 2); }
+.area--lab .area__piece        { right: calc(var(--piece) / -2 - var(--gap) / 2); top: calc(var(--piece) / -2 - var(--gap) / 2); }
+.area--studio .area__piece     { left: calc(var(--piece) / -2 - var(--gap) / 2);  top: calc(var(--piece) / -2 - var(--gap) / 2); }
 
-/* Hacia dónde sale cada pieza (las mismas direcciones que en el hero) */
-#area-consulting { --x: -42px; --y: -105px; }
-#area-data       { --x: 105px; --y: -42px; }
-#area-studio     { --x: 42px;  --y: 105px; }
-#area-lab        { --x: -105px; --y: 42px; }
+.area__names {
+    position: relative;
+    max-width: 22rem;
+}
 
 .area h3 {
-    font-size: var(--fs-lg);
+    font-size: clamp(1.6875rem, 1.2rem + 1.2vw, 2.0625rem);
     line-height: 1.1;
-    letter-spacing: -0.015em;
+    letter-spacing: -0.02em;
     color: var(--ink);
 }
 
@@ -763,20 +790,61 @@ a {
 }
 
 .area__sub {
-    margin-top: 0.375rem;
+    margin-top: 0.5rem;
     font-weight: 500;
     color: var(--violet-deep);
 }
 
+/* Los botones ocupan toda su cara: se toca en cualquier parte de la tarjeta */
+.area__flip,
+.area__unflip {
+    align-self: flex-start;
+    padding: 0;
+    border: 0;
+    background: none;
+    font: 600 var(--fs-base)/1.4 var(--font);
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.3em;
+    cursor: pointer;
+}
+
+.area__flip::after,
+.area__unflip::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+}
+
+.area__flip {
+    color: var(--violet-deep);
+    text-decoration-color: var(--violet);
+}
+
+/* Reverso */
+.area__back {
+    background: var(--ink);
+    color: var(--lavender);
+    font-size: 0.9375rem;
+    line-height: 1.5;
+}
+
+.area__back-name {
+    font-size: var(--fs-md);
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--white);
+}
+
 .area__list {
     display: grid;
-    gap: 0.5rem;
+    gap: 0.375rem;
 }
 
 .area__list li {
     position: relative;
     padding-left: 1.25rem;
-    color: var(--ink);
+    color: var(--white);
 }
 
 .area__list li::before {
@@ -786,32 +854,100 @@ a {
     top: 0.8em;
     width: 0.625rem;
     height: 2px;
-    background: var(--violet-strong);
+    background: var(--violet);
 }
 
-/* Al llegar desde el hero, la pieza del área se separa un instante y vuelve */
+.area__cta {
+    position: relative;
+    z-index: 1;
+    align-self: flex-start;
+    margin-top: auto;
+}
+
+.area__unflip {
+    color: var(--lavender-line);
+    font-weight: 500;
+    font-size: var(--fs-xs);
+    text-decoration-color: rgb(194 200 250 / 0.5);
+}
+
+.area__back :focus-visible {
+    outline-color: var(--lavender-line);
+}
+
+/* Con JS, las dos caras se apilan y la tarjeta gira */
+.js .area__card {
+    gap: 0;
+    transform-style: preserve-3d;
+}
+
+.js .area__face {
+    grid-area: 1 / 1;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
+.js .area__back {
+    transform: rotateY(180deg);
+}
+
+.js .area.is-flipped .area__card,
+.js .area:has(.area__back :focus-visible) .area__card {
+    transform: rotateY(180deg);
+}
+
+/* Con cursor, gira al señalarla; "Volver" sólo hace falta en táctil (queda para el teclado) */
+@media (hover: hover) and (pointer: fine) {
+    .js .area:hover .area__card {
+        transform: rotateY(180deg);
+    }
+
+    .area__unflip:not(:focus-visible) {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip-path: inset(50%);
+        white-space: nowrap;
+    }
+}
+
+/* Con el foco del teclado en el frente, se ve el frente */
+.js .area:has(.area__front :focus-visible) .area__card {
+    transform: none;
+}
+
 @media (prefers-reduced-motion: no-preference) {
-    .area:target .area__gear-piece {
-        animation: piece-nudge 0.9s cubic-bezier(0.4, 0, 0.2, 1) 0.15s;
-    }
-
-    @keyframes piece-nudge {
-        40% {
-            transform: translate(var(--x), var(--y));
-        }
+    .js .area__card {
+        transition: transform 0.6s cubic-bezier(0.3, 0, 0.2, 1);
     }
 }
 
+/* Una columna (dos serían demasiado angostas para la lista): la tarjeta mide lo que su cara
+   visible, para que el frente no herede la altura de la lista de servicios */
 @media (max-width: 52rem) {
-    .area__gear {
-        width: 3rem;
-        height: 3rem;
-    }
-}
-
-@media (max-width: 40rem) {
     .areas {
+        --piece: 12rem;
         grid-template-columns: minmax(0, 1fr);
+    }
+
+    .area__front {
+        min-height: 13rem;
+    }
+
+    /* Sin rejilla no se forma el engrane: las piezas de la izquierda se reflejan
+       para quedar todas a la derecha, lejos del texto */
+    .area--data .area__piece,
+    .area--studio .area__piece {
+        left: auto;
+        right: calc(var(--piece) / -2 - var(--gap) / 2);
+        transform: scaleX(-1) rotate(-22.5deg);
+    }
+
+    .js .area:not(.is-flipped):not(:has(.area__back :focus-visible)) .area__back,
+    .js .area:is(.is-flipped, :has(.area__back :focus-visible)) .area__front {
+        position: absolute;
+        inset: 0;
     }
 }
 

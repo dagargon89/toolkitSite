@@ -3,7 +3,9 @@ document.documentElement.classList.add('js');
 
 document.addEventListener('DOMContentLoaded', () => {
     initNav();
+    initAreas();
     initChallenges();
+    initPreselect();
     initPrivacy();
     initContactForm();
 });
@@ -73,9 +75,30 @@ function initChallenges() {
     });
 
     select(0, false);
+}
 
-    // "Hablemos de esto" preselecciona en el formulario las áreas que intervienen
-    root.querySelectorAll('[data-apoyo]').forEach((link) => {
+// Áreas: cada tarjeta se voltea con su botón (táctil y teclado); con cursor, también al señalarla (CSS).
+// El foco pasa al botón de la cara visible.
+function initAreas() {
+    document.querySelectorAll('.area').forEach((area) => {
+        const flip = area.querySelector('.area__flip');
+        const unflip = area.querySelector('.area__unflip');
+        if (!flip || !unflip) return;
+
+        const setFlipped = (flipped) => {
+            area.classList.toggle('is-flipped', flipped);
+            flip.setAttribute('aria-expanded', String(flipped));
+            (flipped ? unflip : flip).focus();
+        };
+
+        flip.addEventListener('click', () => setFlipped(true));
+        unflip.addEventListener('click', () => setFlipped(false));
+    });
+}
+
+// "Hablemos de esto" (Desafíos) y "Consultar este servicio" (Áreas) preseleccionan sus áreas en el formulario
+function initPreselect() {
+    document.querySelectorAll('[data-apoyo]').forEach((link) => {
         link.addEventListener('click', () => {
             const areas = link.dataset.apoyo.split(',');
             document.querySelectorAll('.contact-form input[name="apoyo"]').forEach((box) => {

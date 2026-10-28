@@ -98,10 +98,10 @@ Orden del documento v2, con anclas para la navegación sugerida:
 Tres recursos se repiten a lo largo de la página y el visitante los aprende sin explicación:
 
 1. **Ancho tipográfico = separado → integrado.** Instrument Sans condensada (ancho 75) para el problema o lo suelto; ancho completo (100) para la solución o lo unido. Se usa en el titular del hero, el titular de Quiénes somos y los problemas y respuestas de Desafíos. Desde la revisión UX, la lista de disciplinas del Equipo ya no lo usa.
-2. **Cada pieza del engrane es un área, siempre en la misma posición:** Consulting arriba-izquierda, Data & Tech arriba-derecha, Lab abajo-izquierda, Studio abajo-derecha. El engrane aparece en el hero (se arma solo), en Áreas (la pieza de cada una) y en Desafíos (se encienden las del problema). Desde la revisión UX, ya no aparece en el formulario de Contacto. Forma y recortes viven una sola vez en el SVG del hero (`#gear-shape`, `#cut-*`) y las demás instancias los reutilizan con `<use>`.
-3. **Movimiento:** una sola animación automática (la carga del hero). Todo lo demás se mueve sólo en respuesta a una acción (señalar un área, llegar desde un enlace, elegir un problema) y nada se anima con `prefers-reduced-motion`.
+2. **Cada pieza del engrane es un área, siempre en la misma posición:** Consulting arriba-izquierda, Data & Tech arriba-derecha, Lab abajo-izquierda, Studio abajo-derecha. El engrane aparece en el hero (se arma solo), en Áreas (cada tarjeta lleva su pieza y, juntas, forman el engrane) y en Desafíos (se encienden las del problema). Desde la revisión UX, ya no aparece en el formulario de Contacto. Forma y recortes viven una sola vez en el SVG del hero (`#gear-shape`, `#cut-*`) y las demás instancias los reutilizan con `<use>`.
+3. **Movimiento:** una sola animación automática (la carga del hero). Todo lo demás se mueve sólo en respuesta a una acción (señalar un área, voltear una tarjeta, elegir un problema) y nada se anima con `prefers-reduced-motion`.
 
-Sin tarjetas con sombra, sin filetes de periódico, sin píldoras: las secciones se separan por color de fondo y espacio.
+Sin tarjetas con sombra, sin filetes de periódico, sin píldoras: las secciones se separan por color de fondo y espacio. La única excepción son las tarjetas de Áreas, planas y sin sombra.
 
 ### Wireframes
 
@@ -145,13 +145,40 @@ Animación única de carga (≈ 2 s): las piezas encajan (0.55–1.45 s), el eng
 ```
 La frase "Integramos experiencia en sociología, evaluación…" pasa a "Integramos experiencia en:" + lista (**a validar con el cliente**; el resto del texto es literal).
 
-**Áreas de especialización** — sin tarjetas. Rejilla 2×2 sobre lavanda (1 columna en móvil) que repite la posición de las piezas: cada área lleva un engrane pequeño (4rem) con su pieza en tinta y las otras en lavanda claro. "Toolkit" en peso normal y el nombre del área en negrita (el `h3` conserva "Toolkit Consulting" completo). Subtítulos en `violet-deep` (5.4:1 sobre lavanda; `violet-strong` daba 4.1:1). Lista completa de servicios visible, sin acordeones. Al llegar desde el hero (`:target`), la pieza del área sale un instante y vuelve. Sin numeración (no es una secuencia).
+**Áreas de especialización** — tarjetas que se voltean (27 oct 2026, para reducir el texto visible). Es la única excepción a «sin tarjetas»: planas, sin sombra, sobre lavanda.
+
+**Frente** (blanco):
+- "Toolkit" en peso normal y el nombre del área en negrita; el `h3` conserva "Toolkit Consulting" completo.
+- El subtítulo en `violet-deep`.
+- El botón «Ver servicios», que ocupa toda la cara: se toca en cualquier parte de la tarjeta.
+
+**Reverso** (tinta):
+- El nombre, el párrafo y la lista de servicios, a 15 px.
+- «Consultar este servicio»: lleva al formulario con el área marcada.
+- «Volver».
+
+**La pieza del engrane:**
+- En la rejilla 2×2 (desde 52rem), cada frente lleva su pieza en la esquina que mira al centro. Separadas por el hueco, las cuatro forman el engrane del hero, girado −22.5° para que cada pieza quepa en su cuadrante.
+- En la fila de abajo, el texto baja para dejar libre esa esquina.
+- Al voltear una tarjeta, su pieza desaparece del engrane.
+
+**Cómo se voltea:**
+- Con cursor (`hover: hover` y `pointer: fine`), al señalarla. «Volver» queda oculto y sólo aparece con el foco del teclado.
+- En táctil y con teclado, con los botones. El foco pasa al botón de la cara visible, y el frente se ve siempre que tenga el foco.
+- Sin JS, frente y reverso se muestran uno debajo del otro.
+- Con `prefers-reduced-motion`, el giro es instantáneo.
+
+**Por debajo de 52rem:** una columna. La tarjeta mide lo que su cara visible (el frente unos 13rem), y las piezas de Data & Tech y Studio se reflejan para quedar a la derecha, lejos del texto.
 
 ```
-  ⚙◤ Toolkit Consulting          ⚙◥ Toolkit Data & Tech
-  Estrategia, investigación…     Información y tecnología…
-  – Diagnósticos…                – Organización…
-  ⚙◣ Toolkit Lab                 ⚙◢ Toolkit Studio
+  ┌ Toolkit Consulting ─┐ ┌ Toolkit Data & Tech ┐
+  │ Estrategia, …       │ │ Información y …     │
+  │ Ver servicios     ◤ │ │ ◥ Ver servicios     │
+  └───────────────────⚙─┘ └─⚙───────────────────┘   ← las cuatro piezas
+  ┌───────────────────⚙─┐ ┌─⚙───────────────────┐     forman el engrane
+  │                   ◣ │ │ ◢                   │
+  │ Toolkit Lab         │ │ Toolkit Studio      │
+  └─────────────────────┘ └─────────────────────┘
 ```
 
 **¿Qué desafío necesitas resolver?** — la pieza funcional y donde se demuestra la tesis (un problema = varias disciplinas). Seis problemas como tabs verticales accesibles (flechas, Home/End). Los problemas van en condensada, más grandes; el elegido en tinta, negrita y entre comillas « » con la de apertura colgada al margen. La respuesta va a ancho completo junto a un engrane con las piezas de las áreas que intervienen en tinta; al cambiar de problema, esas piezas llegan desde afuera y encajan. Debajo: "Intervienen Data & Tech y Studio" (enlaces) y "Hablemos de esto", que lleva a contacto con **las dos áreas** preseleccionadas.
