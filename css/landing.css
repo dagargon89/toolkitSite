@@ -1286,6 +1286,12 @@ a {
     resize: vertical;
 }
 
+/* Color propio: el del navegador no llega a AA en Safari ni en Firefox */
+.field textarea::placeholder {
+    color: var(--graphite);
+    opacity: 1;
+}
+
 .field input:focus-visible,
 .field textarea:focus-visible {
     outline-offset: 0;

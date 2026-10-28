@@ -99,7 +99,7 @@ Tres recursos se repiten a lo largo de la página y el visitante los aprende sin
 
 1. **Ancho tipográfico = separado → integrado.** Instrument Sans condensada (ancho 75) para el problema o lo suelto; ancho completo (100) para la solución o lo unido. Se usa en el titular del hero, el titular de Quiénes somos y los problemas y respuestas de Desafíos. Desde la revisión UX, la lista de disciplinas del Equipo ya no lo usa.
 2. **Cada pieza del engrane es un área, siempre en la misma posición:** Consulting arriba-izquierda, Data & Tech arriba-derecha, Lab abajo-izquierda, Studio abajo-derecha. El engrane aparece en el hero (se arma solo), en Áreas (la pieza de cada una) y en Desafíos (se encienden las del problema). Desde la revisión UX, ya no aparece en el formulario de Contacto. Forma y recortes viven una sola vez en el SVG del hero (`#gear-shape`, `#cut-*`) y las demás instancias los reutilizan con `<use>`.
-3. **Movimiento:** una sola animación automática (la carga del hero). Todo lo demás se mueve sólo en respuesta a una acción (señalar un área, llegar desde un enlace, elegir un problema, marcar una casilla) y nada se anima con `prefers-reduced-motion`.
+3. **Movimiento:** una sola animación automática (la carga del hero). Todo lo demás se mueve sólo en respuesta a una acción (señalar un área, llegar desde un enlace, elegir un problema) y nada se anima con `prefers-reduced-motion`.
 
 Sin tarjetas con sombra, sin filetes de periódico, sin píldoras: las secciones se separan por color de fondo y espacio.
 
