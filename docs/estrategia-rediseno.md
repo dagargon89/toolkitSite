@@ -297,9 +297,10 @@ Botón: **Hablemos de tu proyecto**. Confirmación: "Recibimos tu mensaje. Te co
   - **Sin clave:** si `access_key` está vacío, el envío sigue abriendo el correo del visitante, dirigido a ese mismo correo.
   - **Aviso de privacidad:** Web3Forms es un tercero que procesa los datos, así que el aviso debe mencionarlo; el aviso simplificado actual no lo hace. Recepción probada con un envío real el 27 oct 2026: llegó.
 - Aviso de privacidad (LFPDPPP):
-  - El aviso simplificado de Toolkit Social está en el modal `#aviso-privacidad`, que abren el pie y la casilla del formulario.
-  - La casilla dice: «He leído el Aviso de Privacidad y consiento el tratamiento de mis datos personales para las finalidades indicadas.»
-  - **Pendiente:** el Aviso de Privacidad Integral, que el simplificado menciona sin enlace.
+  - **Simplificado:** está en el modal `#aviso-privacidad`, que abre la casilla del formulario. Su última frase enlaza al integral.
+  - **Integral:** tiene su propia página, `aviso-de-privacidad.html`, con la misma cabecera y pie del sitio. El pie de las dos páginas la enlaza. El texto es el literal entregado el 27 oct 2026, salvo la nota interna del apartado 8 («Pendiente de validación: ajustar este apartado…»), que no se publica y queda como comentario en el HTML.
+  - **La casilla dice:** «He leído el Aviso de Privacidad y consiento el tratamiento de mis datos personales para las finalidades indicadas.»
+  - **Para ajustar el apartado 8:** hoy el sitio no usa cookies ni analítica, carga la tipografía desde Google Fonts y envía el formulario mediante Web3Forms.
 - Protección anti-spam sin CAPTCHA visible: campo honeypot + límite de envíos.
 
 ---
@@ -312,7 +313,7 @@ Botón: **Hablemos de tu proyecto**. Confirmación: "Recibimos tu mensaje. Te co
 4. ~~Hero~~ — hecho: engrane que se arma, animación única, reduced motion.
 5. ~~Rediseño por secciones~~ — hecho: Quiénes somos, Áreas, Desafíos, Cómo trabajamos, Sectores y Contacto (§3).
 6. ~~Selector de problemas~~ — hecho (`js/landing.js`), con preselección de las dos áreas en el formulario.
-7. Formulario: conectado a Web3Forms, con la clave de acceso ya en `access_key`, envío real probado y aviso de privacidad simplificado en el modal. **Pendiente:** el Aviso de Privacidad Integral.
+7. ~~Formulario~~ — hecho: conectado a Web3Forms (clave en `access_key`, envío real probado), con el aviso simplificado en el modal y el integral en `aviso-de-privacidad.html`.
 
    Sin clave, el envío abre el correo del visitante con el mensaje armado.
 8. ~~Retirar `pages/`~~ — hecho. Si había enlaces externos a esas páginas, redirigirlos a `/#soluciones` en el servidor.
@@ -324,7 +325,7 @@ Botón: **Hablemos de tu proyecto**. Confirmación: "Recibimos tu mensaje. Te co
 
 1. ~~Logo original~~ — recibido en PNG. Opcional: el SVG oficial, para mayor nitidez.
 2. **Backend del formulario:** se usa Web3Forms y los mensajes llegan a `genesis@toolkitsocial.com`. La clave de acceso, generada con ese correo, ya está en `index.html`; el envío real se probó el 27 oct 2026. Desde el 27 oct 2026 también es el correo público del sitio: Contacto, pie, JSON-LD y el mensaje de error del formulario. Sustituye a `genesisrodriguez@toolkitsocialconsulting.com`.
-3. **Aviso de privacidad:** el simplificado ya está publicado en el modal. Falta el **Aviso de Privacidad Integral**, que el simplificado menciona; en cuanto exista, se enlaza. Conviene que diga que los datos del formulario pasan por Web3Forms.
+3. ~~Aviso de privacidad~~ — publicados el simplificado (modal) y el integral (`aviso-de-privacidad.html`). **Falta validar** el apartado 8 (cookies y tecnologías) según lo que usa el sitio: Google Fonts y Web3Forms, sin cookies ni analítica. Quien redacta el aviso decide si Web3Forms se nombra o basta la mención general a proveedores del apartado 5.
 4. **Mapeo problema → áreas** de la tabla de §3: validar. Ahora también decide qué piezas se encienden en Desafíos y qué áreas llegan marcadas al formulario.
 5. **Fuente**: ¿aprueban Instrument Sans o quieren la del logotipo?
 6. ~~¿Se borran las páginas de `pages/`?~~ — borradas (siguen en el historial de git).
