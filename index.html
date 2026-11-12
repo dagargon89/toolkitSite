@@ -7,7 +7,7 @@
     <title>Toolkit Social — Consultoría interdisciplinaria</title>
     <meta name="description"
         content="Reunimos investigación, estrategia, datos, tecnología y creatividad para resolver desafíos reales de organizaciones, empresas e instituciones." />
-    <meta name="theme-color" content="#25204F" />
+    <meta name="theme-color" content="#110E2B" />
     <link rel="canonical" href="https://toolkitsocial.com/" />
     <link rel="icon" type="image/png" href="img/logo/toolkit-isotipo-color.png" />
 
@@ -28,7 +28,7 @@
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wdth,wght@0,75..100,400..700;1,75..100,400..700&display=swap" />
     <!-- ?v= obliga al navegador a descargar la versión nueva: cambiarla en cada publicación que toque CSS o JS -->
-    <link rel="stylesheet" href="css/landing.css?v=20261028" />
+    <link rel="stylesheet" href="css/landing.css?v=20261111" />
 
     <script type="application/ld+json">
     {
@@ -74,11 +74,13 @@
 
     <main id="contenido">
         <!-- Portada: el hero queda fijo mientras se desplaza y el engrane del logo se arma con el
-             avance (js/landing.js). Sin JS o con movimiento reducido, se muestra armado y estático. -->
+             avance (js/landing.js). Con WebGL, js/scene.js lo dibuja en 3D sobre el lugar del SVG.
+             Sin JS o con movimiento reducido, se muestra armado y estático. -->
         <section id="inicio" class="hero" aria-labelledby="hero-title">
             <div class="hero__stage">
                 <div class="container hero__inner">
                     <div class="hero__copy">
+                        <p class="hero__eyebrow">Consultoría interdisciplinaria</p>
                         <h1 id="hero-title" class="hero__title">
                             <span class="hero__problem">Los problemas no vienen separados por disciplinas.</span>
                             <span class="hero__answer">Las soluciones tampoco deberían.</span>
@@ -122,6 +124,7 @@
                         </ul>
                     </div>
                 </div>
+                <span class="hero__cue" aria-hidden="true"></span>
             </div>
         </section>
 
@@ -686,7 +689,9 @@
         </form>
     </dialog>
 
-    <script src="js/landing.js?v=20261028" defer></script>
+    <script src="js/landing.js?v=20261111" defer></script>
+    <!-- Escenas 3D (Three.js, servido desde js/vendor): mejora progresiva, la página funciona sin ellas -->
+    <script type="module" src="js/scene.js?v=20261111"></script>
 </body>
 
 </html>

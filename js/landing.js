@@ -1,4 +1,4 @@
-// Toolkit Social — landing v2
+// Toolkit Social — landing v3 (las escenas 3D viven en js/scene.js)
 document.documentElement.classList.add('js');
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initPreselect();
     initPrivacy();
     initContactForm();
+    initReveal();
 });
 
 // Menú móvil
@@ -55,7 +56,12 @@ function initHeroGear() {
     let current = 0;
     let frame = 0;
 
+    // js/scene.js lee de aquí el avance para la escena 3D (1 = armado)
+    const state = (window.toolkitHero = { progress: 1 });
+
     const render = (progress) => {
+        state.progress = progress;
+        stage.style.setProperty('--progress', progress.toFixed(3));
         const assembled = ease(clamp(progress / 0.6));
         const labels = clamp((progress - 0.6) / 0.2);
         gear.style.setProperty('--spread', ((1 - assembled) * 70).toFixed(2));
@@ -84,6 +90,8 @@ function initHeroGear() {
         cancelAnimationFrame(frame);
         frame = 0;
         if (!motion.matches) {
+            state.progress = 1;
+            stage.style.removeProperty('--progress');
             props.forEach((prop) => gear.style.removeProperty(prop));
             gear.classList.remove('is-labeled');
             return;
@@ -115,6 +123,8 @@ function initChallenges() {
             panels[i].hidden = !active;
         });
         if (focus) tabs[index].focus();
+        // La escena 3D mueve su engrane al panel elegido
+        root.dispatchEvent(new CustomEvent('challengechange', { detail: { panel: panels[index] } }));
     };
 
     tabs.forEach((tab, i) => {
@@ -341,4 +351,31 @@ function initContactForm() {
         const body = Object.entries(messageFields(data)).map(([label, value]) => `${label}: ${value}`).join('\n');
         window.location.href = `mailto:genesis@toolkitsocial.com?subject=${encodeURIComponent(subjectFor(data))}&body=${encodeURIComponent(body)}`;
     }
+}
+
+// Aparición al entrar en pantalla: marca los bloques con [data-reveal] (el CSS los oculta sólo
+// con JS y movimiento) y les pone .is-in cuando asoman. --i escalona a los hermanos.
+function initReveal() {
+    const targets = document.querySelectorAll([
+        '.about__title', '.about__body', '.team__head', '.team__lead-in', '.team__disciplines', '.team__cols',
+        '.section__title', '.challenges__hint', '.challenges', '.area', '.step', '.sector', '.sectors__close',
+        '.contact-form',
+    ].join(','));
+
+    if (!('IntersectionObserver' in window)) return;
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add('is-in');
+            observer.unobserve(entry.target);
+        });
+    }, { rootMargin: '0px 0px -10% 0px' });
+
+    targets.forEach((el) => {
+        const group = el.matches('.area, .step, .sector') ? [...el.parentElement.children].indexOf(el) : 0;
+        el.style.setProperty('--i', group);
+        el.dataset.reveal = '';
+        observer.observe(el);
+    });
 }
