@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Toolkit Social — Consultoría interdisciplinaria</title>
+    <meta name="description"
+        content="Reunimos investigación, estrategia, datos, tecnología y creatividad para resolver desafíos reales de organizaciones, empresas e instituciones." />
+    <meta name="theme-color" content="#110E2B" />
+    <!-- Vista previa del rediseño: sólo se llega con el enlace directo; no la indexan los buscadores -->
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="icon" type="image/png" href="img/logo/toolkit-isotipo-color.png" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_MX" />
+    <meta property="og:title" content="Toolkit Social — Consultoría interdisciplinaria" />
+    <meta property="og:description"
+        content="Los problemas no vienen separados por disciplinas. Las soluciones tampoco deberían." />
+    <meta property="og:url" content="https://toolkitsocial.com/nueva.html" />
+    <meta property="og:image" content="https://toolkitsocial.com/img/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Logotipo de Toolkit Social Consulting" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wdth,wght@0,75..100,400..700;1,75..100,400..700&display=swap" />
+    <!-- ?v= obliga al navegador a descargar la versión nueva: cambiarla en cada publicación que toque CSS o JS -->
+    <link rel="stylesheet" href="css/landing-v3.css?v=20261112" />
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Toolkit Social",
+        "url": "https://toolkitsocial.com/",
+        "logo": "https://toolkitsocial.com/img/logo/toolkit-isotipo-color.png",
+        "email": "genesis@toolkitsocial.com",
+        "contactPoint": [
+            { "@type": "ContactPoint", "telephone": "+52 656 820 8353", "contactType": "customer service", "availableLanguage": "es" },
+            { "@type": "ContactPoint", "telephone": "+52 656 760 8980", "contactType": "customer service", "contactOption": "WhatsApp", "availableLanguage": "es" }
+        ]
+    }
+    </script>
+</head>
+
+<body>
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+
+    <header class="site-header">
+        <div class="container site-header__inner">
+            <a class="brand" href="#inicio" aria-label="Toolkit Social, ir al inicio">
+                <img class="brand__logo" src="img/logo/toolkit-horizontal-reducido-color.png" alt="" width="1634" height="497">
+            </a>
+
+            <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+                <span class="nav-toggle__bars" aria-hidden="true"></span>
+                <span class="nav-toggle__label">Menú</span>
+            </button>
+
+            <nav id="site-nav" class="site-nav" aria-label="Principal">
+                <ul>
+                    <li><a href="#nosotros">Nosotros</a></li>
+                    <li><a href="#soluciones">Soluciones</a></li>
+                    <li><a href="#como-trabajamos">Cómo trabajamos</a></li>
+                    <li><a href="#sectores">Sectores</a></li>
+                    <li><a class="btn btn--small" href="#contacto">Contacto</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main id="contenido">
+        <!-- Portada: el hero queda fijo mientras se desplaza y el engrane del logo se arma con el
+             avance (js/landing-v3.js). Con WebGL, js/scene.js lo dibuja en 3D sobre el lugar del SVG.
+             Sin JS o con movimiento reducido, se muestra armado y estático. -->
+        <section id="inicio" class="hero" aria-labelledby="hero-title">
+            <div class="hero__stage">
+                <div class="container hero__inner">
+                    <div class="hero__copy">
+                        <p class="hero__eyebrow">Consultoría interdisciplinaria</p>
+                        <h1 id="hero-title" class="hero__title">
+                            <span class="hero__problem">Los problemas no vienen separados por disciplinas.</span>
+                            <span class="hero__answer">Las soluciones tampoco deberían.</span>
+                        </h1>
+
+                        <div class="hero__body">
+                            <p>Reunimos investigación, estrategia, datos, tecnología y creatividad para resolver
+                                desafíos reales de organizaciones, empresas e instituciones.</p>
+                            <p>Cada realidad merece herramientas a su medida.</p>
+                        </div>
+
+                        <div class="hero__actions">
+                            <a class="btn" href="#contacto">Cuéntanos tu desafío</a>
+                            <a class="link-light" href="#areas">Conoce nuestras soluciones</a>
+                        </div>
+                    </div>
+
+                    <!-- El engrane del logo, en cuatro piezas (una por área) -->
+                    <div class="hero__gear">
+                        <svg class="gear" viewBox="-14 -14 525 525" aria-hidden="true" focusable="false">
+                            <defs>
+                                <path id="gear-shape" fill-rule="evenodd" d="M 234.909 2.840 C 219.615 7.888, 214.019 15.150, 205.503 41 C 199.604 58.906, 199.003 60.097, 192.340 67.082 C 186.308 73.406, 177.775 77.901, 166.538 80.674 C 156.136 83.241, 149.837 81.785, 129.312 72.071 C 109.930 62.898, 103.528 61.272, 93.757 63.044 C 76.653 66.146, 64.150 78.628, 61.056 95.693 C 59.181 106.033, 60.754 112.040, 70.628 132.245 C 82.436 156.407, 82.927 164.089, 73.842 182.500 C 67.662 195.025, 61.353 199.488, 38.629 207.415 C 20.589 213.708, 15.898 216.157, 10.555 222.071 C -3.072 237.155, -3.228 260.234, 10.193 275.482 C 15.807 281.859, 20.508 284.311, 39 290.500 C 62.725 298.441, 68.883 302.971, 75.542 317.384 C 83.803 335.265, 83.268 341.503, 71.299 366.860 L 62.500 385.500 62.500 396.021 C 62.500 405.882, 62.705 406.959, 65.768 413.180 C 74.089 430.083, 93.040 439.180, 110.576 434.687 C 113.916 433.831, 123.903 429.537, 132.770 425.144 C 155.190 414.037, 162.324 413.477, 179.640 421.463 C 194.186 428.172, 198.410 433.898, 207.533 459.273 C 213.269 475.226, 217.695 483.005, 223.599 487.508 C 240.477 500.381, 265.855 498.119, 278.418 482.621 C 283.190 476.735, 285.182 472.337, 290.338 456.306 C 297.718 433.356, 301.911 427.735, 316.890 420.708 C 334.674 412.366, 341.824 413.001, 367.166 425.174 L 384.500 433.500 396 433.500 C 407.171 433.500, 407.679 433.403, 413.737 430.118 C 421.077 426.137, 427.716 419.385, 431.666 411.883 C 434.302 406.877, 434.500 405.695, 434.500 395 L 434.500 383.500 425.500 365.580 L 416.500 347.659 416.500 337.080 C 416.500 326.678, 416.572 326.348, 420.796 317.500 C 428.181 302.031, 433.272 298.081, 456.864 289.517 C 465.292 286.457, 473.608 283.233, 475.344 282.353 C 496.675 271.527, 502.606 242.394, 487.508 222.599 C 482.744 216.354, 475.404 212.321, 458.500 206.661 C 433.035 198.135, 427.863 194.415, 420.987 179.677 C 412.620 161.748, 413.162 154.864, 424.883 130.124 C 433.924 111.042, 435.619 104.571, 434.078 95.005 C 431.888 81.405, 424.483 71.325, 412.237 65.272 C 405.011 61.701, 404.092 61.500, 395.001 61.500 L 385.399 61.500 367.450 70.240 C 342.400 82.438, 336.256 83.302, 320.065 76.904 C 303.525 70.368, 298.476 64.202, 289.578 39.676 C 281.122 16.368, 276.869 10.483, 264 4.281 C 256.648 0.738, 243.282 0.076, 234.909 2.840 M 237 129.659 C 152.388 137.151, 101.893 226.594, 139.873 301.703 C 169.351 359.999, 239.776 383.622, 298.535 354.924 C 302.954 352.766, 307.015 351, 307.558 351 C 308.102 351, 318.095 354.825, 329.767 359.500 C 341.667 364.267, 352.463 368, 354.346 368 C 358.435 368, 363.637 364.652, 366.815 359.976 C 370.402 354.697, 369.427 350.918, 358.630 328.241 L 348.984 307.981 352.553 300.895 C 366.525 273.151, 368.580 237.929, 357.934 208.678 C 339.675 158.508, 288.539 125.095, 237 129.659" />
+                                <!-- Cortes en los valles entre dientes (22.5° + 90°·k): cada pieza lleva dos dientes -->
+                                <clipPath id="cut-consulting"><polygon points="248.5,248.5 -120.5,95.7 -120.5,-120.5 401.3,-120.5" /></clipPath>
+                                <clipPath id="cut-data"><polygon points="248.5,248.5 401.3,-120.5 617.5,-120.5 617.5,401.3" /></clipPath>
+                                <clipPath id="cut-studio"><polygon points="248.5,248.5 617.5,401.3 617.5,617.5 95.7,617.5" /></clipPath>
+                                <clipPath id="cut-lab"><polygon points="248.5,248.5 95.7,617.5 -120.5,617.5 -120.5,95.7" /></clipPath>
+                            </defs>
+                            <g class="gear__piece gear__piece--consulting"><use href="#gear-shape" clip-path="url(#cut-consulting)" /></g>
+                            <g class="gear__piece gear__piece--data"><use href="#gear-shape" clip-path="url(#cut-data)" /></g>
+                            <g class="gear__piece gear__piece--studio"><use href="#gear-shape" clip-path="url(#cut-studio)" /></g>
+                            <g class="gear__piece gear__piece--lab"><use href="#gear-shape" clip-path="url(#cut-lab)" /></g>
+                            <use class="gear__whole" href="#gear-shape" />
+                        </svg>
+
+                        <ul class="gear__areas" aria-label="Áreas de especialización">
+                            <li class="gear__area gear__area--consulting"><a href="#area-consulting">Consulting</a></li>
+                            <li class="gear__area gear__area--data"><a href="#area-data">Data &amp; Tech</a></li>
+                            <li class="gear__area gear__area--lab"><a href="#area-lab">Lab</a></li>
+                            <li class="gear__area gear__area--studio"><a href="#area-studio">Studio</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <span class="hero__cue" aria-hidden="true"></span>
+            </div>
+        </section>
+
+        <!-- Quiénes somos + Equipo -->
+        <section id="nosotros" class="about" aria-labelledby="nosotros-title">
+            <div class="container">
+                <h2 id="nosotros-title" class="about__title">
+                    <span class="about__parts">Distintas disciplinas.</span>
+                    <span class="about__whole">Una misma intención: encontrar mejores soluciones.</span>
+                </h2>
+                <div class="about__body">
+                    <p class="about__lead">Somos una plataforma de consultoría y colaboración interdisciplinaria que reúne
+                        capacidades en investigación social, estrategia, análisis de datos, desarrollo tecnológico,
+                        gestión financiera, diseño y procesos participativos.</p>
+                    <div class="about__cols">
+                        <p>Creemos que los desafíos complejos requieren algo más que respuestas estandarizadas. Por eso
+                            combinamos perspectivas, herramientas y conocimientos para diseñar soluciones pertinentes,
+                            prácticas y adaptadas a cada contexto.</p>
+                        <p>Trabajamos desde la colaboración, el rigor metodológico y el compromiso con generar información
+                            útil, fortalecer capacidades y facilitar decisiones fundamentadas.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Equipo: las disciplinas se abren de condensada a ancha, como piezas que se integran -->
+            <div class="team" aria-labelledby="equipo-title">
+                <div class="container">
+                    <div class="team__head">
+                        <h3 id="equipo-title" class="team__title">Una red de talentos, múltiples perspectivas.</h3>
+                        <p>Toolkit Social se construye a partir de la colaboración entre profesionales de distintas
+                            disciplinas.</p>
+                    </div>
+
+                    <p class="team__lead-in" id="disciplinas">Integramos experiencia en:</p>
+                    <ul class="team__disciplines" aria-labelledby="disciplinas">
+                        <li>Sociología</li>
+                        <li>Evaluación de proyectos</li>
+                        <li>Análisis de datos</li>
+                        <li>Desarrollo tecnológico</li>
+                        <li>Gestión financiera</li>
+                        <li>Diseño visual</li>
+                        <li>Psicología comunitaria</li>
+                    </ul>
+
+                    <div class="team__cols">
+                        <p>Conformamos equipos de trabajo de acuerdo con las necesidades de cada proyecto,
+                            reconociendo el conocimiento, la experiencia y las contribuciones de quienes participan.</p>
+                        <p class="team__belief">Creemos en el talento que se conecta, el conocimiento que se comparte y
+                            las soluciones que se construyen colectivamente.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Soluciones: áreas de especialización -->
+        <section id="soluciones" class="section section--lavender" aria-labelledby="areas-title">
+            <div class="container" id="areas">
+                <h2 id="areas-title" class="section__title">Áreas de especialización</h2>
+
+                <!-- Cada área es una tarjeta: al frente su nombre y su pieza del engrane, en la esquina que
+                     mira al centro de la rejilla (las cuatro forman el engrane); al reverso, sus servicios.
+                     Se voltea al señalarla con el cursor o con su botón (táctil y teclado). -->
+                <div class="areas">
+                    <article class="area area--consulting" id="area-consulting">
+                        <div class="area__card">
+                            <div class="area__face area__front">
+                                <svg class="area__piece" viewBox="-14 -14 525 525" aria-hidden="true" focusable="false">
+                                    <use href="#gear-shape" clip-path="url(#cut-consulting)" />
+                                </svg>
+                                <div class="area__names">
+                                    <h3><span class="area__brand">Toolkit</span> <span class="area__name">Consulting</span></h3>
+                                    <p class="area__sub">Estrategia, investigación y fortalecimiento organizacional</p>
+                                </div>
+                                <button class="area__flip" type="button" aria-expanded="false"
+                                    aria-controls="servicios-consulting">Ver servicios<span class="visually-hidden"> de
+                                        Consulting</span></button>
+                            </div>
+                            <div class="area__face area__back" id="servicios-consulting">
+                                <p class="area__back-name" aria-hidden="true">Toolkit Consulting</p>
+                                <p>Acompañamos el diseño, implementación, seguimiento y evaluación de proyectos,
+                                    programas y procesos organizacionales.</p>
+                                <ul class="area__list">
+                                    <li>Diagnósticos e investigación aplicada.</li>
+                                    <li>Planeación estratégica y diseño de proyectos.</li>
+                                    <li>Monitoreo, evaluación y aprendizaje (MEL).</li>
+                                    <li>Diseño y revisión de indicadores.</li>
+                                    <li>Sistematización de experiencias y resultados.</li>
+                                    <li>Seguimiento presupuestal y financiero de proyectos.</li>
+                                    <li>Mejora de procesos y fortalecimiento institucional.</li>
+                                </ul>
+                                <a class="area__cta link-light" href="#contacto" data-apoyo="Consulting">Consultar este
+                                    servicio</a>
+                                <button class="area__unflip" type="button">Volver<span class="visually-hidden"> a
+                                        Consulting</span></button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="area area--data" id="area-data">
+                        <div class="area__card">
+                            <div class="area__face area__front">
+                                <svg class="area__piece" viewBox="-14 -14 525 525" aria-hidden="true" focusable="false">
+                                    <use href="#gear-shape" clip-path="url(#cut-data)" />
+                                </svg>
+                                <div class="area__names">
+                                    <h3><span class="area__brand">Toolkit</span> <span class="area__name">Data &amp; Tech</span></h3>
+                                    <p class="area__sub">Información y tecnología para tomar mejores decisiones</p>
+                                </div>
+                                <button class="area__flip" type="button" aria-expanded="false"
+                                    aria-controls="servicios-data">Ver servicios<span class="visually-hidden"> de Data
+                                        &amp; Tech</span></button>
+                            </div>
+                            <div class="area__face area__back" id="servicios-data">
+                                <p class="area__back-name" aria-hidden="true">Toolkit Data &amp; Tech</p>
+                                <p>Transformamos datos dispersos y procesos manuales en herramientas prácticas para
+                                    organizar información, reducir trabajo repetitivo y facilitar el seguimiento.</p>
+                                <ul class="area__list">
+                                    <li>Organización, depuración y análisis de bases de datos.</li>
+                                    <li>Diseño de sistemas de información y registro.</li>
+                                    <li>Automatización de procesos y reportes.</li>
+                                    <li>Tableros de indicadores y visualización de datos.</li>
+                                    <li>Integración y mejora de herramientas digitales.</li>
+                                    <li>Desarrollo de soluciones tecnológicas a medida.</li>
+                                </ul>
+                                <a class="area__cta link-light" href="#contacto" data-apoyo="Data &amp; Tech">Consultar
+                                    este servicio</a>
+                                <button class="area__unflip" type="button">Volver<span class="visually-hidden"> a Data
+                                        &amp; Tech</span></button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="area area--lab" id="area-lab">
+                        <div class="area__card">
+                            <div class="area__face area__front">
+                                <svg class="area__piece" viewBox="-14 -14 525 525" aria-hidden="true" focusable="false">
+                                    <use href="#gear-shape" clip-path="url(#cut-lab)" />
+                                </svg>
+                                <div class="area__names">
+                                    <h3><span class="area__brand">Toolkit</span> <span class="area__name">Lab</span></h3>
+                                    <p class="area__sub">Innovación, participación y soluciones construidas colectivamente</p>
+                                </div>
+                                <button class="area__flip" type="button" aria-expanded="false"
+                                    aria-controls="servicios-lab">Ver servicios<span class="visually-hidden"> de
+                                        Lab</span></button>
+                            </div>
+                            <div class="area__face area__back" id="servicios-lab">
+                                <p class="area__back-name" aria-hidden="true">Toolkit Lab</p>
+                                <p>Diseñamos espacios y metodologías para comprender problemas, explorar alternativas y
+                                    desarrollar soluciones con las personas involucradas.</p>
+                                <ul class="area__list">
+                                    <li>Diagnósticos participativos.</li>
+                                    <li>Diseño y facilitación de talleres.</li>
+                                    <li>Procesos de cocreación y prototipado.</li>
+                                    <li>Investigación comunitaria y territorial.</li>
+                                    <li>Diseño de metodologías participativas.</li>
+                                    <li>Acompañamiento a iniciativas de innovación social.</li>
+                                </ul>
+                                <a class="area__cta link-light" href="#contacto" data-apoyo="Lab">Consultar este
+                                    servicio</a>
+                                <button class="area__unflip" type="button">Volver<span class="visually-hidden"> a
+                                        Lab</span></button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="area area--studio" id="area-studio">
+                        <div class="area__card">
+                            <div class="area__face area__front">
+                                <svg class="area__piece" viewBox="-14 -14 525 525" aria-hidden="true" focusable="false">
+                                    <use href="#gear-shape" clip-path="url(#cut-studio)" />
+                                </svg>
+                                <div class="area__names">
+                                    <h3><span class="area__brand">Toolkit</span> <span class="area__name">Studio</span></h3>
+                                    <p class="area__sub">Diseño y comunicación que hacen visible el conocimiento</p>
+                                </div>
+                                <button class="area__flip" type="button" aria-expanded="false"
+                                    aria-controls="servicios-studio">Ver servicios<span class="visually-hidden"> de
+                                        Studio</span></button>
+                            </div>
+                            <div class="area__face area__back" id="servicios-studio">
+                                <p class="area__back-name" aria-hidden="true">Toolkit Studio</p>
+                                <p>Convertimos información, conceptos y resultados en recursos visuales claros,
+                                    accesibles y significativos.</p>
+                                <ul class="area__list">
+                                    <li>Diseño editorial de informes y publicaciones.</li>
+                                    <li>Infografías y visualización de información.</li>
+                                    <li>Materiales gráficos para proyectos y campañas.</li>
+                                    <li>Identidad visual y recursos de comunicación.</li>
+                                    <li>Narrativas visuales de resultados y aprendizajes.</li>
+                                </ul>
+                                <a class="area__cta link-light" href="#contacto" data-apoyo="Studio">Consultar este
+                                    servicio</a>
+                                <button class="area__unflip" type="button">Volver<span class="visually-hidden"> a
+                                        Studio</span></button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Problemas que ayudamos a resolver.
+             Mapeo problema → áreas propuesto por desarrollo: PENDIENTE de validar con el cliente. -->
+        <section id="desafios" class="section" aria-labelledby="desafios-title">
+            <div class="container">
+                <h2 id="desafios-title" class="section__title">¿Qué desafío necesitas resolver?</h2>
+                <p class="challenges__hint">Elige el que más se parezca al tuyo.</p>
+
+                <div class="challenges" data-challenges>
+                    <div class="challenges__list" role="tablist" aria-orientation="vertical"
+                        aria-labelledby="desafios-title">
+                        <button class="challenge-tab" role="tab" id="tab-1" aria-controls="panel-1"
+                            aria-selected="true" type="button">Tenemos información, pero no sabemos cómo
+                            aprovecharla.</button>
+                        <button class="challenge-tab" role="tab" id="tab-2" aria-controls="panel-2"
+                            aria-selected="false" tabindex="-1" type="button">Nuestros procesos son lentos, manuales o
+                            están fragmentados.</button>
+                        <button class="challenge-tab" role="tab" id="tab-3" aria-controls="panel-3"
+                            aria-selected="false" tabindex="-1" type="button">Necesitamos diseñar, fortalecer o evaluar
+                            un proyecto.</button>
+                        <button class="challenge-tab" role="tab" id="tab-4" aria-controls="panel-4"
+                            aria-selected="false" tabindex="-1" type="button">Queremos comprender mejor a las personas
+                            y los territorios con los que trabajamos.</button>
+                        <button class="challenge-tab" role="tab" id="tab-5" aria-controls="panel-5"
+                            aria-selected="false" tabindex="-1" type="button">Necesitamos comunicar mejor nuestros
+                            resultados.</button>
+                        <button class="challenge-tab" role="tab" id="tab-6" aria-controls="panel-6"
+                            aria-selected="false" tabindex="-1" type="button">Tenemos una idea, pero necesitamos
+                            convertirla en un proyecto viable.</button>
+                    </div>
+
+                    <div class="challenges__panels">
+                        <div class="challenge-panel" role="tabpanel" id="panel-1" aria-labelledby="tab-1">
+                            <p class="challenge-panel__q">Tenemos información, pero no sabemos cómo aprovecharla.</p>
+                            <div class="fit fit--data fit--studio" aria-hidden="true">
+                                <svg class="fit__gear" viewBox="-14 -14 525 525" focusable="false">
+                                    <use class="fit__rest" href="#gear-shape" />
+                                    <g class="fit__piece fit__piece--consulting"><use href="#gear-shape" clip-path="url(#cut-consulting)" /></g>
+                                    <g class="fit__piece fit__piece--data"><use href="#gear-shape" clip-path="url(#cut-data)" /></g>
+                                    <g class="fit__piece fit__piece--lab"><use href="#gear-shape" clip-path="url(#cut-lab)" /></g>
+                                    <g class="fit__piece fit__piece--studio"><use href="#gear-shape" clip-path="url(#cut-studio)" /></g>
+                                </svg>
+                                <span class="fit__label fit__label--consulting">Consulting</span>
+                                <span class="fit__label fit__label--data">Data &amp; Tech</span>
+                                <span class="fit__label fit__label--lab">Lab</span>
+                                <span class="fit__label fit__label--studio">Studio</span>
+                            </div>
+                            <p class="challenge-panel__a">Organizamos, analizamos y transformamos datos en información
+                                útil para orientar decisiones.</p>
+                            <p class="challenge-panel__areas">Intervienen <a href="#area-data">Data &amp; Tech</a> y <a href="#area-studio">Studio</a></p>
+                            <a class="btn" href="#contacto" data-apoyo="Data & Tech,Studio">Hablemos de esto</a>
+                        </div>
+                        <div class="challenge-panel" role="tabpanel" id="panel-2" aria-labelledby="tab-2">
+                            <p class="challenge-panel__q">Nuestros procesos son lentos, manuales o están fragmentados.
+                            </p>
+                            <div class="fit fit--data fit--consulting" aria-hidden="true">
+                                <svg class="fit__gear" viewBox="-14 -14 525 525" focusable="false">
+                                    <use class="fit__rest" href="#gear-shape" />
+                                    <g class="fit__piece fit__piece--consulting"><use href="#gear-shape" clip-path="url(#cut-consulting)" /></g>
+                                    <g class="fit__piece fit__piece--data"><use href="#gear-shape" clip-path="url(#cut-data)" /></g>
+                                    <g class="fit__piece fit__piece--lab"><use href="#gear-shape" clip-path="url(#cut-lab)" /></g>
+                                    <g class="fit__piece fit__piece--studio"><use href="#gear-shape" clip-path="url(#cut-studio)" /></g>
+                                </svg>
+                                <span class="fit__label fit__label--consulting">Consulting</span>
+                                <span class="fit__label fit__label--data">Data &amp; Tech</span>
+                                <span class="fit__label fit__label--lab">Lab</span>
+                                <span class="fit__label fit__label--studio">Studio</span>
+                            </div>
+                            <p class="challenge-panel__a">Identificamos oportunidades de mejora y desarrollamos
+                                herramientas para simplificar el trabajo.</p>
+                            <p class="challenge-panel__areas">Intervienen <a href="#area-data">Data &amp; Tech</a> y <a href="#area-consulting">Consulting</a></p>
+                            <a class="btn" href="#contacto" data-apoyo="Data & Tech,Consulting">Hablemos de esto</a>
+                        </div>
+                        <div class="challenge-panel" role="tabpanel" id="panel-3" aria-labelledby="tab-3">
+                            <p class="challenge-panel__q">Necesitamos diseñar, fortalecer o evaluar un proyecto.</p>
+                            <div class="fit fit--consulting fit--lab" aria-hidden="true">
+                                <svg class="fit__gear" viewBox="-14 -14 525 525" focusable="false">
+                                    <use class="fit__rest" href="#gear-shape" />
+                                    <g class="fit__piece fit__piece--consulting"><use href="#gear-shape" clip-path="url(#cut-consulting)" /></g>
+                                    <g class="fit__piece fit__piece--data"><use href="#gear-shape" clip-path="url(#cut-data)" /></g>
+                                    <g class="fit__piece fit__piece--lab"><use href="#gear-shape" clip-path="url(#cut-lab)" /></g>
+                                    <g class="fit__piece fit__piece--studio"><use href="#gear-shape" clip-path="url(#cut-studio)" /></g>
+                                </svg>
+                                <span class="fit__label fit__label--consulting">Consulting</span>
+                                <span class="fit__label fit__label--data">Data &amp; Tech</span>
+                                <span class="fit__label fit__label--lab">Lab</span>
+                                <span class="fit__label fit__label--studio">Studio</span>
+                            </div>
+                            <p class="challenge-panel__a">Aportamos metodologías, instrumentos e indicadores para mejorar
+                                su planeación, seguimiento y resultados.</p>
+                            <p class="challenge-panel__areas">Intervienen <a href="#area-consulting">Consulting</a> y <a href="#area-lab">Lab</a></p>
+                            <a class="btn" href="#contacto" data-apoyo="Consulting,Lab">Hablemos de esto</a>
+                        </div>
+                        <div class="challenge-panel" role="tabpanel" id="panel-4" aria-labelledby="tab-4">
+                            <p class="challenge-panel__q">Queremos comprender mejor a las personas y los territorios con
+                                los que trabajamos.</p>
+                            <div class="fit fit--lab fit--consulting" aria-hidden="true">
+                                <svg class="fit__gear" viewBox="-14 -14 525 525" focusable="false">
+                                    <use class="fit__rest" href="#gear-shape" />
+                                    <g class="fit__piece fit__piece--consulting"><use href="#gear-shape" clip-path="url(#cut-consulting)" /></g>
+                                    <g class="fit__piece fit__piece--data"><use href="#gear-shape" clip-path="url(#cut-data)" /></g>
+                                    <g class="fit__piece fit__piece--lab"><use href="#gear-shape" clip-path="url(#cut-lab)" /></g>
+                                    <g class="fit__piece fit__piece--studio"><use href="#gear-shape" clip-path="url(#cut-studio)" /></g>
+                                </svg>
+                                <span class="fit__label fit__label--consulting">Consulting</span>
+                                <span class="fit__label fit__label--data">Data &amp; Tech</span>
+                                <span class="fit__label fit__label--lab">Lab</span>
+                                <span class="fit__label fit__label--studio">Studio</span>
+                            </div>
+                            <p class="challenge-panel__a">Desarrollamos diagnósticos, investigación aplicada y procesos
+                                participativos.</p>
+                            <p class="challenge-panel__areas">Intervienen <a href="#area-lab">Lab</a> y <a href="#area-consulting">Consulting</a></p>
+                            <a class="btn" href="#contacto" data-apoyo="Lab,Consulting">Hablemos de esto</a>
+                        </div>
+                        <div class="challenge-panel" role="tabpanel" id="panel-5" aria-labelledby="tab-5">
+                            <p class="challenge-panel__q">Necesitamos comunicar mejor nuestros resultados.</p>
+                            <div class="fit fit--studio fit--data" aria-hidden="true">
+                                <svg class="fit__gear" viewBox="-14 -14 525 525" focusable="false">
+                                    <use class="fit__rest" href="#gear-shape" />
+                                    <g class="fit__piece fit__piece--consulting"><use href="#gear-shape" clip-path="url(#cut-consulting)" /></g>
+                                    <g class="fit__piece fit__piece--data"><use href="#gear-shape" clip-path="url(#cut-data)" /></g>
+                                    <g class="fit__piece fit__piece--lab"><use href="#gear-shape" clip-path="url(#cut-lab)" /></g>
+                                    <g class="fit__piece fit__piece--studio"><use href="#gear-shape" clip-path="url(#cut-studio)" /></g>
+                                </svg>
+                                <span class="fit__label fit__label--consulting">Consulting</span>
+                                <span class="fit__label fit__label--data">Data &amp; Tech</span>
+                                <span class="fit__label fit__label--lab">Lab</span>
+                                <span class="fit__label fit__label--studio">Studio</span>
+                            </div>
+                            <p class="challenge-panel__a">Traducimos información compleja en informes, visualizaciones y
+                                materiales claros.</p>
+                            <p class="challenge-panel__areas">Intervienen <a href="#area-studio">Studio</a> y <a href="#area-data">Data &amp; Tech</a></p>
+                            <a class="btn" href="#contacto" data-apoyo="Studio,Data & Tech">Hablemos de esto</a>
+                        </div>
+                        <div class="challenge-panel" role="tabpanel" id="panel-6" aria-labelledby="tab-6">
+                            <p class="challenge-panel__q">Tenemos una idea, pero necesitamos convertirla en un proyecto
+                                viable.</p>
+                            <div class="fit fit--consulting fit--lab" aria-hidden="true">
+                                <svg class="fit__gear" viewBox="-14 -14 525 525" focusable="false">
+                                    <use class="fit__rest" href="#gear-shape" />
+                                    <g class="fit__piece fit__piece--consulting"><use href="#gear-shape" clip-path="url(#cut-consulting)" /></g>
+                                    <g class="fit__piece fit__piece--data"><use href="#gear-shape" clip-path="url(#cut-data)" /></g>
+                                    <g class="fit__piece fit__piece--lab"><use href="#gear-shape" clip-path="url(#cut-lab)" /></g>
+                                    <g class="fit__piece fit__piece--studio"><use href="#gear-shape" clip-path="url(#cut-studio)" /></g>
+                                </svg>
+                                <span class="fit__label fit__label--consulting">Consulting</span>
+                                <span class="fit__label fit__label--data">Data &amp; Tech</span>
+                                <span class="fit__label fit__label--lab">Lab</span>
+                                <span class="fit__label fit__label--studio">Studio</span>
+                            </div>
+                            <p class="challenge-panel__a">Acompañamos la definición del problema, los objetivos, la
+                                estrategia y las herramientas necesarias para avanzar.</p>
+                            <p class="challenge-panel__areas">Intervienen <a href="#area-consulting">Consulting</a> y <a href="#area-lab">Lab</a></p>
+                            <a class="btn" href="#contacto" data-apoyo="Consulting,Lab">Hablemos de esto</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Cómo trabajamos -->
+        <section id="como-trabajamos" class="section section--lavender" aria-labelledby="proceso-title">
+            <div class="container">
+                <h2 id="proceso-title" class="section__title">Soluciones a la medida, no respuestas prefabricadas.</h2>
+                <ol class="steps">
+                    <li class="step">
+                        <!-- La lupa recorre los datos y se detiene en el problema real -->
+                        <svg class="step__art" viewBox="0 0 200 120" aria-hidden="true" focusable="false">
+                            <g class="art-soft">
+                                <circle cx="38" cy="34" r="5" /><circle cx="70" cy="80" r="5" /><circle cx="150" cy="30" r="5" />
+                                <circle cx="166" cy="84" r="5" /><circle cx="60" cy="50" r="5" /><circle cx="132" cy="92" r="5" />
+                            </g>
+                            <circle class="art-key art-solid" cx="104" cy="56" r="8" />
+                            <g class="art-lens"><circle class="art-line" cx="104" cy="56" r="22" /><path class="art-line" d="M120 72l18 18" /></g>
+                        </svg>
+                        <span class="step__track" aria-hidden="true"><i class="step__node"></i><span class="step__num">01</span></span>
+                        <h3>Comprendemos</h3>
+                        <p>Escuchamos tus necesidades, analizamos el contexto e identificamos el problema que realmente
+                            necesitamos resolver.</p>
+                    </li>
+                    <li class="step">
+                        <!-- Las piezas llegan y arman el plano -->
+                        <svg class="step__art" viewBox="0 0 200 120" aria-hidden="true" focusable="false">
+                            <rect class="art-line art-guide" x="56" y="20" width="88" height="80" rx="8" stroke-dasharray="5 7" />
+                            <g class="art-pieces">
+                                <rect class="art-solid" x="62" y="26" width="35" height="31" rx="5" />
+                                <rect class="art-mid" x="103" y="26" width="35" height="31" rx="5" />
+                                <rect class="art-mid" x="62" y="63" width="35" height="31" rx="5" />
+                                <rect class="art-ink" x="103" y="63" width="35" height="31" rx="5" />
+                            </g>
+                        </svg>
+                        <span class="step__track" aria-hidden="true"><i class="step__node"></i><span class="step__num">02</span></span>
+                        <h3>Diseñamos</h3>
+                        <p>Integramos las capacidades y herramientas más adecuadas para construir una propuesta viable.
+                        </p>
+                    </li>
+                    <li class="step">
+                        <!-- Los entregables se van cumpliendo -->
+                        <svg class="step__art art-tasks" viewBox="0 0 200 120" aria-hidden="true" focusable="false">
+                            <g>
+                                <rect class="art-soft" x="62" y="26" width="104" height="12" rx="6" /><rect class="art-solid art-bar" x="62" y="26" width="104" height="12" rx="6" />
+                                <rect class="art-line" x="34" y="23" width="18" height="18" rx="5" /><path class="art-line art-check" d="M38 32l4 4 7-8" />
+                            </g>
+                            <g>
+                                <rect class="art-soft" x="62" y="54" width="104" height="12" rx="6" /><rect class="art-solid art-bar" x="62" y="54" width="80" height="12" rx="6" />
+                                <rect class="art-line" x="34" y="51" width="18" height="18" rx="5" /><path class="art-line art-check" d="M38 60l4 4 7-8" />
+                            </g>
+                            <g>
+                                <rect class="art-soft" x="62" y="82" width="104" height="12" rx="6" /><rect class="art-solid art-bar" x="62" y="82" width="56" height="12" rx="6" />
+                                <rect class="art-line" x="34" y="79" width="18" height="18" rx="5" /><path class="art-line art-check" d="M38 88l4 4 7-8" />
+                            </g>
+                        </svg>
+                        <span class="step__track" aria-hidden="true"><i class="step__node"></i><span class="step__num">03</span></span>
+                        <h3>Implementamos</h3>
+                        <p>Desarrollamos soluciones concretas con objetivos, entregables y responsabilidades claras.</p>
+                    </li>
+                    <li class="step">
+                        <!-- El ciclo sigue girando y el conocimiento llega a más nodos -->
+                        <svg class="step__art" viewBox="0 0 200 120" aria-hidden="true" focusable="false">
+                            <g class="art-loop"><path class="art-line" d="M100 24a36 36 0 1 1-34 24" /><path class="art-line" d="M58 44l8 5 5-9" /></g>
+                            <circle class="art-solid" cx="100" cy="60" r="12" />
+                            <circle class="art-share art-ink" cx="30" cy="30" r="6" /><circle class="art-share art-ink" cx="172" cy="34" r="6" />
+                            <circle class="art-share art-ink" cx="166" cy="94" r="6" /><circle class="art-share art-ink" cx="34" cy="92" r="6" />
+                        </svg>
+                        <span class="step__track" aria-hidden="true"><i class="step__node"></i><span class="step__num">04</span></span>
+                        <h3>Fortalecemos</h3>
+                        <p>Documentamos, compartimos conocimientos y buscamos que las soluciones puedan seguir
+                            utilizándose y mejorándose.</p>
+                    </li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- Sectores -->
+        <section id="sectores" class="section" aria-labelledby="sectores-title">
+            <div class="container">
+                <h2 id="sectores-title" class="section__title">Colaboramos con quienes buscan hacer mejor las cosas.
+                </h2>
+                <dl class="sectors">
+                    <div class="sector">
+                        <dt>Empresas y emprendimientos</dt>
+                        <dd>Organización de información, mejora de procesos, automatización y análisis para la toma de
+                            decisiones.</dd>
+                    </div>
+                    <div class="sector">
+                        <dt>Organizaciones sociales y fundaciones</dt>
+                        <dd>Planeación, fortalecimiento institucional, seguimiento, evaluación y gestión de proyectos.
+                        </dd>
+                    </div>
+                    <div class="sector">
+                        <dt>Instituciones públicas</dt>
+                        <dd>Diagnósticos, investigación aplicada, indicadores, participación y seguimiento de programas.
+                        </dd>
+                    </div>
+                    <div class="sector">
+                        <dt>Instituciones educativas</dt>
+                        <dd>Investigación, análisis de información, evaluación y desarrollo de herramientas de
+                            seguimiento.</dd>
+                    </div>
+                </dl>
+                <p class="sectors__close"><span class="sectors__lead">Cada proyecto es distinto.</span> Por eso
+                    adaptamos nuestros servicios al problema, las capacidades y los recursos disponibles.</p>
+            </div>
+        </section>
+
+        <!-- Contacto -->
+        <section id="contacto" class="section section--ink" aria-labelledby="contacto-title">
+            <div class="container contact">
+                <div class="contact__intro">
+                    <h2 id="contacto-title" class="section__title">Cuéntanos qué necesitas resolver.</h2>
+                    <p class="contact__lead">No necesitas tener una solución definida para comenzar.</p>
+                    <p>Si tienes un proyecto por desarrollar, un proceso que mejorar, información que analizar o un
+                        desafío que aún no sabes cómo abordar, conversemos.</p>
+                    <p>Podemos ayudarte a identificar por dónde empezar.</p>
+
+                    <ul class="channels">
+                        <li>
+                            <span class="channels__label">Correo</span>
+                            <a class="channels__email" href="mailto:genesis@toolkitsocial.com">genesis@<wbr />toolkitsocial.com</a>
+                        </li>
+                        <li>
+                            <span class="channels__label">WhatsApp</span>
+                            <a href="https://wa.me/526567608980" target="_blank" rel="noopener">+52 656 760 8980</a>
+                        </li>
+                        <li>
+                            <span class="channels__label">Llamadas</span>
+                            <a href="tel:+526568208353">+52 656 820 8353</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- FORMULARIO: se envía a Web3Forms, que lo reenvía al correo asociado a la clave de acceso.
+                     La clave es pública por diseño (docs.web3forms.com/getting-started/faq). Mientras access_key
+                     esté vacío, el envío abre el correo del usuario con el mensaje armado. -->
+                <form class="contact-form" data-endpoint="https://api.web3forms.com/submit" novalidate>
+                    <input type="hidden" name="access_key" value="378326a5-34cf-49d3-b08f-cd9608809e5d" />
+                    <input type="hidden" name="from_name" value="Sitio web Toolkit Social" />
+
+                    <div class="field">
+                        <label for="f-nombre">Nombre</label>
+                        <input id="f-nombre" name="nombre" type="text" autocomplete="name" required />
+                        <p class="field__error" id="f-nombre-error"></p>
+                    </div>
+
+                    <div class="field">
+                        <label for="f-org">Organización <span class="optional">(opcional)</span></label>
+                        <input id="f-org" name="organizacion" type="text" autocomplete="organization" />
+                    </div>
+
+                    <fieldset class="field">
+                        <legend>¿Cómo prefieres que te contactemos?</legend>
+                        <div class="choice-row">
+                            <label class="choice"><input type="radio" name="medio" value="correo" checked />
+                                Correo</label>
+                            <label class="choice"><input type="radio" name="medio" value="whatsapp" /> WhatsApp</label>
+                        </div>
+                    </fieldset>
+
+                    <div class="field">
+                        <label for="f-contacto" data-contact-label>Correo electrónico</label>
+                        <input id="f-contacto" name="contacto" type="email" autocomplete="email" required />
+                        <p class="field__error" id="f-contacto-error"></p>
+                    </div>
+
+                    <!-- Tipo de apoyo: "No estoy seguro/a" excluye a las áreas. Sin ninguna marcada también se
+                         envía "No estoy seguro/a". -->
+                    <fieldset class="field picker" aria-describedby="apoyo-hint">
+                        <legend>Tipo de apoyo</legend>
+                        <p class="picker__hint" id="apoyo-hint">Puedes elegir más de una.</p>
+                        <div class="picker__opts">
+                            <label class="choice picker__opt"><input id="f-apoyo-consulting"
+                                    type="checkbox" name="apoyo" value="Consulting" /> Consulting</label>
+                            <label class="choice picker__opt"><input id="f-apoyo-data"
+                                    type="checkbox" name="apoyo" value="Data &amp; Tech" /> Data &amp; Tech</label>
+                            <label class="choice picker__opt"><input id="f-apoyo-lab"
+                                    type="checkbox" name="apoyo" value="Lab" /> Lab</label>
+                            <label class="choice picker__opt"><input id="f-apoyo-studio"
+                                    type="checkbox" name="apoyo" value="Studio" /> Studio</label>
+                            <label class="choice picker__opt"><input id="f-apoyo-nose"
+                                    type="checkbox" name="apoyo" value="No estoy seguro/a" /> No estoy seguro/a</label>
+                        </div>
+                    </fieldset>
+
+                    <div class="field">
+                        <label for="f-desafio">Describe brevemente tu desafío</label>
+                        <textarea id="f-desafio" name="desafio" rows="4" required
+                            placeholder="¿Qué necesitas mejorar, desarrollar o resolver?"></textarea>
+                        <p class="field__error" id="f-desafio-error"></p>
+                    </div>
+
+                    <!-- Honeypot anti-spam: debe quedar vacío -->
+                    <div class="hp" aria-hidden="true">
+                        <label for="f-web">No llenar este campo</label>
+                        <input id="f-web" name="web" type="text" tabindex="-1" autocomplete="off" />
+                    </div>
+
+                    <div class="field">
+                        <label class="choice choice--consent">
+                            <input id="f-consent" name="consentimiento" type="checkbox" required />
+                            <span>He leído el <a href="#aviso-privacidad" data-open-privacy>Aviso de Privacidad</a> y
+                                consiento el tratamiento de mis datos personales para las finalidades indicadas.</span>
+                        </label>
+                        <p class="field__error" id="f-consent-error"></p>
+                    </div>
+
+                    <button class="btn btn--block" type="submit">Hablemos de tu proyecto</button>
+                    <p class="form-status" role="status" aria-live="polite"></p>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container site-footer__inner">
+            <span class="brand">
+                <img class="brand__logo" src="img/logo/toolkit-horizontal-reducido-blanco.png" alt="Toolkit Social" width="1634" height="496">
+            </span>
+            <ul class="site-footer__links">
+                <li><a href="#soluciones">Soluciones</a></li>
+                <li><a href="mailto:genesis@toolkitsocial.com">Correo</a></li>
+                <li><a href="https://wa.me/526567608980" target="_blank" rel="noopener">WhatsApp</a></li>
+                <li><a href="aviso-de-privacidad.html">Aviso de privacidad</a></li>
+            </ul>
+            <p class="site-footer__copy">© 2026 Toolkit Social</p>
+        </div>
+    </footer>
+
+    <!-- AVISO DE PRIVACIDAD (simplificado), texto de Toolkit Social. Lo abre la casilla del formulario;
+         el integral vive en aviso-de-privacidad.html. -->
+    <dialog id="aviso-privacidad" class="privacy" aria-labelledby="privacy-title">
+        <h2 id="privacy-title">Protección de tus datos personales</h2>
+        <p>Los datos que compartas serán tratados por Génesis Estefanía Rodríguez Camargo, persona física responsable
+            de Toolkit Social, para atender tu consulta, contactarte por el medio que elijas y dar seguimiento a tu
+            solicitud.</p>
+        <p>Puedes ejercer tus derechos de acceso, rectificación, cancelación y oposición (ARCO), así como solicitar
+            información sobre el tratamiento de tus datos, escribiendo a
+            <a href="mailto:genesis@toolkitsocial.com">genesis@toolkitsocial.com</a>.</p>
+        <p>Conoce cómo utilizamos y protegemos tu información en nuestro
+            <a href="aviso-de-privacidad.html">Aviso de Privacidad Integral</a>.</p>
+        <form method="dialog">
+            <button class="btn" type="submit">Cerrar</button>
+        </form>
+    </dialog>
+
+    <script src="js/landing-v3.js?v=20261112" defer></script>
+    <!-- Escenas 3D (Three.js, servido desde js/vendor): mejora progresiva, la página funciona sin ellas -->
+    <script type="module" src="js/scene.js?v=20261112"></script>
+</body>
+
+</html>
