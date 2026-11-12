@@ -1,13 +1,16 @@
-/* Toolkit Social — landing v2
-   Tokens según docs/estrategia-rediseno.md */
+/* Toolkit Social — landing v3 (rediseño inmersivo)
+   Paleta y tipografía según docs/estrategia-rediseno.md. Las escenas 3D (js/scene.js, Three.js)
+   son una mejora progresiva: sin WebGL, sin JS o con movimiento reducido queda el SVG. */
 
 :root {
     --ink: #25204F;
     --ink-deep: #1A1640;
+    --night: #110E2B;
     --violet: #7C78F2;
     --violet-strong: #6A5DE7;
     --violet-deep: #5548d6;
     --lavender: #EDEBFA;
+    --lavender-soft: #F6F5FD;
     --lavender-line: #C2C8FA;
     --graphite: #4F4F4F;
     --white: #FFFFFF;
@@ -19,15 +22,25 @@
     --fs-base: 1.0625rem;
     --fs-md: 1.3125rem;
     --fs-lg: 1.6875rem;
-    --fs-xl: clamp(1.75rem, 1.2rem + 2vw, 2.625rem);
+    --fs-xl: clamp(2rem, 1.2rem + 2.6vw, 3.25rem);
 
     --gutter: 1.5rem;
     --max: 75rem;
-    --header-h: 4.5rem;
-    --section-y: clamp(4rem, 3rem + 5vw, 7.5rem);
+    --header-h: 3.75rem;
+    --header-gap: 0.75rem;
+    /* Alto que ocupa el encabezado flotante: lo que hay que librar arriba */
+    --header-offset: calc(var(--header-h) + var(--header-gap));
+    --section-y: clamp(4.5rem, 3rem + 6vw, 8.5rem);
 
-    --radius-sm: 6px;
-    --radius: 8px;
+    --radius-sm: 12px;
+    --radius: 18px;
+    --radius-lg: 28px;
+    --pill: 999px;
+
+    --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+    --shadow: 0 1px 2px rgb(37 32 79 / 0.06), 0 12px 32px -12px rgb(37 32 79 / 0.18);
+    --glow: radial-gradient(60rem 38rem at 88% 12%, rgb(106 93 231 / 0.34), transparent 62%),
+        radial-gradient(42rem 30rem at -5% 105%, rgb(124 120 242 / 0.2), transparent 60%);
 
     color-scheme: light;
 }
@@ -77,11 +90,11 @@ a {
 :focus-visible {
     outline: 3px solid var(--violet-strong);
     outline-offset: 3px;
-    border-radius: 2px;
+    border-radius: 4px;
 }
 
 [id] {
-    scroll-margin-top: calc(var(--header-h) + 1rem);
+    scroll-margin-top: calc(var(--header-offset) + 1.25rem);
 }
 
 .container {
@@ -99,7 +112,7 @@ a {
     padding: 0.75rem 1rem;
     background: var(--ink);
     color: var(--white);
-    border-radius: var(--radius);
+    border-radius: var(--radius-sm);
 }
 
 .skip-link:focus {
@@ -122,25 +135,32 @@ a {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-height: 3rem;
-    padding: 0.75rem 1.5rem;
+    gap: 0.5rem;
+    min-height: 3.25rem;
+    padding: 0.75rem 1.75rem;
     border: 0;
-    border-radius: var(--radius);
+    border-radius: var(--pill);
     background: var(--violet-strong);
     color: var(--white);
     font: 600 var(--fs-base)/1.2 var(--font);
     text-decoration: none;
     cursor: pointer;
-    transition: background-color 0.15s ease;
+    transition: background-color 0.2s ease, transform 0.2s var(--ease), box-shadow 0.2s ease;
 }
 
 .btn:hover {
     background: var(--violet-deep);
+    transform: translateY(-1px);
+    box-shadow: 0 10px 28px -10px rgb(106 93 231 / 0.75);
+}
+
+.btn:active {
+    transform: none;
 }
 
 .btn--small {
     min-height: 2.5rem;
-    padding: 0.5rem 1.125rem;
+    padding: 0.5rem 1.25rem;
     font-size: var(--fs-xs);
 }
 
@@ -161,7 +181,7 @@ a {
     text-decoration-color: var(--white);
 }
 
-/* Marca (marcador temporal del logo) */
+/* Marca */
 
 .brand {
     display: inline-flex;
@@ -175,19 +195,24 @@ a {
 .brand__logo {
     display: block;
     width: auto;
-    height: 2.5rem;
+    height: 2.25rem;
 }
 
-/* Header */
+/* Encabezado: una píldora de vidrio que flota sobre la página. El margen inferior negativo deja
+   que el contenido empiece desde arriba, por debajo de ella. */
 
 .site-header {
     position: sticky;
-    top: 0;
+    top: var(--header-gap);
     z-index: 50;
-    background: rgb(255 255 255 / 0.72);
+    width: min(var(--max), 100% - 1.5rem);
+    margin: var(--header-gap) auto calc(-1 * var(--header-offset));
+    border: 1px solid rgb(255 255 255 / 0.7);
+    border-radius: var(--pill);
+    background: rgb(255 255 255 / 0.82);
     -webkit-backdrop-filter: saturate(180%) blur(20px);
     backdrop-filter: saturate(180%) blur(20px);
-    border-bottom: 1px solid var(--lavender);
+    box-shadow: 0 8px 32px -12px rgb(17 14 43 / 0.35);
 }
 
 .site-header__inner {
@@ -195,39 +220,48 @@ a {
     align-items: center;
     justify-content: space-between;
     height: var(--header-h);
+    padding-inline: 1.25rem 0.625rem;
 }
 
 .site-nav ul {
     display: flex;
     align-items: center;
-    gap: 2rem;
+    gap: 0.25rem;
 }
 
 .site-nav a:not(.btn) {
+    display: block;
+    padding: 0.5rem 0.875rem;
+    border-radius: var(--pill);
     color: var(--ink);
     font-weight: 500;
     font-size: 0.9375rem;
     text-decoration: none;
+    transition: background-color 0.15s ease;
 }
 
 .site-nav a:not(.btn):hover {
-    color: var(--violet-strong);
+    background: var(--lavender);
+}
+
+.site-nav .btn {
+    margin-left: 0.5rem;
 }
 
 .nav-toggle {
     display: none;
 }
 
-@media (max-width: 52rem) {
+@media (max-width: 56rem) {
     .nav-toggle {
         display: inline-flex;
         align-items: center;
         gap: 0.5rem;
         min-height: 2.75rem;
-        padding: 0.5rem 0.75rem;
-        border: 1px solid var(--lavender-line);
-        border-radius: var(--radius);
-        background: var(--white);
+        padding: 0.5rem 1rem;
+        border: 0;
+        border-radius: var(--pill);
+        background: var(--lavender);
         color: var(--ink);
         font: 600 var(--fs-xs) var(--font);
         cursor: pointer;
@@ -274,14 +308,16 @@ a {
         transform: translateY(-6px) rotate(-45deg);
     }
 
+    /* El menú se abre como una tarjeta debajo de la píldora */
     .site-nav {
         position: absolute;
-        top: var(--header-h);
+        top: calc(100% + 0.5rem);
         left: 0;
         right: 0;
         display: none;
+        border-radius: var(--radius-lg);
         background: var(--white);
-        border-bottom: 1px solid var(--lavender-line);
+        box-shadow: 0 24px 48px -16px rgb(17 14 43 / 0.45);
     }
 
     .site-nav.is-open {
@@ -291,42 +327,62 @@ a {
     .site-nav ul {
         flex-direction: column;
         align-items: stretch;
-        gap: 0;
-        padding: 0.5rem var(--gutter) 1.25rem;
+        gap: 0.125rem;
+        padding: 0.75rem;
     }
 
     .site-nav a:not(.btn) {
-        display: block;
-        padding: 0.875rem 0;
-        border-bottom: 1px solid var(--lavender);
+        padding: 0.875rem 1rem;
+        border-radius: var(--radius-sm);
         font-size: var(--fs-base);
     }
 
     .site-nav .btn {
-        margin-top: 1rem;
+        margin: 0.5rem 0 0;
         width: 100%;
         min-height: 3rem;
         font-size: var(--fs-base);
     }
 }
 
-/* Hero: en calma y centrado. El engrane del logo (en violeta, el único color fuerte) se arma
-   mientras se desplaza: el hero mide más que la pantalla y su escenario queda fijo. El avance
-   lo calcula js/landing.js en --spread, --turn, --whole y --labels.
+/* Hero: de noche y a pantalla completa. El hero mide más que la pantalla y su escenario queda
+   fijo: con el avance del scroll las cuatro piezas del engrane (una por área) se juntan, y las
+   partículas dispersas se ordenan en órbitas a su alrededor. El avance lo calcula js/landing.js
+   (--spread, --turn, --whole, --labels) y lo dibuja js/scene.js en el lienzo .hero__canvas.
    La tipografía repite la idea: problema condensado, solución a ancho completo. */
 
-/* Lavanda: separa el hero de Quiénes somos (blanco) sin volver al bloque de color fuerte */
 .hero {
-    background: var(--lavender);
+    position: relative;
+    background: var(--night);
+    color: var(--white);
 }
 
 .hero__stage {
+    position: relative;
     display: grid;
     align-items: center;
-    padding-block: clamp(2.5rem, 1.5rem + 4vw, 5rem);
+    padding-block: calc(var(--header-offset) + clamp(2rem, 1rem + 4vw, 4rem)) clamp(4rem, 3rem + 4vw, 6rem);
+    background: var(--glow), var(--night);
+    overflow: hidden;
+}
+
+/* Lienzo 3D: detrás del texto, no recibe el cursor */
+.hero__canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.9s ease;
+}
+
+.hero__canvas.is-ready {
+    opacity: 1;
 }
 
 .hero__inner {
+    position: relative;
     display: grid;
     justify-items: center;
     gap: clamp(1.5rem, 1rem + 2vh, 2.5rem);
@@ -339,11 +395,34 @@ a {
     max-width: 46rem;
 }
 
+.hero__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1.25rem;
+    padding: 0.375rem 0.875rem;
+    border: 1px solid rgb(194 200 250 / 0.28);
+    border-radius: var(--pill);
+    background: rgb(255 255 255 / 0.06);
+    color: var(--lavender-line);
+    font-size: var(--fs-xs);
+    font-weight: 500;
+}
+
+.hero__eyebrow::before {
+    content: "";
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background: var(--violet);
+    box-shadow: 0 0 0 4px rgb(124 120 242 / 0.25);
+}
+
 .hero__title {
-    font-size: clamp(2.25rem, 1.2rem + 2.8vw, 3.625rem);
+    font-size: clamp(2.375rem, 1.1rem + 3.4vw, 4.25rem);
     font-weight: 600;
-    line-height: 1.04;
-    letter-spacing: -0.03em;
+    line-height: 1.02;
+    letter-spacing: -0.035em;
     text-align: center;
     text-wrap: balance;
 }
@@ -351,24 +430,40 @@ a {
 .hero__problem {
     display: block;
     font-stretch: 75%;
+    color: var(--lavender-line);
 }
 
 .hero__answer {
     display: block;
+    margin-top: 0.08em;
     font-weight: 700;
     font-stretch: 100%;
 }
 
+/* La respuesta, en degradado de la marca. El color sólido queda de respaldo. */
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+    .hero__answer {
+        background: linear-gradient(100deg, var(--white) 20%, var(--lavender-line) 55%, var(--violet) 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        /* Evita que el recorte corte las descendentes */
+        padding-bottom: 0.08em;
+    }
+}
+
 .hero__body {
-    max-width: 40rem;
-    margin-top: 1.25rem;
+    max-width: 38rem;
+    margin-top: 1.5rem;
     font-size: clamp(1.0625rem, 1rem + 0.3vw, 1.25rem);
     line-height: 1.5;
-    color: var(--graphite);
+    color: var(--lavender);
 }
 
 .hero__body p + p {
     margin-top: 0.5rem;
+    color: var(--white);
+    font-weight: 600;
 }
 
 .hero__actions {
@@ -377,35 +472,33 @@ a {
     align-items: center;
     justify-content: center;
     gap: 1rem 1.75rem;
-    margin-top: 1.75rem;
+    margin-top: 2rem;
 }
 
-.hero .link-light {
-    color: var(--ink);
-}
-
-.hero .link-light:hover {
-    text-decoration-color: var(--ink);
+.hero :focus-visible {
+    outline-color: var(--lavender-line);
 }
 
 /* Entrada única al cargar: el texto sube un poco y aparece */
 @media (prefers-reduced-motion: no-preference) {
     .hero__copy > * {
-        animation: hero-rise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) backwards;
+        animation: hero-rise 0.9s var(--ease) backwards;
     }
 
     .hero__copy > :nth-child(2) { animation-delay: 0.08s; }
     .hero__copy > :nth-child(3) { animation-delay: 0.16s; }
+    .hero__copy > :nth-child(4) { animation-delay: 0.24s; }
 
     @keyframes hero-rise {
         from {
             opacity: 0;
-            transform: translateY(14px);
+            transform: translateY(18px);
         }
     }
 }
 
-/* --label-room reserva arriba y abajo el lugar de las áreas */
+/* El lugar del engrane: el SVG es el respaldo y la escena 3D se alinea con esta caja.
+   --label-room reserva arriba y abajo el lugar de las áreas. */
 .hero__gear {
     --gear: min(32vh, 20rem);
     --label-room: 4.5rem;
@@ -421,6 +514,12 @@ a {
     height: 100%;
     overflow: visible;
     fill: var(--violet-strong);
+}
+
+/* Con la escena 3D en marcha, el SVG sólo guarda el lugar. Con opacity y no con visibility:
+   sus <clipPath> los usan también las piezas de Áreas y Desafíos, y ocultos dejarían de recortar. */
+.hero__gear.is-3d .gear {
+    opacity: 0;
 }
 
 /* Cada pieza sale hacia su esquina (--dx, --dy) y gira un poco; armada, --spread y --turn valen 0 */
@@ -451,30 +550,35 @@ a {
     position: absolute;
 }
 
-.gear__area--consulting { top: -2rem; left: 0; }
-.gear__area--data       { top: -2rem; right: 0; }
-.gear__area--lab        { bottom: -2rem; left: 0; }
-.gear__area--studio     { bottom: -2rem; right: 0; }
+.gear__area--consulting { top: -2.5rem; left: -0.5rem; }
+.gear__area--data       { top: -2.5rem; right: -0.5rem; }
+.gear__area--lab        { bottom: -2.5rem; left: -0.5rem; }
+.gear__area--studio     { bottom: -2.5rem; right: -0.5rem; }
 
 .gear__areas a {
     display: inline-block;
-    padding: 0.25rem 0;
-    color: var(--ink);
+    padding: 0.375rem 0.875rem;
+    border: 1px solid rgb(194 200 250 / 0.3);
+    border-radius: var(--pill);
+    background: rgb(17 14 43 / 0.55);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    color: var(--white);
     font-size: 0.9375rem;
     font-weight: 600;
     white-space: nowrap;
-    text-decoration: underline;
-    text-decoration-color: transparent;
-    text-decoration-thickness: 2px;
-    text-underline-offset: 0.3em;
+    text-decoration: none;
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 }
 
 .gear__areas a:hover,
 .gear__areas a:focus-visible {
-    text-decoration-color: var(--violet);
+    border-color: var(--white);
+    background: var(--white);
+    color: var(--ink);
 }
 
-/* Al señalar un área, su pieza se oscurece */
+/* Al señalar un área, su pieza se enciende (en 3D lo hace js/scene.js) */
 .hero__gear:has(.gear__areas a:is(:hover, :focus-visible)) .gear__whole {
     opacity: 0;
 }
@@ -483,12 +587,12 @@ a {
 .hero__gear:has(.gear__area--data a:is(:hover, :focus-visible)) .gear__piece--data,
 .hero__gear:has(.gear__area--studio a:is(:hover, :focus-visible)) .gear__piece--studio,
 .hero__gear:has(.gear__area--lab a:is(:hover, :focus-visible)) .gear__piece--lab {
-    fill: var(--ink);
+    fill: var(--white);
 }
 
-.section--ink :focus-visible,
-.site-footer :focus-visible {
-    outline-color: var(--lavender-line);
+/* Señal de desplazamiento: sólo con el escenario fijo */
+.hero__cue {
+    display: none;
 }
 
 /* Con JS y movimiento, el hero mide más que la pantalla y su escenario queda fijo mientras
@@ -496,16 +600,15 @@ a {
    foco del teclado). En pantallas bajas no hay escenario: se ve armado. */
 @media (prefers-reduced-motion: no-preference) and (min-height: 36rem) {
     .js .hero {
-        height: 220vh;
+        height: 240vh;
     }
 
     .js .hero__stage {
         position: sticky;
-        top: var(--header-h);
-        height: calc(100svh - var(--header-h));
+        top: 0;
+        height: 100svh;
         grid-template-rows: minmax(0, 1fr);
-        padding-block: clamp(1.5rem, 4vh, 3rem);
-        overflow: hidden;
+        padding-block: calc(var(--header-offset) + clamp(1rem, 3vh, 2.5rem)) clamp(3rem, 7vh, 4.5rem);
     }
 
     /* El engrane ocupa el alto que deja el texto, así cabe en cualquier pantalla */
@@ -521,9 +624,6 @@ a {
         min-height: 0;
         max-height: 20rem;
         margin-block: 0;
-    }
-
-    .js .hero__gear {
         --spread: 70;
         --turn: 12;
         --whole: 0;
@@ -536,6 +636,39 @@ a {
 
     .js .gear__areas:focus-within {
         opacity: 1;
+    }
+
+    .js .hero__cue {
+        position: absolute;
+        left: 50%;
+        bottom: 1.25rem;
+        display: block;
+        width: 1.5rem;
+        height: 2.375rem;
+        margin-left: -0.75rem;
+        border: 2px solid rgb(194 200 250 / 0.5);
+        border-radius: var(--pill);
+        opacity: calc(1 - var(--progress, 0) * 6);
+    }
+
+    .js .hero__cue::before {
+        content: "";
+        position: absolute;
+        left: 50%;
+        top: 0.375rem;
+        width: 4px;
+        height: 8px;
+        margin-left: -2px;
+        border-radius: var(--pill);
+        background: var(--lavender-line);
+        animation: cue 1.8s var(--ease) infinite;
+    }
+
+    @keyframes cue {
+        60%, 100% {
+            opacity: 0;
+            transform: translateY(0.75rem);
+        }
     }
 }
 
@@ -580,7 +713,11 @@ a {
 /* Pantallas bajas: titular y espacios más compactos para que el engrane tenga lugar */
 @media (min-width: 52rem) and (max-height: 50rem) {
     .hero__title {
-        font-size: clamp(2.25rem, 1rem + 2.4vw, 3rem);
+        font-size: clamp(2.25rem, 1rem + 2.6vw, 3.25rem);
+    }
+
+    .hero__eyebrow {
+        margin-bottom: 0.875rem;
     }
 
     .hero__body {
@@ -599,12 +736,48 @@ a {
     }
 
     .gear__area--consulting,
-    .gear__area--lab        { left: -2.5rem; }
+    .gear__area--lab        { left: -3.25rem; }
     .gear__area--data,
-    .gear__area--studio     { right: -2.5rem; }
+    .gear__area--studio     { right: -3.25rem; }
 
     .gear__areas a {
+        padding: 0.25rem 0.75rem;
         font-size: var(--fs-xs);
+    }
+}
+
+/* Móvil con escenario fijo: la pantalla es para el titular y el engrane. Se compactan los
+   espacios y se omiten la etiqueta de apertura, la señal de scroll y los nombres de las áreas
+   (el enlace «Conoce nuestras soluciones» lleva al mismo lugar). */
+@media (prefers-reduced-motion: no-preference) and (min-height: 36rem) and (max-width: 52rem) {
+    .js .hero__stage {
+        padding-block: calc(var(--header-offset) + 1rem) 1.5rem;
+    }
+
+    .js .hero__eyebrow,
+    .js .gear__areas,
+    .js .hero__cue {
+        display: none;
+    }
+
+    .js .hero__inner {
+        gap: 1rem;
+    }
+
+    .js .hero__body {
+        margin-top: 1rem;
+        font-size: 1rem;
+    }
+
+    .js .hero__actions {
+        gap: 0.75rem 1.5rem;
+        margin-top: 1.25rem;
+    }
+
+    .js .hero__gear {
+        --label-room: 0rem;
+        min-height: 5.5rem;
+        max-height: min(24rem, 100vw - 6rem);
     }
 }
 
@@ -619,36 +792,61 @@ a {
 }
 
 .section--ink {
-    background: var(--ink);
+    background: var(--glow), var(--night);
     color: var(--white);
 }
 
 .section__title {
-    max-width: 22ch;
+    max-width: 20ch;
     font-size: var(--fs-xl);
     font-weight: 600;
-    line-height: 1.1;
-    letter-spacing: -0.02em;
+    line-height: 1.06;
+    letter-spacing: -0.03em;
+    text-wrap: balance;
     margin-bottom: clamp(2rem, 1.5rem + 2vw, 3.5rem);
 }
 
-/* Quiénes somos: el titular repite el recurso del hero (condensada = separado, ancha = unido) */
+/* Aparición al entrar en pantalla (js/landing.js marca [data-reveal] y luego .is-in).
+   Sin JS o con movimiento reducido no se oculta nada. */
+@media (prefers-reduced-motion: no-preference) {
+    .js [data-reveal] {
+        opacity: 0;
+        transform: translateY(1.5rem);
+        transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
+        transition-delay: calc(var(--i, 0) * 80ms);
+    }
+
+    .js [data-reveal].is-in {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+/* Quiénes somos: una hoja blanca que sube sobre el hero. El titular repite su recurso
+   (condensada = separado, ancha = unido). */
 
 .about {
-    padding-top: var(--section-y);
+    position: relative;
+    z-index: 1;
+    margin-top: -2rem;
+    padding-block: var(--section-y);
+    border-radius: 2rem 2rem 0 0;
+    background: var(--white);
 }
 
 .about__title {
-    max-width: 24ch;
-    font-size: clamp(1.875rem, 1.2rem + 2vw, 2.75rem);
+    max-width: 20ch;
+    font-size: clamp(2.25rem, 1.2rem + 3.4vw, 4rem);
     font-weight: 600;
-    line-height: 1.04;
-    letter-spacing: -0.025em;
+    line-height: 1.02;
+    letter-spacing: -0.035em;
+    text-wrap: balance;
 }
 
 .about__parts {
     display: block;
     font-stretch: 75%;
+    color: var(--violet-strong);
 }
 
 .about__whole {
@@ -661,7 +859,7 @@ a {
     grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
     gap: 1.25rem 4rem;
     align-items: start;
-    margin-top: clamp(1.5rem, 1rem + 2vw, 2.5rem);
+    margin-top: clamp(1.75rem, 1rem + 2.5vw, 3rem);
 }
 
 .about__lead {
@@ -679,13 +877,40 @@ a {
     margin-top: 1rem;
 }
 
-/* Equipo: franja tinta; las disciplinas en una retícula uniforme */
+/* Equipo: una tarjeta de noche con una red de nodos en 3D al fondo (js/scene.js): cada
+   disciplina es un nodo, y al señalarla se enciende el suyo. */
 
 .team {
-    margin-top: clamp(3.5rem, 2.5rem + 3vw, 5rem);
-    padding-block: clamp(3.5rem, 2.5rem + 3vw, 5rem);
-    background: var(--ink);
+    position: relative;
+    width: min(var(--max) + 4rem, 100% - 1.5rem);
+    margin: clamp(3.5rem, 2.5rem + 3vw, 5.5rem) auto 0;
+    padding-block: clamp(3rem, 2rem + 4vw, 5.5rem);
+    border-radius: var(--radius-lg);
+    background: var(--glow), var(--night);
     color: var(--lavender);
+    overflow: hidden;
+}
+
+.team__canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.9s ease;
+}
+
+.team__canvas.is-ready {
+    opacity: 1;
+}
+
+.team > .container {
+    position: relative;
+}
+
+.team :focus-visible {
+    outline-color: var(--lavender-line);
 }
 
 .team__head {
@@ -705,8 +930,8 @@ a {
     max-width: 16ch;
     font-size: var(--fs-xl);
     font-weight: 600;
-    line-height: 1.1;
-    letter-spacing: -0.02em;
+    line-height: 1.06;
+    letter-spacing: -0.03em;
     color: var(--white);
 }
 
@@ -716,24 +941,34 @@ a {
 }
 
 .team__disciplines {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
-    gap: 0.75rem 2rem;
-    margin-top: 0.75rem;
-    font-size: var(--fs-lg);
-    font-weight: 600;
-    font-stretch: 100%;
-    line-height: 1.2;
-    letter-spacing: -0.015em;
-    color: var(--white);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.625rem;
+    margin-top: 1rem;
 }
 
 .team__disciplines li {
-    padding-top: 0.5rem;
-    border-top: 1px solid rgb(194 200 250 / 0.3);
+    padding: 0.5rem 1.125rem;
+    border: 1px solid rgb(194 200 250 / 0.32);
+    border-radius: var(--pill);
+    background: rgb(17 14 43 / 0.5);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    color: var(--white);
+    font-size: clamp(1.0625rem, 0.95rem + 0.5vw, 1.3125rem);
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
 }
 
-/* Misma rejilla que .team__head para que las dos columnas de la franja alineen */
+.team__disciplines li:hover {
+    border-color: var(--white);
+    background: var(--white);
+    color: var(--ink);
+}
+
+/* Misma rejilla que .team__head para que las dos columnas alineen */
 .team__cols {
     display: grid;
     grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
@@ -762,7 +997,7 @@ a {
 
 /* Áreas: tarjetas que se voltean. Al frente, el nombre y la pieza del engrane en la esquina que
    mira al centro de la rejilla 2×2: separadas por el hueco, las cuatro arman el engrane del hero.
-   Al reverso (tinta), los servicios. Sin JS, frente y reverso se muestran uno debajo del otro. */
+   Al reverso (noche), los servicios. Sin JS, frente y reverso se muestran uno debajo del otro. */
 
 .areas {
     --gap: clamp(0.75rem, 0.5rem + 0.75vw, 1.25rem);
@@ -787,14 +1022,15 @@ a {
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    padding: clamp(1.5rem, 1rem + 1.5vw, 2.5rem);
-    border-radius: var(--radius);
+    padding: clamp(1.5rem, 1rem + 1.75vw, 2.75rem);
+    border-radius: var(--radius-lg);
     overflow: hidden;
 }
 
 /* Frente: en la fila de abajo el texto baja, para dejar libre la esquina de la pieza */
 .area__front {
     background: var(--white);
+    box-shadow: var(--shadow);
 }
 
 .area--lab .area__front,
@@ -809,6 +1045,11 @@ a {
     height: var(--piece);
     fill: var(--lavender-line);
     transform: rotate(-22.5deg);
+    transition: fill 0.3s ease;
+}
+
+.area:hover .area__piece {
+    fill: var(--violet);
 }
 
 /* El centro del engrane cae en el centro de la rejilla: la esquina interior más medio hueco */
@@ -823,9 +1064,9 @@ a {
 }
 
 .area h3 {
-    font-size: clamp(1.6875rem, 1.2rem + 1.2vw, 2.0625rem);
-    line-height: 1.1;
-    letter-spacing: -0.02em;
+    font-size: clamp(1.75rem, 1.2rem + 1.5vw, 2.375rem);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
     color: var(--ink);
 }
 
@@ -838,7 +1079,7 @@ a {
 }
 
 .area__sub {
-    margin-top: 0.5rem;
+    margin-top: 0.625rem;
     font-weight: 500;
     color: var(--violet-deep);
 }
@@ -847,13 +1088,8 @@ a {
 .area__flip,
 .area__unflip {
     align-self: flex-start;
-    padding: 0;
     border: 0;
-    background: none;
-    font: 600 var(--fs-base)/1.4 var(--font);
-    text-decoration: underline;
-    text-decoration-thickness: 2px;
-    text-underline-offset: 0.3em;
+    font: 600 var(--fs-xs)/1.4 var(--font);
     cursor: pointer;
 }
 
@@ -865,13 +1101,15 @@ a {
 }
 
 .area__flip {
+    padding: 0.5rem 1rem;
+    border-radius: var(--pill);
+    background: var(--lavender);
     color: var(--violet-deep);
-    text-decoration-color: var(--violet);
 }
 
 /* Reverso */
 .area__back {
-    background: var(--ink);
+    background: var(--glow), var(--night);
     color: var(--lavender);
     font-size: 0.9375rem;
     line-height: 1.5;
@@ -913,10 +1151,14 @@ a {
 }
 
 .area__unflip {
+    padding: 0;
+    background: none;
     color: var(--lavender-line);
     font-weight: 500;
-    font-size: var(--fs-xs);
+    text-decoration: underline;
     text-decoration-color: rgb(194 200 250 / 0.5);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.3em;
 }
 
 .area__back :focus-visible {
@@ -967,7 +1209,7 @@ a {
 
 @media (prefers-reduced-motion: no-preference) {
     .js .area__card {
-        transition: transform 0.6s cubic-bezier(0.3, 0, 0.2, 1);
+        transition: transform 0.7s cubic-bezier(0.3, 0, 0.2, 1);
     }
 }
 
@@ -999,13 +1241,13 @@ a {
     }
 }
 
-/* Desafíos (tabs): el problema en condensada y entre comillas (voz de quien
-   nos busca); la respuesta a ancho completo; el engrane enciende las áreas */
+/* Desafíos (tabs): el problema en condensada y entre comillas (voz de quien nos busca); la
+   respuesta, en una tarjeta de noche donde el engrane 3D enciende las áreas que intervienen. */
 
 .challenges {
     display: grid;
     grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
-    gap: 2rem clamp(2rem, 1rem + 4vw, 5rem);
+    gap: 2rem clamp(2rem, 1rem + 3vw, 4rem);
     align-items: start;
 }
 
@@ -1018,38 +1260,38 @@ a {
     color: var(--graphite);
 }
 
-/* Los problemas se leen como filas pulsables: filete entre filas, flecha y fondo al señalar */
+/* Los problemas se leen como filas pulsables: flecha y fondo al señalar */
 .challenges__list {
     display: grid;
-    border-top: 1px solid var(--lavender-line);
+    gap: 0.375rem;
 }
 
 .challenge-tab {
     position: relative;
-    padding: 0.75rem 2.5rem 0.75rem 1rem;
+    padding: 1rem 3rem 1rem 1.5rem;
     border: 0;
-    border-bottom: 1px solid var(--lavender-line);
+    border-radius: var(--radius);
     background: none;
     color: var(--graphite);
     font: 500 clamp(1.25rem, 0.9rem + 1vw, 1.5rem)/1.25 var(--font);
     font-stretch: 75%;
     text-align: left;
     cursor: pointer;
-    transition: background-color 0.15s ease, color 0.15s ease;
+    transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .challenge-tab[aria-selected="false"]::after {
     content: "→";
     position: absolute;
-    right: 1rem;
-    top: 0.75rem;
+    right: 1.25rem;
+    top: 1rem;
     color: var(--violet-strong);
     font-stretch: 100%;
-    transition: transform 0.15s ease;
+    transition: transform 0.2s ease;
 }
 
 .challenge-tab:hover {
-    background: #F6F5FD;
+    background: var(--lavender-soft);
     color: var(--ink);
 }
 
@@ -1072,7 +1314,7 @@ a {
 .challenge-tab[aria-selected="true"]::before {
     content: "«";
     position: absolute;
-    left: 1rem;
+    left: 1.5rem;
     transform: translateX(calc(-100% - 0.1em));
 }
 
@@ -1083,11 +1325,22 @@ a {
 
 .challenges__panels {
     position: sticky;
-    top: calc(var(--header-h) + 2rem);
+    top: calc(var(--header-offset) + 1.5rem);
+}
+
+.challenge-panel {
+    padding: clamp(1.5rem, 1rem + 2vw, 2.75rem);
+    border-radius: var(--radius-lg);
+    background: var(--glow), var(--night);
+    color: var(--white);
+}
+
+.challenge-panel :focus-visible {
+    outline-color: var(--lavender-line);
 }
 
 .challenge-panel+.challenge-panel {
-    margin-top: 3rem;
+    margin-top: 1.5rem;
 }
 
 .challenge-panel[hidden] {
@@ -1105,10 +1358,11 @@ a {
     display: none;
 }
 
-/* Engrane con las piezas de las áreas que intervienen */
+/* Engrane con las piezas de las áreas que intervienen. El SVG es el respaldo: con WebGL,
+   js/scene.js pone aquí su lienzo. */
 .fit {
     position: relative;
-    width: min(100%, 16rem);
+    width: min(100%, 17rem);
     aspect-ratio: 1;
 }
 
@@ -1119,9 +1373,21 @@ a {
     overflow: visible;
 }
 
+.fit__canvas {
+    position: absolute;
+    inset: -8%;
+    width: 116%;
+    height: 116%;
+    pointer-events: none;
+}
+
+.fit:has(.fit__canvas) .fit__gear {
+    opacity: 0;
+}
+
 .fit__rest,
 .fit__piece {
-    fill: var(--lavender-line);
+    fill: rgb(194 200 250 / 0.2);
 }
 
 .fit__piece {
@@ -1138,14 +1404,14 @@ a {
 .fit--data .fit__piece--data,
 .fit--lab .fit__piece--lab,
 .fit--studio .fit__piece--studio {
-    fill: var(--ink);
+    fill: var(--violet);
 }
 
 .fit__label {
     position: absolute;
     font-size: var(--fs-xs);
     font-weight: 500;
-    color: var(--graphite);
+    color: rgb(194 200 250 / 0.75);
 }
 
 .fit__label--consulting { top: 0; left: 0; }
@@ -1158,7 +1424,7 @@ a {
 .fit--lab .fit__label--lab,
 .fit--studio .fit__label--studio {
     font-weight: 700;
-    color: var(--ink);
+    color: var(--white);
 }
 
 .challenge-panel__a {
@@ -1166,25 +1432,25 @@ a {
     margin-top: 1.75rem;
     font-size: var(--fs-lg);
     font-weight: 600;
-    line-height: 1.22;
-    letter-spacing: -0.015em;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
 }
 
 .challenge-panel__areas {
     margin-block: 0.875rem 1.75rem;
-    color: var(--graphite);
+    color: var(--lavender-line);
 }
 
 .challenge-panel__areas a {
-    color: var(--ink);
+    color: var(--white);
     font-weight: 600;
-    text-decoration-color: var(--lavender-line);
+    text-decoration-color: var(--violet);
     text-decoration-thickness: 2px;
     text-underline-offset: 0.25em;
 }
 
 .challenge-panel__areas a:hover {
-    text-decoration-color: var(--violet-strong);
+    text-decoration-color: var(--white);
 }
 
 /* Al elegir un problema, sus piezas llegan desde afuera y encajan */
@@ -1205,9 +1471,18 @@ a {
     @keyframes piece-fit {
         from {
             transform: translate(var(--x), var(--y));
-            fill: var(--lavender-line);
+            fill: rgb(194 200 250 / 0.2);
         }
     }
+
+    .js .challenge-panel__a,
+    .js .challenge-panel__areas,
+    .js .challenge-panel .btn {
+        animation: hero-rise 0.6s var(--ease) backwards;
+    }
+
+    .js .challenge-panel__areas { animation-delay: 0.06s; }
+    .js .challenge-panel .btn { animation-delay: 0.12s; }
 }
 
 /* En móvil cada respuesta aparece justo debajo de su pregunta */
@@ -1215,6 +1490,7 @@ a {
     .challenges {
         display: flex;
         flex-direction: column;
+        gap: 0.375rem;
     }
 
     .challenges__list,
@@ -1235,13 +1511,9 @@ a {
     .challenge-tab:nth-child(6) { order: 11; }
     .challenge-panel:nth-child(6) { order: 12; }
 
-    .challenge-tab:first-child {
-        border-top: 1px solid var(--lavender-line);
-    }
-
     .challenge-panel,
     .challenge-panel+.challenge-panel {
-        margin-block: 1.25rem 1.75rem;
+        margin-block: 0.5rem 1rem;
     }
 
     .fit {
@@ -1249,85 +1521,365 @@ a {
     }
 }
 
-/* Pasos (secuencia real, por eso numerada): escalera tipográfica.
-   Cada paso entra un escalón más; el verbo manda, el número acompaña. */
+/* Pasos (secuencia real, por eso numerada): cada tarjeta abre con una mini-escena que actúa
+   lo que dice su texto, y un hilo punteado une los cuatro nodos. js/landing.js mueve un punto
+   por el hilo con el scroll y marca .is-reached en cada paso alcanzado: ahí se llena su nodo y
+   arranca su escena. Sin JS, todo se muestra alcanzado; con movimiento reducido, las escenas
+   quedan quietas en su estado final. */
 
 .steps {
+    --pad: clamp(1.25rem, 0.75rem + 1.25vw, 2rem);
+    --gap: clamp(0.75rem, 0.5rem + 0.75vw, 1.25rem);
+    position: relative;
     display: grid;
-    gap: clamp(1.25rem, 0.75rem + 1.25vw, 2rem);
-    --stair: clamp(0rem, -5rem + 11vw, 5.5rem);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--gap);
 }
 
 .step {
-    display: grid;
-    grid-template-columns: auto minmax(0, 1fr) minmax(0, 28rem);
-    column-gap: 0.75rem;
-    align-items: baseline;
+    display: flex;
+    flex-direction: column;
+    padding: var(--pad);
+    border-radius: var(--radius-lg);
+    background: var(--white);
+    box-shadow: var(--shadow);
 }
 
-/* Sólo el número y el verbo bajan en diagonal; las descripciones quedan en una columna recta */
-.step:nth-child(2) .step__num { margin-left: var(--stair); }
-.step:nth-child(3) .step__num { margin-left: calc(var(--stair) * 2); }
-.step:nth-child(4) .step__num { margin-left: calc(var(--stair) * 3); }
+.step__art {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius);
+    background: var(--lavender-soft);
+}
+
+.art-line {
+    fill: none;
+    stroke: var(--violet-strong);
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.art-guide {
+    stroke: var(--lavender-line);
+}
+
+.art-soft { fill: var(--lavender-line); }
+.art-solid { fill: var(--violet-strong); }
+.art-mid { fill: var(--violet); }
+.art-ink { fill: var(--ink); }
+
+/* El hilo: cada tarjeta dibuja su tramo, que cruza el hueco hasta la siguiente */
+.step__track {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    margin-block: 1.25rem 0.875rem;
+}
+
+.step__track::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: calc(-1 * var(--pad));
+    width: calc(100% + 2 * var(--pad) + var(--gap));
+    margin-top: -1px;
+    border-top: 2px dotted rgb(124 120 242 / 0.6);
+}
+
+.step:nth-child(4) .step__track::before {
+    width: calc(100% + 2 * var(--pad));
+}
+
+.step__node {
+    position: relative;
+    flex: none;
+    width: 0.875rem;
+    height: 0.875rem;
+    border: 2px solid var(--violet-strong);
+    border-radius: 50%;
+    background: var(--violet-strong);
+    transition: background-color 0.3s ease;
+}
+
+.js .step:not(.is-reached) .step__node {
+    background: var(--white);
+}
 
 .step__num {
-    font-size: var(--fs-xs);
-    font-weight: 600;
+    position: relative;
+    padding-inline: 0.375rem;
+    background: var(--white);
     color: var(--violet-deep);
+    font-size: 0.9375rem;
+    font-weight: 700;
+    line-height: 1;
+}
+
+/* El punto que recorre el hilo (lo crea y lo mueve js/landing.js) */
+.steps__dot {
+    display: none;
+}
+
+.js .steps__dot {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    display: block;
+    width: 1.125rem;
+    height: 1.125rem;
+    margin: -0.5625rem 0 0 -0.5625rem;
+    border-radius: 50%;
+    background: var(--ink);
+    box-shadow: 0 0 0 5px rgb(106 93 231 / 0.25);
+    pointer-events: none;
+    transition: transform 0.3s ease-out;
 }
 
 .step h3 {
-    font-size: clamp(2rem, 1rem + 3vw, 3.25rem);
+    font-size: clamp(1.375rem, 1rem + 0.7vw, 1.625rem);
     font-weight: 700;
-    line-height: 1.05;
+    line-height: 1.1;
     letter-spacing: -0.025em;
+    overflow-wrap: break-word;
 }
 
 .step p {
+    margin-top: 0.625rem;
     color: var(--graphite);
-    padding-left: 1.5rem;
+    font-size: 1rem;
 }
 
-/* Sin ancho para la escalera: verbo grande y descripción debajo */
-@media (max-width: 64rem) {
+/* Escenas. Los estados base son los finales; el movimiento sólo se agrega si está permitido. */
+.art-lens,
+.art-key,
+.art-pieces rect,
+.art-bar {
+    transform-box: fill-box;
+    transform-origin: center;
+}
+
+.art-bar {
+    transform-origin: left;
+}
+
+.art-loop {
+    transform-origin: 100px 60px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    /* 01 Comprendemos: la lupa recorre los datos y se detiene en el problema real */
+    .art-lens {
+        animation: art-search 6s ease-in-out infinite;
+    }
+
+    .art-key {
+        animation: art-found 6s ease-in-out infinite;
+    }
+
+    @keyframes art-search {
+        0% { transform: translate(-70px, 18px); }
+        25% { transform: translate(-25px, -22px); }
+        50% { transform: translate(40px, 14px); }
+        70%, 100% { transform: none; }
+    }
+
+    @keyframes art-found {
+        0%, 62% { fill: var(--lavender-line); transform: scale(0.6); }
+        72%, 100% { fill: var(--violet-strong); transform: none; }
+    }
+
+    /* 02 Diseñamos: las piezas llegan y arman el plano */
+    .art-pieces rect {
+        animation: art-fit 5s var(--ease) infinite;
+    }
+
+    .art-pieces rect:nth-child(1) { --x: -34px; --y: -22px; }
+    .art-pieces rect:nth-child(2) { --x: 34px;  --y: -22px; }
+    .art-pieces rect:nth-child(3) { --x: -34px; --y: 22px; }
+    .art-pieces rect:nth-child(4) { --x: 34px;  --y: 22px; }
+
+    @keyframes art-fit {
+        0%, 10% { transform: translate(var(--x), var(--y)); opacity: 0.35; }
+        45%, 100% { transform: none; opacity: 1; }
+    }
+
+    /* 03 Implementamos: los entregables se van cumpliendo */
+    .art-bar {
+        animation: art-fill 5s ease-out infinite;
+    }
+
+    .art-check {
+        stroke-dasharray: 16;
+        animation: art-tick 5s ease-out infinite;
+    }
+
+    .art-tasks g:nth-child(2) :is(.art-bar, .art-check) { animation-delay: 0.7s; }
+    .art-tasks g:nth-child(3) :is(.art-bar, .art-check) { animation-delay: 1.4s; }
+
+    @keyframes art-fill {
+        0% { transform: scaleX(0); }
+        30%, 100% { transform: none; }
+    }
+
+    @keyframes art-tick {
+        0%, 28% { stroke-dashoffset: 16; }
+        40%, 100% { stroke-dashoffset: 0; }
+    }
+
+    /* 04 Fortalecemos: el ciclo sigue girando y el conocimiento llega a más nodos */
+    .art-loop {
+        animation: art-spin 9s linear infinite;
+    }
+
+    .art-share {
+        animation: art-pulse 3s ease-in-out infinite;
+    }
+
+    .art-share:nth-of-type(2) { animation-delay: 0.5s; }
+    .art-share:nth-of-type(3) { animation-delay: 1s; }
+    .art-share:nth-of-type(4) { animation-delay: 1.5s; }
+
+    @keyframes art-spin {
+        to { transform: rotate(360deg); }
+    }
+
+    @keyframes art-pulse {
+        0%, 100% { opacity: 0.3; }
+        50% { opacity: 1; }
+    }
+
+    /* La escena espera a que el punto llegue a su paso */
+    .js .step:not(.is-reached) .step__art * {
+        animation-play-state: paused;
+    }
+}
+
+/* Sin ancho para cuatro columnas: una sola, con el hilo en vertical por un margen a la
+   izquierda y la escena junto al texto */
+@media (max-width: 68rem) {
+    .steps {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
     .step {
-        grid-template-columns: 2rem minmax(0, 1fr);
-        row-gap: 0.5rem;
+        display: grid;
+        grid-template-columns: 2.5rem minmax(8rem, 13rem) minmax(0, 1fr);
+        grid-template-rows: auto 1fr;
+        column-gap: 1rem;
+        align-items: start;
     }
 
-    .step:nth-child(n) .step__num {
-        margin-left: 0;
+    .step__track {
+        grid-column: 1;
+        grid-row: 1 / -1;
+        flex-direction: column;
+        align-items: flex-start;
+        align-self: stretch;
+        margin-block: 0;
     }
 
+    .step__track::before,
+    .step:nth-child(4) .step__track::before {
+        top: calc(-1 * var(--pad));
+        left: 0.375rem;
+        width: 0;
+        height: calc(100% + 2 * var(--pad) + var(--gap));
+        margin: 0;
+        border-top: 0;
+        border-left: 2px dotted rgb(124 120 242 / 0.6);
+    }
+
+    .step:nth-child(4) .step__track::before {
+        height: calc(100% + 2 * var(--pad));
+    }
+
+    .step__num {
+        padding: 0.25rem 0;
+        font-size: var(--fs-xs);
+    }
+
+    .step__art {
+        grid-column: 2;
+        grid-row: 1 / -1;
+    }
+
+    .step h3,
+    .step p {
+        grid-column: 3;
+    }
+
+    .step h3 {
+        margin-top: 0.25rem;
+    }
+}
+
+@media (max-width: 36rem) {
+    .step {
+        grid-template-columns: 2.5rem minmax(0, 1fr);
+        grid-template-rows: none;
+    }
+
+    .step__track {
+        grid-row: 1 / span 3;
+    }
+
+    .step__art,
+    .step h3,
     .step p {
         grid-column: 2;
-        max-width: 34rem;
-        padding-left: 0;
+        grid-row: auto;
+    }
+
+    .step h3 {
+        margin-top: 1rem;
     }
 }
 
-/* Sectores: el nombre grande para que cada visitante se reconozca;
+/* Sectores: tarjetas con el nombre grande para que cada visitante se reconozca;
    el cierre abre paso al contacto */
 
 .sectors {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: clamp(2rem, 1.5rem + 2vw, 3rem) clamp(2rem, 1rem + 4vw, 5rem);
+    gap: clamp(0.75rem, 0.5rem + 0.75vw, 1.25rem);
 }
 
 .sector {
-    max-width: 32rem;
+    padding: clamp(1.5rem, 1rem + 1.75vw, 2.75rem);
+    border: 1px solid var(--lavender);
+    border-radius: var(--radius-lg);
+    background: var(--lavender-soft);
+    transition: transform 0.3s var(--ease), border-color 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.sector:hover {
+    border-color: var(--lavender-line);
+    background: var(--white);
+    box-shadow: var(--shadow);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .sector.is-in:hover {
+        transform: translateY(-4px);
+        transition-delay: 0s;
+    }
 }
 
 .sector dt {
-    font-size: var(--fs-lg);
+    max-width: 16ch;
+    font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem);
     font-weight: 700;
-    line-height: 1.15;
-    letter-spacing: -0.015em;
+    line-height: 1.1;
+    letter-spacing: -0.025em;
 }
 
 .sector dd {
-    margin-top: 0.625rem;
+    max-width: 30rem;
+    margin-top: 0.875rem;
     color: var(--graphite);
 }
 
@@ -1344,8 +1896,8 @@ a {
     margin-bottom: 0.5rem;
     font-size: var(--fs-xl);
     font-weight: 700;
-    line-height: 1.1;
-    letter-spacing: -0.025em;
+    line-height: 1.06;
+    letter-spacing: -0.03em;
     color: var(--ink);
 }
 
@@ -1364,9 +1916,14 @@ a {
     align-items: start;
 }
 
+.section--ink :focus-visible,
+.site-footer :focus-visible {
+    outline-color: var(--lavender-line);
+}
+
 .contact__intro {
     position: sticky;
-    top: calc(var(--header-h) + 2rem);
+    top: calc(var(--header-offset) + 2rem);
     color: var(--lavender);
 }
 
@@ -1386,13 +1943,23 @@ a {
 
 .channels {
     display: grid;
-    gap: 1.25rem;
+    gap: 0.625rem;
     margin-top: 2.5rem;
 }
 
 .channels li {
     display: grid;
     gap: 0.125rem;
+    padding: 1rem 1.25rem;
+    border: 1px solid rgb(194 200 250 / 0.2);
+    border-radius: var(--radius);
+    background: rgb(255 255 255 / 0.05);
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.channels li:hover {
+    border-color: rgb(194 200 250 / 0.5);
+    background: rgb(255 255 255 / 0.09);
 }
 
 .channels__label {
@@ -1417,10 +1984,11 @@ a {
 .contact-form {
     display: grid;
     gap: 1.25rem;
-    padding: clamp(1.5rem, 1rem + 2vw, 2.5rem);
+    padding: clamp(1.5rem, 1rem + 2vw, 2.75rem);
     background: var(--white);
-    border-radius: var(--radius);
+    border-radius: var(--radius-lg);
     color: var(--ink);
+    box-shadow: 0 32px 64px -24px rgb(0 0 0 / 0.5);
 }
 
 .contact-form :focus-visible {
@@ -1528,18 +2096,10 @@ a {
     margin-top: 0.1rem;
 }
 
-/* Tipo de apoyo: casillas en rejilla; con ancho suficiente caben en dos o tres columnas */
-
 .picker__hint {
     margin-bottom: 0.75rem;
     font-size: var(--fs-xs);
     color: var(--graphite);
-}
-
-.picker__opts {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr));
-    gap: 0.5rem 1.5rem;
 }
 
 .picker__opt {
@@ -1566,6 +2126,29 @@ a {
     color: #b42318;
 }
 
+/* Tipo de apoyo: las casillas son fichas; la elegida se tiñe */
+.picker__opts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.picker__opt {
+    padding: 0.5rem 1rem 0.5rem 0.75rem;
+    border: 1px solid #a9a6cf;
+    border-radius: var(--pill);
+    transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.picker__opt:hover {
+    background: var(--lavender-soft);
+}
+
+.picker__opt:has(input:checked) {
+    border-color: var(--violet-strong);
+    background: var(--lavender);
+}
+
 @media (max-width: 52rem) {
     .contact {
         grid-template-columns: 1fr;
@@ -1579,9 +2162,9 @@ a {
 /* Footer */
 
 .site-footer {
-    background: var(--ink);
+    background: var(--night);
     color: var(--lavender-line);
-    border-top: 1px solid rgb(194 200 250 / 0.2);
+    border-top: 1px solid rgb(194 200 250 / 0.16);
     padding-block: 2.5rem;
     font-size: var(--fs-xs);
 }
@@ -1613,18 +2196,23 @@ a {
 
 .privacy {
     width: min(40rem, calc(100% - 2rem));
-    padding: 2rem;
+    padding: clamp(1.5rem, 1rem + 2vw, 2.5rem);
     border: 0;
-    border-radius: var(--radius);
+    border-radius: var(--radius-lg);
     color: var(--ink);
+    box-shadow: 0 32px 64px -24px rgb(0 0 0 / 0.5);
 }
 
 .privacy::backdrop {
-    background: rgb(37 32 79 / 0.6);
+    background: rgb(17 14 43 / 0.7);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
 }
 
 .privacy h2 {
     font-size: var(--fs-lg);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
     margin-bottom: 1rem;
 }
 
@@ -1644,7 +2232,8 @@ a {
 
 .legal {
     max-width: 46rem;
-    padding-block: clamp(2.5rem, 1.5rem + 4vw, 5rem);
+    /* Arriba libra el encabezado flotante */
+    padding-block: calc(var(--header-offset) + clamp(2.5rem, 1.5rem + 4vw, 5rem)) clamp(2.5rem, 1.5rem + 4vw, 5rem);
     color: var(--graphite);
 }
 

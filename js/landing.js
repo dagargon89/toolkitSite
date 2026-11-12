@@ -1,4 +1,4 @@
-// Toolkit Social — landing v2
+// Toolkit Social — landing v3 (las escenas 3D viven en js/scene.js)
 document.documentElement.classList.add('js');
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -9,6 +9,8 @@ document.addEventListener('DOMContentLoaded', () => {
     initPreselect();
     initPrivacy();
     initContactForm();
+    initReveal();
+    initSteps();
 });
 
 // Menú móvil
@@ -55,7 +57,12 @@ function initHeroGear() {
     let current = 0;
     let frame = 0;
 
+    // js/scene.js lee de aquí el avance para la escena 3D (1 = armado)
+    const state = (window.toolkitHero = { progress: 1 });
+
     const render = (progress) => {
+        state.progress = progress;
+        stage.style.setProperty('--progress', progress.toFixed(3));
         const assembled = ease(clamp(progress / 0.6));
         const labels = clamp((progress - 0.6) / 0.2);
         gear.style.setProperty('--spread', ((1 - assembled) * 70).toFixed(2));
@@ -84,6 +91,8 @@ function initHeroGear() {
         cancelAnimationFrame(frame);
         frame = 0;
         if (!motion.matches) {
+            state.progress = 1;
+            stage.style.removeProperty('--progress');
             props.forEach((prop) => gear.style.removeProperty(prop));
             gear.classList.remove('is-labeled');
             return;
@@ -115,6 +124,8 @@ function initChallenges() {
             panels[i].hidden = !active;
         });
         if (focus) tabs[index].focus();
+        // La escena 3D mueve su engrane al panel elegido
+        root.dispatchEvent(new CustomEvent('challengechange', { detail: { panel: panels[index] } }));
     };
 
     tabs.forEach((tab, i) => {
@@ -341,4 +352,90 @@ function initContactForm() {
         const body = Object.entries(messageFields(data)).map(([label, value]) => `${label}: ${value}`).join('\n');
         window.location.href = `mailto:genesis@toolkitsocial.com?subject=${encodeURIComponent(subjectFor(data))}&body=${encodeURIComponent(body)}`;
     }
+}
+
+// Aparición al entrar en pantalla: marca los bloques con [data-reveal] (el CSS los oculta sólo
+// con JS y movimiento) y les pone .is-in cuando asoman. --i escalona a los hermanos.
+function initReveal() {
+    const targets = document.querySelectorAll([
+        '.about__title', '.about__body', '.team__head', '.team__lead-in', '.team__disciplines', '.team__cols',
+        '.section__title', '.challenges__hint', '.challenges', '.area', '.step', '.sector', '.sectors__close',
+        '.contact-form',
+    ].join(','));
+
+    if (!('IntersectionObserver' in window)) return;
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add('is-in');
+            observer.unobserve(entry.target);
+        });
+    }, { rootMargin: '0px 0px -10% 0px' });
+
+    targets.forEach((el) => {
+        const group = el.matches('.area, .step, .sector') ? [...el.parentElement.children].indexOf(el) : 0;
+        el.style.setProperty('--i', group);
+        el.dataset.reveal = '';
+        observer.observe(el);
+    });
+}
+
+// Cómo trabajamos: un punto recorre el hilo que une los cuatro pasos según el avance del scroll.
+// Cada paso alcanzado recibe .is-reached (se llena su nodo y arranca su escena). El punto va de
+// nodo en nodo, así que sirve igual con el hilo horizontal (escritorio) o vertical (móvil).
+function initSteps() {
+    const list = document.querySelector('.steps');
+    if (!list) return;
+    const steps = [...list.querySelectorAll('.step')];
+    const nodes = steps.map((step) => step.querySelector('.step__node'));
+    if (steps.length < 2 || nodes.includes(null)) return;
+
+    const dot = document.createElement('li');
+    dot.className = 'steps__dot';
+    dot.setAttribute('aria-hidden', 'true');
+    list.append(dot);
+
+    let frame = 0;
+    const update = () => {
+        frame = 0;
+        const box = list.getBoundingClientRect();
+        const view = innerHeight;
+        if (box.bottom < -view || box.top > view * 2) return;
+
+        // Con offset* y no con getBoundingClientRect: no los altera la animación de aparición
+        const centers = nodes.map((node) => {
+            let x = node.offsetWidth / 2;
+            let y = node.offsetHeight / 2;
+            for (let el = node; el && el !== list; el = el.offsetParent) {
+                x += el.offsetLeft;
+                y += el.offsetTop;
+            }
+            return [x, y];
+        });
+
+        let at;
+        if (Math.abs(centers[1][0] - centers[0][0]) < 1) {
+            // Hilo vertical: el punto sigue la mitad de la pantalla, de nodo en nodo
+            const y = view * 0.5 - box.top;
+            const next = centers.findIndex(([, nodeY]) => nodeY > y);
+            if (next === 0) at = 0;
+            else if (next < 0) at = nodes.length - 1;
+            else at = next - 1 + (y - centers[next - 1][1]) / (centers[next][1] - centers[next - 1][1]);
+        } else {
+            // Hilo horizontal: 0 cuando la lista asoma por abajo; 1 poco antes de que salga por arriba
+            at = Math.min(1, Math.max(0, (view * 0.8 - box.top) / (box.height + view * 0.3))) * (nodes.length - 1);
+        }
+        const from = Math.min(nodes.length - 2, Math.floor(at));
+        const mix = (axis) => centers[from][axis] + (centers[from + 1][axis] - centers[from][axis]) * (at - from);
+        dot.style.transform = `translate(${mix(0).toFixed(1)}px, ${mix(1).toFixed(1)}px)`;
+        steps.forEach((step, i) => step.classList.toggle('is-reached', at >= i - 0.02));
+    };
+    const schedule = () => {
+        if (!frame) frame = requestAnimationFrame(update);
+    };
+
+    addEventListener('scroll', schedule, { passive: true });
+    addEventListener('resize', schedule);
+    update();
 }
