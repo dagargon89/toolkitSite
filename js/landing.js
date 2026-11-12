@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initPrivacy();
     initContactForm();
     initReveal();
+    initSteps();
 });
 
 // Menú móvil
@@ -378,4 +379,63 @@ function initReveal() {
         el.dataset.reveal = '';
         observer.observe(el);
     });
+}
+
+// Cómo trabajamos: un punto recorre el hilo que une los cuatro pasos según el avance del scroll.
+// Cada paso alcanzado recibe .is-reached (se llena su nodo y arranca su escena). El punto va de
+// nodo en nodo, así que sirve igual con el hilo horizontal (escritorio) o vertical (móvil).
+function initSteps() {
+    const list = document.querySelector('.steps');
+    if (!list) return;
+    const steps = [...list.querySelectorAll('.step')];
+    const nodes = steps.map((step) => step.querySelector('.step__node'));
+    if (steps.length < 2 || nodes.includes(null)) return;
+
+    const dot = document.createElement('li');
+    dot.className = 'steps__dot';
+    dot.setAttribute('aria-hidden', 'true');
+    list.append(dot);
+
+    let frame = 0;
+    const update = () => {
+        frame = 0;
+        const box = list.getBoundingClientRect();
+        const view = innerHeight;
+        if (box.bottom < -view || box.top > view * 2) return;
+
+        // Con offset* y no con getBoundingClientRect: no los altera la animación de aparición
+        const centers = nodes.map((node) => {
+            let x = node.offsetWidth / 2;
+            let y = node.offsetHeight / 2;
+            for (let el = node; el && el !== list; el = el.offsetParent) {
+                x += el.offsetLeft;
+                y += el.offsetTop;
+            }
+            return [x, y];
+        });
+
+        let at;
+        if (Math.abs(centers[1][0] - centers[0][0]) < 1) {
+            // Hilo vertical: el punto sigue la mitad de la pantalla, de nodo en nodo
+            const y = view * 0.5 - box.top;
+            const next = centers.findIndex(([, nodeY]) => nodeY > y);
+            if (next === 0) at = 0;
+            else if (next < 0) at = nodes.length - 1;
+            else at = next - 1 + (y - centers[next - 1][1]) / (centers[next][1] - centers[next - 1][1]);
+        } else {
+            // Hilo horizontal: 0 cuando la lista asoma por abajo; 1 poco antes de que salga por arriba
+            at = Math.min(1, Math.max(0, (view * 0.8 - box.top) / (box.height + view * 0.3))) * (nodes.length - 1);
+        }
+        const from = Math.min(nodes.length - 2, Math.floor(at));
+        const mix = (axis) => centers[from][axis] + (centers[from + 1][axis] - centers[from][axis]) * (at - from);
+        dot.style.transform = `translate(${mix(0).toFixed(1)}px, ${mix(1).toFixed(1)}px)`;
+        steps.forEach((step, i) => step.classList.toggle('is-reached', at >= i - 0.02));
+    };
+    const schedule = () => {
+        if (!frame) frame = requestAnimationFrame(update);
+    };
+
+    addEventListener('scroll', schedule, { passive: true });
+    addEventListener('resize', schedule);
+    update();
 }

@@ -28,7 +28,7 @@
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wdth,wght@0,75..100,400..700;1,75..100,400..700&display=swap" />
     <!-- ?v= obliga al navegador a descargar la versión nueva: cambiarla en cada publicación que toque CSS o JS -->
-    <link rel="stylesheet" href="css/landing.css?v=20261111" />
+    <link rel="stylesheet" href="css/landing.css?v=20261112" />
 
     <script type="application/ld+json">
     {
@@ -492,24 +492,65 @@
                 <h2 id="proceso-title" class="section__title">Soluciones a la medida, no respuestas prefabricadas.</h2>
                 <ol class="steps">
                     <li class="step">
-                        <span class="step__num" aria-hidden="true">01</span>
+                        <!-- La lupa recorre los datos y se detiene en el problema real -->
+                        <svg class="step__art" viewBox="0 0 200 120" aria-hidden="true" focusable="false">
+                            <g class="art-soft">
+                                <circle cx="38" cy="34" r="5" /><circle cx="70" cy="80" r="5" /><circle cx="150" cy="30" r="5" />
+                                <circle cx="166" cy="84" r="5" /><circle cx="60" cy="50" r="5" /><circle cx="132" cy="92" r="5" />
+                            </g>
+                            <circle class="art-key art-solid" cx="104" cy="56" r="8" />
+                            <g class="art-lens"><circle class="art-line" cx="104" cy="56" r="22" /><path class="art-line" d="M120 72l18 18" /></g>
+                        </svg>
+                        <span class="step__track" aria-hidden="true"><i class="step__node"></i><span class="step__num">01</span></span>
                         <h3>Comprendemos</h3>
                         <p>Escuchamos tus necesidades, analizamos el contexto e identificamos el problema que realmente
                             necesitamos resolver.</p>
                     </li>
                     <li class="step">
-                        <span class="step__num" aria-hidden="true">02</span>
+                        <!-- Las piezas llegan y arman el plano -->
+                        <svg class="step__art" viewBox="0 0 200 120" aria-hidden="true" focusable="false">
+                            <rect class="art-line art-guide" x="56" y="20" width="88" height="80" rx="8" stroke-dasharray="5 7" />
+                            <g class="art-pieces">
+                                <rect class="art-solid" x="62" y="26" width="35" height="31" rx="5" />
+                                <rect class="art-mid" x="103" y="26" width="35" height="31" rx="5" />
+                                <rect class="art-mid" x="62" y="63" width="35" height="31" rx="5" />
+                                <rect class="art-ink" x="103" y="63" width="35" height="31" rx="5" />
+                            </g>
+                        </svg>
+                        <span class="step__track" aria-hidden="true"><i class="step__node"></i><span class="step__num">02</span></span>
                         <h3>Diseñamos</h3>
                         <p>Integramos las capacidades y herramientas más adecuadas para construir una propuesta viable.
                         </p>
                     </li>
                     <li class="step">
-                        <span class="step__num" aria-hidden="true">03</span>
+                        <!-- Los entregables se van cumpliendo -->
+                        <svg class="step__art art-tasks" viewBox="0 0 200 120" aria-hidden="true" focusable="false">
+                            <g>
+                                <rect class="art-soft" x="62" y="26" width="104" height="12" rx="6" /><rect class="art-solid art-bar" x="62" y="26" width="104" height="12" rx="6" />
+                                <rect class="art-line" x="34" y="23" width="18" height="18" rx="5" /><path class="art-line art-check" d="M38 32l4 4 7-8" />
+                            </g>
+                            <g>
+                                <rect class="art-soft" x="62" y="54" width="104" height="12" rx="6" /><rect class="art-solid art-bar" x="62" y="54" width="80" height="12" rx="6" />
+                                <rect class="art-line" x="34" y="51" width="18" height="18" rx="5" /><path class="art-line art-check" d="M38 60l4 4 7-8" />
+                            </g>
+                            <g>
+                                <rect class="art-soft" x="62" y="82" width="104" height="12" rx="6" /><rect class="art-solid art-bar" x="62" y="82" width="56" height="12" rx="6" />
+                                <rect class="art-line" x="34" y="79" width="18" height="18" rx="5" /><path class="art-line art-check" d="M38 88l4 4 7-8" />
+                            </g>
+                        </svg>
+                        <span class="step__track" aria-hidden="true"><i class="step__node"></i><span class="step__num">03</span></span>
                         <h3>Implementamos</h3>
                         <p>Desarrollamos soluciones concretas con objetivos, entregables y responsabilidades claras.</p>
                     </li>
                     <li class="step">
-                        <span class="step__num" aria-hidden="true">04</span>
+                        <!-- El ciclo sigue girando y el conocimiento llega a más nodos -->
+                        <svg class="step__art" viewBox="0 0 200 120" aria-hidden="true" focusable="false">
+                            <g class="art-loop"><path class="art-line" d="M100 24a36 36 0 1 1-34 24" /><path class="art-line" d="M58 44l8 5 5-9" /></g>
+                            <circle class="art-solid" cx="100" cy="60" r="12" />
+                            <circle class="art-share art-ink" cx="30" cy="30" r="6" /><circle class="art-share art-ink" cx="172" cy="34" r="6" />
+                            <circle class="art-share art-ink" cx="166" cy="94" r="6" /><circle class="art-share art-ink" cx="34" cy="92" r="6" />
+                        </svg>
+                        <span class="step__track" aria-hidden="true"><i class="step__node"></i><span class="step__num">04</span></span>
                         <h3>Fortalecemos</h3>
                         <p>Documentamos, compartimos conocimientos y buscamos que las soluciones puedan seguir
                             utilizándose y mejorándose.</p>
@@ -689,9 +730,9 @@
         </form>
     </dialog>
 
-    <script src="js/landing.js?v=20261111" defer></script>
+    <script src="js/landing.js?v=20261112" defer></script>
     <!-- Escenas 3D (Three.js, servido desde js/vendor): mejora progresiva, la página funciona sin ellas -->
-    <script type="module" src="js/scene.js?v=20261111"></script>
+    <script type="module" src="js/scene.js?v=20261112"></script>
 </body>
 
 </html>

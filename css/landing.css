@@ -1521,65 +1521,125 @@ a {
     }
 }
 
-/* Pasos (secuencia real, por eso numerada): cuatro tarjetas en fila unidas por una línea de
-   avance; el número va en contorno y el verbo manda. */
+/* Pasos (secuencia real, por eso numerada): cada tarjeta abre con una mini-escena que actúa
+   lo que dice su texto, y un hilo punteado une los cuatro nodos. js/landing.js mueve un punto
+   por el hilo con el scroll y marca .is-reached en cada paso alcanzado: ahí se llena su nodo y
+   arranca su escena. Sin JS, todo se muestra alcanzado; con movimiento reducido, las escenas
+   quedan quietas en su estado final. */
 
 .steps {
+    --pad: clamp(1.25rem, 0.75rem + 1.25vw, 2rem);
+    --gap: clamp(0.75rem, 0.5rem + 0.75vw, 1.25rem);
+    position: relative;
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: clamp(0.75rem, 0.5rem + 0.75vw, 1.25rem);
+    gap: var(--gap);
 }
 
 .step {
-    position: relative;
     display: flex;
     flex-direction: column;
-    padding: clamp(1.5rem, 1rem + 1.25vw, 2.25rem);
+    padding: var(--pad);
     border-radius: var(--radius-lg);
     background: var(--white);
     box-shadow: var(--shadow);
-    overflow: hidden;
 }
 
-/* Línea de avance: se llena al aparecer la tarjeta */
-.step::before {
+.step__art {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius);
+    background: var(--lavender-soft);
+}
+
+.art-line {
+    fill: none;
+    stroke: var(--violet-strong);
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.art-guide {
+    stroke: var(--lavender-line);
+}
+
+.art-soft { fill: var(--lavender-line); }
+.art-solid { fill: var(--violet-strong); }
+.art-mid { fill: var(--violet); }
+.art-ink { fill: var(--ink); }
+
+/* El hilo: cada tarjeta dibuja su tramo, que cruza el hueco hasta la siguiente */
+.step__track {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    margin-block: 1.25rem 0.875rem;
+}
+
+.step__track::before {
     content: "";
     position: absolute;
-    inset: 0 0 auto 0;
-    height: 4px;
-    background: linear-gradient(90deg, var(--violet-strong), var(--violet));
-    transform-origin: left;
+    top: 50%;
+    left: calc(-1 * var(--pad));
+    width: calc(100% + 2 * var(--pad) + var(--gap));
+    margin-top: -1px;
+    border-top: 2px dotted rgb(124 120 242 / 0.6);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-    .js .step[data-reveal]::before {
-        transform: scaleX(0);
-        transition: transform 0.9s var(--ease);
-        transition-delay: calc(var(--i, 0) * 80ms + 0.3s);
-    }
+.step:nth-child(4) .step__track::before {
+    width: calc(100% + 2 * var(--pad));
+}
 
-    .js .step[data-reveal].is-in::before {
-        transform: none;
-    }
+.step__node {
+    position: relative;
+    flex: none;
+    width: 0.875rem;
+    height: 0.875rem;
+    border: 2px solid var(--violet-strong);
+    border-radius: 50%;
+    background: var(--violet-strong);
+    transition: background-color 0.3s ease;
+}
+
+.js .step:not(.is-reached) .step__node {
+    background: var(--white);
 }
 
 .step__num {
-    font-size: clamp(3rem, 2rem + 3vw, 4.5rem);
+    position: relative;
+    padding-inline: 0.375rem;
+    background: var(--white);
+    color: var(--violet-deep);
+    font-size: 0.9375rem;
     font-weight: 700;
     line-height: 1;
-    letter-spacing: -0.04em;
-    color: var(--lavender-line);
 }
 
-@supports (-webkit-text-stroke: 1px black) {
-    .step__num {
-        color: transparent;
-        -webkit-text-stroke: 1.5px var(--violet);
-    }
+/* El punto que recorre el hilo (lo crea y lo mueve js/landing.js) */
+.steps__dot {
+    display: none;
+}
+
+.js .steps__dot {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    display: block;
+    width: 1.125rem;
+    height: 1.125rem;
+    margin: -0.5625rem 0 0 -0.5625rem;
+    border-radius: 50%;
+    background: var(--ink);
+    box-shadow: 0 0 0 5px rgb(106 93 231 / 0.25);
+    pointer-events: none;
+    transition: transform 0.3s ease-out;
 }
 
 .step h3 {
-    margin-top: clamp(2rem, 1rem + 3vw, 4rem);
     font-size: clamp(1.375rem, 1rem + 0.7vw, 1.625rem);
     font-weight: 700;
     line-height: 1.1;
@@ -1593,19 +1653,189 @@ a {
     font-size: 1rem;
 }
 
-@media (max-width: 68rem) {
-    .steps {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+/* Escenas. Los estados base son los finales; el movimiento sólo se agrega si está permitido. */
+.art-lens,
+.art-key,
+.art-pieces rect,
+.art-bar {
+    transform-box: fill-box;
+    transform-origin: center;
+}
+
+.art-bar {
+    transform-origin: left;
+}
+
+.art-loop {
+    transform-origin: 100px 60px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    /* 01 Comprendemos: la lupa recorre los datos y se detiene en el problema real */
+    .art-lens {
+        animation: art-search 6s ease-in-out infinite;
+    }
+
+    .art-key {
+        animation: art-found 6s ease-in-out infinite;
+    }
+
+    @keyframes art-search {
+        0% { transform: translate(-70px, 18px); }
+        25% { transform: translate(-25px, -22px); }
+        50% { transform: translate(40px, 14px); }
+        70%, 100% { transform: none; }
+    }
+
+    @keyframes art-found {
+        0%, 62% { fill: var(--lavender-line); transform: scale(0.6); }
+        72%, 100% { fill: var(--violet-strong); transform: none; }
+    }
+
+    /* 02 Diseñamos: las piezas llegan y arman el plano */
+    .art-pieces rect {
+        animation: art-fit 5s var(--ease) infinite;
+    }
+
+    .art-pieces rect:nth-child(1) { --x: -34px; --y: -22px; }
+    .art-pieces rect:nth-child(2) { --x: 34px;  --y: -22px; }
+    .art-pieces rect:nth-child(3) { --x: -34px; --y: 22px; }
+    .art-pieces rect:nth-child(4) { --x: 34px;  --y: 22px; }
+
+    @keyframes art-fit {
+        0%, 10% { transform: translate(var(--x), var(--y)); opacity: 0.35; }
+        45%, 100% { transform: none; opacity: 1; }
+    }
+
+    /* 03 Implementamos: los entregables se van cumpliendo */
+    .art-bar {
+        animation: art-fill 5s ease-out infinite;
+    }
+
+    .art-check {
+        stroke-dasharray: 16;
+        animation: art-tick 5s ease-out infinite;
+    }
+
+    .art-tasks g:nth-child(2) :is(.art-bar, .art-check) { animation-delay: 0.7s; }
+    .art-tasks g:nth-child(3) :is(.art-bar, .art-check) { animation-delay: 1.4s; }
+
+    @keyframes art-fill {
+        0% { transform: scaleX(0); }
+        30%, 100% { transform: none; }
+    }
+
+    @keyframes art-tick {
+        0%, 28% { stroke-dashoffset: 16; }
+        40%, 100% { stroke-dashoffset: 0; }
+    }
+
+    /* 04 Fortalecemos: el ciclo sigue girando y el conocimiento llega a más nodos */
+    .art-loop {
+        animation: art-spin 9s linear infinite;
+    }
+
+    .art-share {
+        animation: art-pulse 3s ease-in-out infinite;
+    }
+
+    .art-share:nth-of-type(2) { animation-delay: 0.5s; }
+    .art-share:nth-of-type(3) { animation-delay: 1s; }
+    .art-share:nth-of-type(4) { animation-delay: 1.5s; }
+
+    @keyframes art-spin {
+        to { transform: rotate(360deg); }
+    }
+
+    @keyframes art-pulse {
+        0%, 100% { opacity: 0.3; }
+        50% { opacity: 1; }
+    }
+
+    /* La escena espera a que el punto llegue a su paso */
+    .js .step:not(.is-reached) .step__art * {
+        animation-play-state: paused;
     }
 }
 
-@media (max-width: 36rem) {
+/* Sin ancho para cuatro columnas: una sola, con el hilo en vertical por un margen a la
+   izquierda y la escena junto al texto */
+@media (max-width: 68rem) {
     .steps {
         grid-template-columns: minmax(0, 1fr);
     }
 
+    .step {
+        display: grid;
+        grid-template-columns: 2.5rem minmax(8rem, 13rem) minmax(0, 1fr);
+        grid-template-rows: auto 1fr;
+        column-gap: 1rem;
+        align-items: start;
+    }
+
+    .step__track {
+        grid-column: 1;
+        grid-row: 1 / -1;
+        flex-direction: column;
+        align-items: flex-start;
+        align-self: stretch;
+        margin-block: 0;
+    }
+
+    .step__track::before,
+    .step:nth-child(4) .step__track::before {
+        top: calc(-1 * var(--pad));
+        left: 0.375rem;
+        width: 0;
+        height: calc(100% + 2 * var(--pad) + var(--gap));
+        margin: 0;
+        border-top: 0;
+        border-left: 2px dotted rgb(124 120 242 / 0.6);
+    }
+
+    .step:nth-child(4) .step__track::before {
+        height: calc(100% + 2 * var(--pad));
+    }
+
+    .step__num {
+        padding: 0.25rem 0;
+        font-size: var(--fs-xs);
+    }
+
+    .step__art {
+        grid-column: 2;
+        grid-row: 1 / -1;
+    }
+
+    .step h3,
+    .step p {
+        grid-column: 3;
+    }
+
     .step h3 {
-        margin-top: 1.25rem;
+        margin-top: 0.25rem;
+    }
+}
+
+@media (max-width: 36rem) {
+    .step {
+        grid-template-columns: 2.5rem minmax(0, 1fr);
+        grid-template-rows: none;
+    }
+
+    .step__track {
+        grid-row: 1 / span 3;
+    }
+
+    .step__art,
+    .step h3,
+    .step p {
+        grid-column: 2;
+        grid-row: auto;
+    }
+
+    .step h3 {
+        margin-top: 1rem;
     }
 }
 
